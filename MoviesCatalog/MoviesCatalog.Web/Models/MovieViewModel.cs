@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MoviesCatalog.Data.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MoviesCatalog.Web.Models
@@ -29,5 +31,8 @@ namespace MoviesCatalog.Web.Models
 
         [Required]
         public double AverageRating { get; set; }
+
+        [Required]
+        public ICollection<Genre> Genres { get; set; }
     }
 }

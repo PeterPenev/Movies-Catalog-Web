@@ -14,6 +14,6 @@ namespace MoviesCatalog.Web.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public ICollection<MovieViewModel> MoviesGenres { get; set; }
+        public ICollection<MovieViewModel> Movies { get; set; }
     }
 }
