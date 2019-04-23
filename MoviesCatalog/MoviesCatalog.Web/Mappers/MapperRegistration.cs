@@ -10,6 +10,9 @@ namespace MoviesCatalog.Web.Mappers
         public static IServiceCollection AddCustomMappers(this IServiceCollection services)
         {
             services.AddSingleton<IViewModelMapper<Movie, MovieViewModel>, MovieViewModelMapper>();
+            services.AddSingleton<IViewModelMapper<Review, ReviewViewModel>, ReviewViewModelMapper>();
+            services.AddSingleton<IViewModelMapper<Actor, ActorViewModel>, ActorViewModelMapper>();
+            services.AddSingleton<IViewModelMapper<>
 
             return services;
         }
