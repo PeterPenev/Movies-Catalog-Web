@@ -15,7 +15,8 @@
 
 
   <ItemGroup>
-    <Folder Include="Mappers\" />
+    <ProjectReference Include="..\MoviesCatalog.Data\MoviesCatalog.Data.csproj" />
+    <ProjectReference Include="..\MoviesCatalog.Services\MoviesCatalog.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,14 +14,16 @@ namespace MoviesCatalog.Data.Models
 
         public string Trailer { get; set; }
 
+        public string Poster { get; set; }
+
         [Required]
         public DateTime ReleaseDate { get; set; }
 
         public string Description { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int NumberOfVotes { get; set; }
 

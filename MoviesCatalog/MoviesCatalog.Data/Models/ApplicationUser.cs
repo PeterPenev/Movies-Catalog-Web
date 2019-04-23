@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MoviesCatalog.Data.Models
 {
-    public class User
+    public class ApplicationUser: IdentityUser
     {
-        public int Id { get; set; }
-
         [Required]
-        [MaxLength(50)]
-        public string UserName { get; set; }
-
-        [Required]
-        [MaxLength(50)]
         public string Password { get; set; }
+
+        public string ConfirmPassword { get; set; }
 
         public bool IsDeleted { get; set; }
 

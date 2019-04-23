@@ -15,7 +15,7 @@ namespace MoviesCatalog.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Details(int id)
         {
             return View();
         }
@@ -26,6 +26,11 @@ namespace MoviesCatalog.Web.Controllers
         }
 
         public IActionResult AZList()
+        {
+            return View();
+        }
+
+        public IActionResult Actors()
         {
             return View();
         }

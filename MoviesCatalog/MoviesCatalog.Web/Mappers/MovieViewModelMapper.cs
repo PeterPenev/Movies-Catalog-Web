@@ -1,0 +1,22 @@
+﻿using MoviesCatalog.Data.Models;
+using MoviesCatalog.Web.Mappers.Contracts;
+using MoviesCatalog.Web.Models;
+
+namespace MoviesCatalog.Web.Mappers
+{
+    public class MovieViewModelMapper :IViewModelMapper<Movie, MovieViewModel>
+    {
+        public MovieViewModel MapFrom(Movie entity)
+        {
+            return new MovieViewModel()
+            {
+                Title = entity.Title,
+                Description = entity.Description,
+                ReleaseDate = entity.ReleaseDate,
+                User = entity.User.UserName,
+                NumberOfVotes = entity.NumberOfVotes,
+                AverageRating = entity.AverageRating
+            };
+        }
+    }
+}
