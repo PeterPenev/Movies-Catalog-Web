@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesCatalog.Data;
+using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services;
 using MoviesCatalog.Services.Contracts;
-using MoviesCatalog.Web.Data;
 using MoviesCatalog.Web.Mappers;
 
 namespace MoviesCatalog.Web
@@ -37,9 +37,11 @@ namespace MoviesCatalog.Web
             services.AddDbContext<MoviesCatalogContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<MoviesCatalogContext>()
+                .AddDefaultTokenProviders();
+
 
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IReviewService, ReviewService>();

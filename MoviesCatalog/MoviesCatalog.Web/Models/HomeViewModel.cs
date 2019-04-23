@@ -7,6 +7,6 @@ namespace MoviesCatalog.Web.Models
 {
     public class HomeViewModel
     {
-        public IReadOnlyList<MovieViewModel> Teams { get; set; }
+        public IReadOnlyList<MovieViewModel> Movies { get; set; }
     }
 }
