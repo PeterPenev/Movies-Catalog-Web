@@ -16,7 +16,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public ICollection<Movie> ShowMoviesStartWithSymbol(char symbol)
+        public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol)
         {
             var movies = this.context.Movies
                              .Where(t => t.Title.StartsWith(symbol))
@@ -25,7 +25,7 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public ICollection<Movie> ShowMoviesTop10ByRaiting()
+        public IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting()
         {
             var movies = this.context.Movies
                              .Take(10)
@@ -34,7 +34,7 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public ICollection<Movie> ShowMoviesLatest10ByReleaseDate()
+        public IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate()
         {
             var movies = this.context.Movies
                              .OrderByDescending(rd=>rd.ReleaseDate)   

@@ -7,10 +7,10 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IMovieService
     {
-        ICollection<Movie> ShowMoviesStartWithSymbol(char symbol);
+        IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol);
 
-        ICollection<Movie> ShowMoviesTop10ByRaiting();
+        IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting();
 
-        ICollection<Movie> ShowMoviesLatest10ByReleaseDate();
+        IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate();
     }
 }
