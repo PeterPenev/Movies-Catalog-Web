@@ -12,7 +12,6 @@ namespace MoviesCatalog.Web.Mappers
             services.AddSingleton<IViewModelMapper<Movie, MovieViewModel>, MovieViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Review, ReviewViewModel>, ReviewViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Actor, ActorViewModel>, ActorViewModelMapper>();
-            services.AddSingleton<IViewModelMapper<>
 
             return services;
         }

@@ -1,8 +1,6 @@
-﻿
-@{
-    ViewData["Title"] = "Actors";
+﻿@{
+    ViewData["Title"] = "AZList";
 }
-
 
 @*<h2>AZList</h2>*@
 
@@ -17,7 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="en">
 <head>
     <title>One Movies an Entertainment Category Flat Bootstrap Responsive Website Template | List :: w3layouts</title>
-    <!-- for-mobile-apps -->
+    <title>One Movies an Entertainment Category Flat Bootstrap Responsive Website Template | List :: w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -33,7 +31,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="/css/single.css" rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="/css/contactstyle.css" type="text/css" media="all" />
     <!-- news-css -->
-    <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/news-css/news.css" type="text/css" media="all" />
     <!-- //news-css -->
     <!-- list-css -->
     <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
@@ -42,12 +40,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <!-- //font-awesome icons -->
     <!-- js -->
-    <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     <!-- //js -->
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
     <!-- start-smoth-scrolling -->
-    <script type="text/javascript" src="/js/move-top.js"></script>
-    <script type="text/javascript" src="/js/easing.js"></script>
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
@@ -60,7 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- tables -->
     <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
     <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
-    <script type="text/javascript" src="/list-js/jquery.basictable.min.js"></script>
+    <script type="text/javascript" src="list-js/jquery.basictable.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#table').basictable();
@@ -178,8 +176,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="container">
             <div class="agileits-news-top">
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active">List</li>
+                    @*<li><a href="index.html">Home</a></li>
+                        <li class="active">List</li>*@
                 </ol>
             </div>
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
@@ -222,12 +220,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Movie Name</th>
-                                        <th>Year</th>
-                                        <th>Status</th>
-                                        <th>Country</th>
-                                        <th>Genre</th>
-                                        <th>Rating</th>
+                                        <th>Actor Name</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -4534,39 +4532,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- footer -->
     <!-- //footer -->
     <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".dropdown").hover(
-                function () {
-                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
-                    $(this).toggleClass('open');
-                },
-                function () {
-                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
-                    $(this).toggleClass('open');
-                }
-            );
-        });
-    </script>
-    <!-- //Bootstrap Core JavaScript -->
-    <!-- here stars scrolling icon -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            /*
-                var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-                };
-            */
-
-            $().UItoTop({ easingType: 'easeOutQuart' });
-
-        });
-    </script>
     <!-- //here ends scrolling icon -->
 </body>
 </html>
-

@@ -7,12 +7,12 @@ namespace MoviesCatalog.Web.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Please enter a first name")]
+        [RegularExpression("[A-Za-z]+", ErrorMessage = "The First Name can contain only letters")]
         public string FirstName { get; set; }
 
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Please enter a last name")]
+        [RegularExpression("[A-Za-z]+", ErrorMessage = "The Last Name can contain only letters")]
         public string LastName { get; set; }
 
         public string Biography { get; set; }
