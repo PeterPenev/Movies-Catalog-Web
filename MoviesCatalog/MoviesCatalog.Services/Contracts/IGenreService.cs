@@ -8,5 +8,7 @@ namespace MoviesCatalog.Services.Contracts
     public interface IGenreService
     {
         Genre GetGenre(int id);
+
+        IReadOnlyCollection<Movie> ShowMoviesByGenre(int genreId);
     }
 }
