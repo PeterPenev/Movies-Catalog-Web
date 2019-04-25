@@ -30,16 +30,16 @@ namespace MoviesCatalog.Web.Controllers
         }
 
 
-        public IActionResult ActorsBySymbol(char symbol)
+        public async Task<IActionResult> ActorsBySymbol(char symbol)
         {
-            var actors = this.actorService.ShowActorsStartWithSymbol(symbol);
+            var actors = await this.actorService.ShowActorsStartWithSymbolAsync(symbol);
 
             return View();
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var actor = this.actorService.GetActor(id);
+            var actor = await this.actorService.GetActorAsync(id);
 
             if (actor == null)
             {
@@ -67,7 +67,7 @@ namespace MoviesCatalog.Web.Controllers
             try
             {
                 var actor = this.actorService
-                                .CreateActor(model.FirstName, model.LastName);
+                                .CreateActorAsync(model.FirstName, model.LastName);
 
 
                 return RedirectToAction(nameof(Details), new { id = actor.Id });

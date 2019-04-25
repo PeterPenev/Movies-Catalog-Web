@@ -1,9 +1,11 @@
-﻿using MoviesCatalog.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services
 {
@@ -16,35 +18,44 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Actor GetActor(int id)
+        public Task<Actor> GetActorAsync(int id)
         {
-            var actor = this.context.Actors.Find(id);
+            var actor = this.context.Actors.FindAsync(id);
             return actor;
         }
 
-        public IReadOnlyCollection<Actor> ShowActorsStartWithSymbol(char symbol)
+        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char symbol)
         {
-            var actors = this.context.Actors
+            var actors = await this.context.Actors
                                      .Where(t => t.FirstName.StartsWith(symbol))
-                                     .ToList();
+                                     .ToListAsync();
 
             return actors;
         }
 
-        public Actor CreateActor(string firstName, string lastName)
+        public async Task<IReadOnlyCollection<Actor>> ShowTenActors()
         {
-            var actor = this.context.Actors
-                                    .FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName);
+            var actors = await this.context.Actors
+                                     .Take(10)
+                                     .ToListAsync();
+
+            return actors;
+        }
+
+        public async Task<Actor> CreateActorAsync(string firstName, string lastName)
+        {
+            var actor = await this.context.Actors
+                                    .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
 
             if (actor != null)
             {
                 throw new ArgumentException();
             }
 
-            actor = new Actor() {FirstName = firstName, LastName = lastName};
+            actor =  new Actor() {FirstName = firstName, LastName = lastName};
 
             this.context.Actors.Add(actor);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
             return actor;
         }
     }

@@ -1180,6 +1180,7 @@ h3.head {
 	.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
 		background-color: transparent;
 	}
+
 	.navbar-nav > li {
 		float: none;
 		border-right:none;

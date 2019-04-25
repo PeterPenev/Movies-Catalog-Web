@@ -1,15 +1,18 @@
 ﻿using MoviesCatalog.Data.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services.Contracts
 {
     public interface IActorService
     {
-        Actor GetActor(int id);
+        Task<Actor> GetActorAsync(int id);
 
-        Actor CreateActor(string firstName, string lastName);
+        Task<IReadOnlyCollection<Actor>> ShowTenActors();
 
-        IReadOnlyCollection<Actor> ShowActorsStartWithSymbol(char symbol);
+        Task<Actor> CreateActorAsync(string firstName, string lastName);
+
+        Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char symbol);
     }
 }

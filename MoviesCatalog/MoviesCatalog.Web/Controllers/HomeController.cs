@@ -28,8 +28,7 @@ namespace MoviesCatalog.Web.Controllers
         {
             var topMoviesByRating = movieService.ShowMoviesTop10ByRaiting();
             var topMoviesByReleaseDate = movieService.ShowMoviesLatest10ByReleaseDate();
-            //var collections = new List<IReadOnlyCollection<Movie>>() { topMoviesByRating, topMoviesByReleaseDate };
-            //var homeViewModel = this.homeMapper.MapFrom(collections);
+            
             var homeViewModel = new HomeViewModel()
             {
                 TopTenMoviesByRating = topMoviesByRating.Select(this.movieMapper.MapFrom).ToList(),
@@ -37,11 +36,6 @@ namespace MoviesCatalog.Web.Controllers
             };
            
             return View(homeViewModel);
-        }
-
-        public IActionResult Genres()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
