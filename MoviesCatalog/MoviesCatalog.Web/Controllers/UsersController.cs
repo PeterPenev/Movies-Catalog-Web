@@ -16,8 +16,8 @@ namespace MoviesCatalog.Web.Controllers
         public UsersController(IUserService userService,
                                IViewModelMapper<ApplicationUser, UserProfileViewModel> userMapper)
         {
-            this.userService = userService ?? throw new System.ArgumentNullException(nameof(userService));
-            this.userMapper = userMapper ?? throw new System.ArgumentNullException(nameof(userMapper));
+            this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            this.userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
         }
 
         public IActionResult Details(int id)

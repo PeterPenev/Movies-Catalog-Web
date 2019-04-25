@@ -24,6 +24,19 @@ namespace MoviesCatalog.Web.Controllers
             this.actorMapper = actorMapper ?? throw new ArgumentNullException(nameof(actorMapper));
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+
+        public IActionResult ActorsBySymbol(char symbol)
+        {
+            var actors = this.actorService.ShowActorsStartWithSymbol(symbol);
+
+            return View();
+        }
+
         public IActionResult Details(int id)
         {
             var actor = this.actorService.GetActor(id);
