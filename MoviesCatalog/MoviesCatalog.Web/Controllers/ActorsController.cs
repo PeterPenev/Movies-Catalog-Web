@@ -67,10 +67,10 @@ namespace MoviesCatalog.Web.Controllers
             try
             {
                 var actor = this.actorService
-                                .CreateActorAsync(model.FirstName, model.LastName);
+                                .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
 
 
-                return RedirectToAction(nameof(Details), new { id = actor.Id });
+                return RedirectToAction(nameof(Index), new { id = actor.Id });
             }
 
             catch (ArgumentException ex)

@@ -42,7 +42,7 @@ namespace MoviesCatalog.Services
             return actors;
         }
 
-        public async Task<Actor> CreateActorAsync(string firstName, string lastName)
+        public async Task<Actor> CreateActorAsync(string firstName, string lastName, string biography)
         {
             var actor = await this.context.Actors
                                     .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
@@ -52,7 +52,7 @@ namespace MoviesCatalog.Services
                 throw new ArgumentException();
             }
 
-            actor =  new Actor() {FirstName = firstName, LastName = lastName};
+            actor =  new Actor() {FirstName = firstName, LastName = lastName, Biography = biography};
 
             this.context.Actors.Add(actor);
             await this.context.SaveChangesAsync();
