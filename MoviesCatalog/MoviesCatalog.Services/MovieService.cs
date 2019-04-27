@@ -16,6 +16,27 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public Movie CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate)
+        {
+            //var user = this.context.Users.Find(userId);
+
+            var movie = this.context.Movies.FirstOrDefault(t => t.Title == title);
+
+            if (movie != null)
+            {
+                throw new ArgumentException();
+            }
+
+            movie = new Movie() { Title = title,  Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate, };
+
+            //movie.User = user;
+
+            this.context.Movies.Add(movie);
+            this.context.SaveChanges();
+
+            return movie;
+        }
+
         public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol)
         {
             var movies = this.context.Movies

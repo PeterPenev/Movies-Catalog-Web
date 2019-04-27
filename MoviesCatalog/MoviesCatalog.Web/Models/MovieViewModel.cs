@@ -15,7 +15,7 @@ namespace MoviesCatalog.Web.Models
 
         public string Trailer { get; set; }
 
-        [Required]
+        //[Required]
         public string Poster { get; set; }
 
         [Required]
@@ -23,16 +23,16 @@ namespace MoviesCatalog.Web.Models
 
         public string Description { get; set; }
 
-        [Required]
+        //[Required]
         public string User { get; set; }
 
-        [Required]
+        //[Required]
         public int NumberOfVotes { get; set; }
 
-        [Required]
+        //[Required]
         public double AverageRating { get; set; }
 
-        [Required]
+        //[Required]
         public ICollection<Genre> Genres { get; set; }
     }
 }

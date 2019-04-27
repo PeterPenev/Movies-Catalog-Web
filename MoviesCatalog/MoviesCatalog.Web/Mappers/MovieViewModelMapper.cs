@@ -10,12 +10,14 @@ namespace MoviesCatalog.Web.Mappers
         {
             return new MovieViewModel()
             {
-                Title = entity.Title,
+                Title = entity.Title,                
+                Trailer = entity.Trailer,
+                Poster = entity.Poster,
                 Description = entity.Description,
                 ReleaseDate = entity.ReleaseDate,
-                User = entity.User.UserName,
-                NumberOfVotes = entity.NumberOfVotes,
-                AverageRating = entity.AverageRating
+                //User = entity.User.UserName,
+                //NumberOfVotes = entity.NumberOfVotes,
+                //AverageRating = entity.AverageRating
             };
         }
     }
