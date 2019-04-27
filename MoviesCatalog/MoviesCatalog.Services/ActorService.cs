@@ -21,6 +21,12 @@ namespace MoviesCatalog.Services
         public Task<Actor> GetActorAsync(int id)
         {
             var actor = this.context.Actors.FindAsync(id);
+
+            if (actor == null)
+            {
+                throw new ArgumentException();
+            }
+
             return actor;
         }
 

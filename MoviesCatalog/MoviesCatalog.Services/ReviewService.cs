@@ -17,6 +17,12 @@ namespace MoviesCatalog.Services
         public Review GetReview(int id)
         {
             var review = this.context.Reviews.Find(id);
+
+            if (review == null)
+            {
+                throw new ArgumentException();
+            }
+
             return review;
         }
     }

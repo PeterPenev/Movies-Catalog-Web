@@ -48,8 +48,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                                 <div class="agile-info-wthree-box">
                                     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                                        <input asp-for="FirstName" placeholder="First Name" required="">
-                                        <input asp-for="LastName" placeholder="First Name" required="">
+                                        <input asp-for="FirstName" placeholder="First Name" required="" pattern='[A-Za-z\\s]*'>
+                                        <input asp-for="LastName" placeholder="Last Name" required="" pattern='[A-Za-z\\s]*'>
                                         <textarea asp-for="Biography" placeholder="Biography"></textarea>
                                         <input type="submit" value="SUBMIT">
                                         <div class="clearfix"> </div>
@@ -66,7 +66,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 </html>
 
+
 @section scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
     <partial name="_ValidationScriptsPartial" />
 }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Mappers
 {
-    public class HomeViewModelMapper : IViewModelMapper<List<IReadOnlyCollection<Movie>>, HomeViewModel>
+    public class ActorIndexViewModelMapper : IViewModelMapper<List<IReadOnlyCollection<Movie>>, HomeViewModel>
     {
         private readonly IViewModelMapper<Movie, MovieViewModel> movieMapper;
 
-        public HomeViewModelMapper(IViewModelMapper<Movie, MovieViewModel> movieMapper)
+        public ActorIndexViewModelMapper(IViewModelMapper<Movie, MovieViewModel> movieMapper)
         {
             this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }

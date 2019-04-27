@@ -9,6 +9,7 @@ using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
+using MoviesCatalog.Web.Models.AccountViewModels;
 
 namespace MoviesCatalog.Web.Controllers
 {
@@ -22,11 +23,20 @@ namespace MoviesCatalog.Web.Controllers
         {
             this.actorService = actorService ?? throw new ArgumentNullException(nameof(actorService));
             this.actorMapper = actorMapper ?? throw new ArgumentNullException(nameof(actorMapper));
+            
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var showTo10Actors = await this.actorService.ShowTenActors();
+
+            //var actorIndexView = this.actorIndexMapper.MapFrom(actors);
+
+            var actorIndexView = new ActorIndexViewModel()
+            {
+                Top10Actors = showTo10Actors.Select(this.actorMapper.MapFrom).ToList()
+            };
+            return View(actorIndexView);
         }
 
 

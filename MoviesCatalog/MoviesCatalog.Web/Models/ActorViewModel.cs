@@ -17,6 +17,12 @@ namespace MoviesCatalog.Web.Models
 
         public string Biography { get; set; }
 
+        public string Picture { get; set; }
+
+        public bool CanUserEdit { get; set; }
+
         public ICollection<MovieViewModel> Movies { get; set; }
+
+        public ICollection<ActorViewModel> ActorsTake10 { get; set; }
     }
 }

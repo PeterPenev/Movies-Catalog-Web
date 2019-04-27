@@ -18,7 +18,7 @@ namespace MoviesCatalog.Web.Mappers
                 Rating = entity.Rating,
                 CreatedOn = entity.CreatedOn,
                 UserName = entity.User.UserName,
-                MovieTitle = entity.Movie.Title
+                MovieTitle = entity.Movie.Title,
             };
         }
     }

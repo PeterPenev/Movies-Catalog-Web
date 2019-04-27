@@ -14,9 +14,11 @@ namespace MoviesCatalog.Web.Mappers
         {
             return new ActorViewModel()
             {
+                Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Biography = entity.Biography
+                Biography = entity.Biography,
+                Picture = entity.Picture,
             };
         }
     }

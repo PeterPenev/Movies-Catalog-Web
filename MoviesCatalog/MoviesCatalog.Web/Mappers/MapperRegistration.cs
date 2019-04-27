@@ -2,6 +2,7 @@
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
+using System.Collections.Generic;
 
 namespace MoviesCatalog.Web.Mappers
 {
@@ -13,7 +14,8 @@ namespace MoviesCatalog.Web.Mappers
             services.AddSingleton<IViewModelMapper<Review, ReviewViewModel>, ReviewViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Actor, ActorViewModel>, ActorViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Genre, GenreViewModel>, GenreViewModelMapper>();
-           //services.AddSingleton<IViewModelMapper<Movie, HomeViewModel>, HomeViewModelMapper>();
+            //services.AddSingleton<IViewModelMapper<Movie, HomeViewModel>, HomeViewModelMapper>();
+           
             return services;
         }
     }

@@ -15,6 +15,8 @@ namespace MoviesCatalog.Data.Models
         [MaxLength(100)]
         public string LastName { get; set; }
 
+        public string Picture { get; set; }
+
         public string Biography { get; set; }
 
         public ICollection<MoviesActors> ActorMovies { get; set; }
