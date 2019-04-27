@@ -27,7 +27,7 @@ namespace MoviesCatalog.Services
                 throw new ArgumentException();
             }
 
-            movie = new Movie() { Title = title,  Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate, };
+            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate, };
 
             //movie.User = user;
 
@@ -58,11 +58,28 @@ namespace MoviesCatalog.Services
         public IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate()
         {
             var movies = this.context.Movies
-                             .OrderByDescending(rd=>rd.ReleaseDate)   
+                             .OrderByDescending(rd => rd.ReleaseDate)
                              .Take(10)
                              .ToList();
 
             return movies;
+        }
+
+        public IReadOnlyCollection<Movie> SearchMoviesContainsString(string criteria)
+        {
+            var movies = this.context.Movies
+                             .Where(t => t.Title.Contains(criteria))
+                             .OrderByDescending(rd => rd.ReleaseDate)
+                             .ToList();
+
+            return movies;
+        }
+
+        public Movie GetMovieById(int id)
+        {
+            var movie = this.context.Movies.Find(id);
+                             
+            return movie;
         }
     }
 }

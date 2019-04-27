@@ -1,0 +1,11 @@
+﻿@model MovieViewModel
+
+<div class="font-weight-bold">
+    <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id">See more details:</a>
+</div>
+<div>Id of Movie: @Model.Id</div>
+<div>Movie Title: @Model.Title </div>
+<div>Description of Movie: @Model.Description</div>
+<hr />
+
+

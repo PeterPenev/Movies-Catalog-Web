@@ -11,7 +11,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="/css/contactstyle.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="/css/faqstyle.css" type="text/css" media="all" />    
+    <link rel="stylesheet" href="/css/faqstyle.css" type="text/css" media="all" />
     <link href="/css/medile.css" rel='stylesheet' type='text/css' />
     <!-- banner-slider -->
     <link href="/css/jquery.slidey.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@
         });
     </script>
     <environment include="Development">
-       
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -65,7 +65,7 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-    
+
 
 </head>
 <body>
@@ -83,12 +83,12 @@
             </div>
             <div class="w3l_sign_in_register">
                 @*<ul>
-                    <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
-                </ul>*@
+                        <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+                    </ul>*@
                 <ul>
                     <li>@await Html.PartialAsync("_LoginPartial")</li>
                 </ul>
-                
+
             </div>
             <div class="clearfix"> </div>
         </div>
@@ -246,6 +246,7 @@
                                 {
                                     <li><a asp-controller="Movies" asp-action="Create">Add Movie</a></li>
                                     <li><a asp-controller="Actors" asp-action="Create">Add Actor</a></li>
+                                    <li><a asp-controller="Movies" asp-action="Search">Search Movie</a></li>
                                 }
                             </ul>
                         </nav>
@@ -305,8 +306,8 @@
     </div>
 
     <environment include="Development">
-       
-   
+
+
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -322,7 +323,7 @@
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
     </environment>
-   
+
 
     @RenderSection("Scripts", required: false)
 </body>

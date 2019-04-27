@@ -14,5 +14,9 @@ namespace MoviesCatalog.Services.Contracts
         IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting();
 
         IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate();
+
+        IReadOnlyCollection<Movie> SearchMoviesContainsString(string criteria);
+
+        Movie GetMovieById(int id);
     }
 }

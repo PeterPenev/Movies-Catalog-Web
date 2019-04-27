@@ -34,5 +34,7 @@ namespace MoviesCatalog.Web.Models
 
         //[Required]
         public ICollection<Genre> Genres { get; set; }
+
+        public override string ToString() => $"{this.Title} {this.Description} {this.ReleaseDate.ToShortDateString()}";
     }
 }

@@ -10,6 +10,7 @@ namespace MoviesCatalog.Web.Mappers
         {
             return new MovieViewModel()
             {
+                Id = entity.Id,
                 Title = entity.Title,                
                 Trailer = entity.Trailer,
                 Poster = entity.Poster,

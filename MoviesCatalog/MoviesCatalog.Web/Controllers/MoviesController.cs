@@ -54,6 +54,34 @@ namespace MoviesCatalog.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Search([FromQuery]SearchMovieViewModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.SearchName) ||
+                model.SearchName.Length < 3)
+            {
+                return View();
+            }
+
+            model.SearchResults = this.movieService.SearchMoviesContainsString(model.SearchName)
+                                                    .Select(this.movieViewMapper.MapFrom)
+                                                    .ToList();
+
+            return View(model);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var movie = this.movieService.GetMovieById(id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(this.movieViewMapper.MapFrom(movie));
+        }
+
         public IActionResult Index()
         {
             return View();
