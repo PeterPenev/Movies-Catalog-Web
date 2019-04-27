@@ -30,8 +30,6 @@ namespace MoviesCatalog.Web.Controllers
         {
             var showTo10Actors = await this.actorService.ShowTenActors();
 
-            //var actorIndexView = this.actorIndexMapper.MapFrom(actors);
-
             var actorIndexView = new ActorIndexViewModel()
             {
                 Top10Actors = showTo10Actors.Select(this.actorMapper.MapFrom).ToList()
@@ -40,11 +38,16 @@ namespace MoviesCatalog.Web.Controllers
         }
 
 
-        public async Task<IActionResult> ActorsBySymbol(char symbol)
+        public async Task<IActionResult> ActorsByName(int id)
         {
-            var actors = await this.actorService.ShowActorsStartWithSymbolAsync(symbol);
+            var actorsByStartingSymbol = await this.actorService.ShowActorsStartWithSymbolAsync(id);
 
-            return View();
+            var actorIndexView = new ActorIndexViewModel()
+            {
+                ActorsByName = actorsByStartingSymbol.Select(this.actorMapper.MapFrom).ToList()
+            };
+
+            return View(actorIndexView);
         }
 
         public async Task<IActionResult> Details(int id)

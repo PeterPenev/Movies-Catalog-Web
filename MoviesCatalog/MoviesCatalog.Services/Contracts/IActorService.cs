@@ -13,6 +13,6 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<Actor> CreateActorAsync(string firstName, string lastName, string biography);
 
-        Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char symbol);
+        Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(int id);
     }
 }

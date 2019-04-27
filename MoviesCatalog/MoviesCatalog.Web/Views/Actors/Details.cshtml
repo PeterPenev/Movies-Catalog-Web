@@ -5,6 +5,7 @@ author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+@model ActorViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,27 +15,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/medile.css" rel='stylesheet' type='text/css' />
+    <link href="/css/single.css" rel='stylesheet' type='text/css' />
 </head>
 
 <body>
-    <!-- header -->
-    <!-- //header -->
-    <!-- bootstrap-pop-up -->
-
-    <script>
-        $('.toggle').click(function () {
-            // Switches the Icon
-            $(this).children('i').toggleClass('fa-pencil');
-            // Switches the forms
-            $('.form').animate({
-                height: "toggle",
-                'padding-top': 'toggle',
-                'padding-bottom': 'toggle',
-                opacity: "toggle"
-            }, "slow");
-        });
-    </script>
+ 
+   
     <!-- //bootstrap-pop-up -->
     <!-- nav -->
     <!-- //nav -->
@@ -54,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="col-sm-8 single-left">
                         <div class="song">
                             <div class="song-info">
-                                <h3>THE LEGEND OF TARZAN - Official Trailer 2</h3>
+                                <h3>@Model.FirstName @Model.LastName</h3>
                             </div>
                             <div class="video-grid-single-page-agileits">
                                 <div data-video="dLmKio67pVQ" id="video"> <img src="/images/5.jpg" alt="" class="img-responsive" /> </div>

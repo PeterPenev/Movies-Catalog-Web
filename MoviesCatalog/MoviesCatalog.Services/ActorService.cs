@@ -30,10 +30,11 @@ namespace MoviesCatalog.Services
             return actor;
         }
 
-        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char symbol)
+        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(int id)
         {
+            var symbol = (char)id;
             var actors = await this.context.Actors
-                                     .Where(t => t.FirstName.StartsWith(symbol))
+                                     .Where(t => t.FirstName.ToLower().StartsWith(symbol.ToString().ToLower()))
                                      .ToListAsync();
 
             return actors;

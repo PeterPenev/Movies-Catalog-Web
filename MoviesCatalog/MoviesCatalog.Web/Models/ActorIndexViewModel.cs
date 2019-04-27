@@ -7,6 +7,8 @@ namespace MoviesCatalog.Web.Models
 {
     public class ActorIndexViewModel
     {
-        public IReadOnlyList<ActorViewModel> Top10Actors { get; set; }
+        public IReadOnlyCollection<ActorViewModel> Top10Actors { get; set; }
+
+        public IReadOnlyCollection<ActorViewModel> ActorsByName { get; set; }
     }
 }
