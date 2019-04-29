@@ -15,6 +15,7 @@ namespace MoviesCatalog.Web.Models
         [RegularExpression("[A-Za-z]+", ErrorMessage = "The Last Name can contain only letters")]
         public string LastName { get; set; }
 
+        [Required]
         public string Biography { get; set; }
 
         public string Picture { get; set; }

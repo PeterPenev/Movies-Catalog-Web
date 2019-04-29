@@ -65,5 +65,20 @@ namespace MoviesCatalog.Services
             await this.context.SaveChangesAsync();
             return actor;
         }
+
+        public async Task<Actor> UpdateActorBiographyAsync(int id, string biography)
+        {
+            var actor = await this.context.Actors
+                                    .FindAsync(id);
+
+            if (actor == null)
+            {
+                throw new ArgumentException();
+            }
+
+            actor.Biography = biography;
+            await this.context.SaveChangesAsync();
+            return actor;
+        }
     }
 }
