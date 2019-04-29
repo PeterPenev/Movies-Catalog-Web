@@ -1,5 +1,4 @@
-﻿
-@model MovieViewModel
+﻿@model MovieViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -14,43 +13,61 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="en">
 <head>
     <title>Create a new movie</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    <!-- //for-mobile-apps -->
+
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
-    <!-- single -->
-    <div class="single-page-agile-main">
-        <div class="container">
-            <!-- /w3l-medile-movies-grids -->
-            <div class="single-page-agile-info">
-                <!-- /movie-browse-agile -->
-                <div class="show-top-grids-w3lagile">
-                    <div class="col-sm-8 single-left">
-                        <div class="song">
-                            <div class="song-info">
-                                <h3>Create a new movie</h3>
-                            </div>
-                        </div>
-                        <div class="all-comments">
-                            <div class="all-comments-info">
-
-                                <div class="agile-info-wthree-box">
-                                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                                        <input asp-for="Title" placeholder="Title" required="">
-                                        <input asp-for="Trailer" placeholder="Trailer">
-                                        <input asp-for="Poster" placeholder="Poster">
-                                        <textarea asp-for="Description" placeholder="Description"></textarea>
-                                        <input asp-for="ReleaseDate" placeholder="ReleaseData" required="">                                        
-                                        <input type="submit" value="SUBMIT">
-                                        <div class="clearfix"> </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+    <div class="row-grey">
+        <div class="row" style="margin:3.5%">
+            <div class="col-md-4">
+                <h3 class="custom-format">Create a new movie</h3>
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <hr class="hr-new" />
+                    <div class="form-group">
+                        <label asp-for="Title" class="grey"></label>
+                        <input asp-for="Title" placeholder="Please enter a title name." class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger-orange"></span>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label asp-for="Trailer" class="grey"></label>
+                        <input asp-for="Trailer" placeholder="Please enter a Trailer." class="form-control" />
+                        <span asp-validation-for="Trailer" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Poster" class="grey"></label>
+                        <input asp-for="Poster" placeholder="Please enter a Poster." class="form-control" />
+                        <span asp-validation-for="Poster" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="grey"></label>
+                        <textarea asp-for="Description" placeholder="Please enter a Description." class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReleaseDate" class="grey"></label>
+                        <input asp-for="ReleaseDate" placeholder="Please enter a Release Date." class="form-control" />
+                        <span asp-validation-for="ReleaseDate" class="text-danger-orange"></span>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    <hr class="hr-new" />
+                </form>               
             </div>
         </div>
     </div>
 </body>
 </html>
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+}
 
