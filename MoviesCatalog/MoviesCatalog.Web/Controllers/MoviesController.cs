@@ -80,13 +80,11 @@ namespace MoviesCatalog.Web.Controllers
             }
 
             return View(this.movieViewMapper.MapFrom(movie));
-        }        
+        }
 
-        public IActionResult MoviesByName(int id)
+        public async Task<IActionResult> MoviesByName(int id)
         {
-            //char symbol = (char)id;
-
-            var moviesByStartingSymbol = this.movieService.ShowMoviesStartWithSymbol(id);
+            var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
 
             var movieIndexView = new MovieIndexViewModel()
             {
@@ -94,7 +92,7 @@ namespace MoviesCatalog.Web.Controllers
             };
 
             return View(movieIndexView);
-        }
+        }       
 
         public IActionResult Index()
         {

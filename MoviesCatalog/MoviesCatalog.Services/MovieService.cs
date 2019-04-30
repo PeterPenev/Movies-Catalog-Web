@@ -1,9 +1,11 @@
-﻿using MoviesCatalog.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services
 {
@@ -36,16 +38,7 @@ namespace MoviesCatalog.Services
 
             return movie;
         }
-
-        //public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol)
-        //{
-        //    var movies = this.context.Movies
-        //                     .Where(t => t.Title.StartsWith(symbol))
-        //                     .ToList();
-
-        //    return movies;
-        //}
-
+       
         public IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting()
         {
             var movies = this.context.Movies
@@ -75,15 +68,15 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(int id)
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(int id)
         {
             var symbol = (char)id;
-            var movies = this.context.Movies
+            var movies = await this.context.Movies
                                      .Where(t => t.Title.ToLower().StartsWith(symbol.ToString().ToLower()))
-                                     .ToList();
+                                     .ToListAsync();
 
             return movies;
-        }
+        }        
 
         public Movie GetMovieById(int id)
         {

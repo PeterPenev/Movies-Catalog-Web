@@ -8,42 +8,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>One Movies an Entertainment Category Flat Bootstrap Responsive Website Template | List :: w3layouts</title>
-    <!-- for-mobile-apps -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <title>List of all actors</title>
     <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
     <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
     <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
 </head>
-
 <body>
-    <!-- header -->
-    <!-- //header -->
-    <!-- bootstrap-pop-up -->
-
-    <script>
-        $('.toggle').click(function () {
-            // Switches the Icon
-            $(this).children('i').toggleClass('fa-pencil');
-            // Switches the forms
-            $('.form').animate({
-                height: "toggle",
-                'padding-top': 'toggle',
-                'padding-bottom': 'toggle',
-                opacity: "toggle"
-            }, "slow");
-        });
-    </script>
-    <!-- //bootstrap-pop-up -->
-    <!-- nav -->
-    <!-- //nav -->
-    <!-- faq-banner -->
     <div class="faq">
-        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
+        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movie List</h4>
         <div class="container">
             <div class="agileits-news-top">
                 <ol class="breadcrumb">
@@ -55,7 +28,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @for (char i = 'A'; i <= 'Z'; i++)
                     {
                         int id = (int)i;
-                        <li role="presentation"><a asp-controller="Movies" asp-action="MoviesByName" as@p-route-id="@id" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                        <li role="presentation"><a asp-controller="Movies" asp-action="MoviesByName" asp-route-id="@id" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
                     }
                 </ul>
                 <div id="myTabContent" class="tab-content">
@@ -65,19 +38,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <h4>Search Results : <span>@Model.Latest10Movies.Count()</span></h4>
                             </div>
                             <table id="table-breakpoint">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
                                 <tbody id="table-breakpoint">
-                                    @foreach (var movie in Model.Latest10Movies.OrderBy(id=>id.Id))
+                                    @foreach (var movie in Model.Latest10Movies.OrderBy(id => id.Id))
                                     {
                                         <tr>
                                             <td>@movie.Id</td>
@@ -97,44 +68,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
         </div>
     </div>
-    <!-- Bootstrap Core JavaScript -->
-    @section Scripts
-        {
-        <script src="/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".dropdown").hover(
-                    function () {
-                        $('.dropdown-menu', this).stop(true, true).slideDown("fast");
-                        $(this).toggleClass('open');
-                    },
-                    function () {
-                        $('.dropdown-menu', this).stop(true, true).slideUp("fast");
-                        $(this).toggleClass('open');
-                    }
-                );
-            });
-        </script>
-        <!-- //Bootstrap Core JavaScript -->
-        <!-- here stars scrolling icon -->
-        <script type="text/javascript">
-            $(document).ready(function () {
-                /*
-                    var defaults = {
-                    containerID: 'toTop', // fading element id
-                    containerHoverID: 'toTopHover', // fading element hover id
-                    scrollSpeed: 1200,
-                    easingType: 'linear'
-                    };
-                */
-
-                $().UItoTop({ easingType: 'easeOutQuart' });
-
-            });
-        </script>
-    }
-
-    <!-- //here ends scrolling icon -->
 </body>
 </html>
-

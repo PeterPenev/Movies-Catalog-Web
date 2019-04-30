@@ -74,7 +74,7 @@ h1 {
 
 .hr-new {
     border-top: 4px solid #ff9800;
-    width:305%;
+    width: 305%;
 }
 
 .vl {
@@ -83,5 +83,9 @@ h1 {
     position: absolute;
     left: 50%;
     margin-left: 260%;
-    top:-4%;
+    top: -4%;
+}
+
+.color-custom {
+    color: #ff9800;
 }

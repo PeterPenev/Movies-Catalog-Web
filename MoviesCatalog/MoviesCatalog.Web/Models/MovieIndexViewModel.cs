@@ -7,8 +7,8 @@ namespace MoviesCatalog.Web.Models
 {
     public class MovieIndexViewModel
     {
-        public IReadOnlyCollection<MovieViewModel> Latest10Movies { get; set; } = new List<MovieViewModel>();
+        public IReadOnlyCollection<MovieViewModel> Latest10Movies { get; set; } 
 
-        public IReadOnlyCollection<MovieViewModel> MoviesByName { get; set; } = new List<MovieViewModel>();
+        public IReadOnlyCollection<MovieViewModel> MoviesByName { get; set; }
     }
 }
