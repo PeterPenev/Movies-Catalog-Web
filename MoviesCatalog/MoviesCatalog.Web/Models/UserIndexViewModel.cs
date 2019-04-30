@@ -7,8 +7,10 @@ namespace MoviesCatalog.Web.Models
 {
     public class UserIndexViewModel
     {
-        public IReadOnlyCollection<UserViewModel> Top10Users { get; set; }
+        public IReadOnlyCollection<UserViewModel> AllUsers { get; set; }
 
         public IReadOnlyCollection<UserViewModel> UsersByName { get; set; }
+
+        public int TotalNumbersOfReviews { get; set; }
     }
 }

@@ -62,12 +62,11 @@ namespace MoviesCatalog.Services
             return users;
         }
 
-        public async Task<IReadOnlyCollection<ApplicationUser>> ShowTenUsers()
+        public async Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsers()
         {
             var users = await this.context.Users
-                                     .Take(10)
-                                     .OrderBy(x => x.UserName)
-                                     .ToListAsync();
+                                          .OrderBy(x => x.UserName)
+                                          .ToListAsync();
 
             return users;
         }

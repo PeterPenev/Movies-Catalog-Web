@@ -24,6 +24,6 @@ namespace MoviesCatalog.Web.Models
 
         public ICollection<MovieViewModel> Movies { get; set; }
 
-        public ICollection<ActorViewModel> ActorsTake10 { get; set; }
+        public ICollection<ActorViewModel> ShowAllActors { get; set; }
     }
 }

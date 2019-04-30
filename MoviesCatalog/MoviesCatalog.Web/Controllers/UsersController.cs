@@ -24,11 +24,11 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var showTo10Users = await this.userService.ShowTenUsers();
+            var showTo10Users = await this.userService.ShowAllUsers();
 
             var userIndexView = new UserIndexViewModel()
             {
-                Top10Users = showTo10Users.Select(this.userMapper.MapFrom).ToList()
+                AllUsers = showTo10Users.Select(this.userMapper.MapFrom).ToList()
             };
             return View(userIndexView);
         }
@@ -51,7 +51,7 @@ namespace MoviesCatalog.Web.Controllers
 
             var userIndexView = new UserIndexViewModel()
             {
-                UsersByName = usersByStartingSymbol.Select(this.userMapper.MapFrom).ToList()
+                UsersByName = usersByStartingSymbol.Select(this.userMapper.MapFrom).ToList(),
             };
 
             return View(userIndexView);

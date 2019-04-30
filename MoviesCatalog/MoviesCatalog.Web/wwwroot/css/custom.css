@@ -85,3 +85,8 @@ h1 {
     margin-left: 260%;
     top:-4%;
 }
+
+.image-background {
+    border: 5px solid #ff9800;
+}
+

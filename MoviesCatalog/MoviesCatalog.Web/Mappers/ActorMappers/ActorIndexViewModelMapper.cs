@@ -22,7 +22,7 @@ namespace MoviesCatalog.Web.Mappers.ActorMappers
         {
             return new ActorIndexViewModel()
             {
-                Top10Actors = entity.Select(this.actorMapper.MapFrom).ToList()
+                AllActors = entity.Select(this.actorMapper.MapFrom).ToList()
             };
         }
     }

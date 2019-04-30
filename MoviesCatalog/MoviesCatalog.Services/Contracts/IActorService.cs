@@ -9,7 +9,7 @@ namespace MoviesCatalog.Services.Contracts
     {
         Task<Actor> GetActorAsync(int id);
 
-        Task<IReadOnlyCollection<Actor>> ShowTenActors();
+        Task<IReadOnlyCollection<Actor>> ShowAllActors();
 
         Task<Actor> CreateActorAsync(string firstName, string lastName, string biography);
 

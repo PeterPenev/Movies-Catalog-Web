@@ -8,7 +8,7 @@ namespace MoviesCatalog.Web.Models
 {
     public class UserViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required, MinLength(6)]
         public string UserName { get; set; }
@@ -22,5 +22,6 @@ namespace MoviesCatalog.Web.Models
         public string Password { get; set; }
 
         public string ConfirmPassword { get; set; }
+
     }
 }

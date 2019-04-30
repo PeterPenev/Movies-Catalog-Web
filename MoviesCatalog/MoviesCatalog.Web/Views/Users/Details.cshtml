@@ -1,0 +1,72 @@
+﻿<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+@model UserViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@Model.UserName details</title>
+    <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
+</head>
+<body>
+    <div class="single-page-agile-main">
+        <div class="container">
+            <div class="agileits-single-top">
+                <ol class="breadcrumb">
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="active">Details</li>
+                </ol>
+            </div>
+            <div class="single-page-agile-info">
+                <!-- /movie-browse-agile -->
+                <div class="show-top-grids-w3lagile">
+                    <div class="col-sm-8 single-left">
+                        <div class="song">
+                            <div class="song-info">
+                                <h3>@Model.UserName</h3>
+                            </div>
+                            @{ if (Model.Avatar == null)
+                                {
+                                    <div class="image-background">
+                                        <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/noimage.jpg" alt="" /> <span></span></a></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="image-background">
+                                        <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="@Model.Avatar" alt="" /> <span></span></a></div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div><br />
+                <div class="clearfix"> </div>
+                <div class="all-comments">
+                    <div class="all-comments-info">
+                        <div class="agile-info-wthree-box">
+                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <input type="submit" asp-controller="Actors" asp-action="Promote" asp-route-id="@Model.Id" value="Promote">
+                                }
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

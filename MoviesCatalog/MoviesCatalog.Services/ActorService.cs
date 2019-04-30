@@ -41,12 +41,11 @@ namespace MoviesCatalog.Services
             return actors;
         }
 
-        public async Task<IReadOnlyCollection<Actor>> ShowTenActors()
+        public async Task<IReadOnlyCollection<Actor>> ShowAllActors()
         {
             var actors = await this.context.Actors
-                                     .Take(10)
-                                     .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
-                                     .ToListAsync();
+                                           .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
+                                           .ToListAsync();
 
             return actors;
         }

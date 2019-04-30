@@ -19,7 +19,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="faq">
         <h4 class="latest-text w3_faq_latest_text w3_latest_text">Users List</h4>
         <div class="container">
-           
+            <div class="agileits-news-top">
+                <ol class="breadcrumb">
+                    <li class="nav-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                </ol>
+            </div>
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs" role="tablist">
                     @for (char i = 'A'; i <= 'Z'; i++)
@@ -32,7 +36,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                <h4>Search Results : <span>@Model.Top10Users.Count()</span></h4>
+                                <h4>Search Results : <span>@Model.AllUsers.Count()</span></h4>
                             </div>
                             <table id="table-breakpoint">
                                 <thead>
@@ -48,14 +52,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </tr>
                                 </thead>
                                 <tbody id="table-breakpoint">
-                                    @foreach (var user
-                                        in Model.Top10Users)
+                                    @{ 
+                                        int counter = 0;
+                                    }
+                                    
+                                    @foreach (var user in Model.AllUsers)
+
                                     {
                                         <tr>
-                                            <td>@user.Id</td>
-                                            @if (user.Avatar == null)
-                                            {
-                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
+                                                <td>@counter</td>
+                                                @{
+                                                    counter++;
+                                                    }
+                                            @{
+                                                if (user.Avatar == null)
+                                                {
+                                                    <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="@user.Avatar" alt="" /> <span></span></a></td>
+                                                }
                                             }
                                             <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
                                             <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.Email</a></td>

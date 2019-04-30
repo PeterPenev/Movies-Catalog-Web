@@ -12,6 +12,6 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(int id);
 
-        Task<IReadOnlyCollection<ApplicationUser>> ShowTenUsers();
+        Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsers();
     }
 }

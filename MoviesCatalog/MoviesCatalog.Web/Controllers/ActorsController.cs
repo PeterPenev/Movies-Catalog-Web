@@ -29,11 +29,11 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var showTo10Actors = await this.actorService.ShowTenActors();
+            var showTo10Actors = await this.actorService.ShowAllActors();
 
             var actorIndexView = new ActorIndexViewModel()
             {
-                Top10Actors = showTo10Actors.Select(this.actorMapper.MapFrom).ToList()
+                AllActors = showTo10Actors.Select(this.actorMapper.MapFrom).ToList()
             };
             return View(actorIndexView);
         }
