@@ -35,25 +35,45 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                <h4>Search Results : <span>@Model.Latest10Movies.Count()</span></h4>
+                                @if (Model.MoviesByName.Count != 0)
+                                {
+                                    <h4>Count of movies starting with first letter <span style="color:#ff9800">@Model.MoviesByName.FirstOrDefault().Title.ToString().ToUpper()[0] </span>: <span>@Model.MoviesByName.Count()</span></h4>
+                                }
+                                else
+                                {
+                                    <h4>There are no movies with given criteria</h4>
+                                }
                             </div>
                             <table id="table-breakpoint">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Poster</th>
+                                        <th>Title</th>
+                                        <th>Average Rating</th>
+                                        <th>Release Date</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
                                 <tbody id="table-breakpoint">
-                                    @foreach (var movie in Model.Latest10Movies.OrderBy(id => id.Id))
+                                    @foreach (var movie in Model.MoviesByName.OrderByDescending(ar => ar.AverageRating))
                                     {
                                         <tr>
-                                            <td>@movie.Id</td>
+                                            <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Id</a></td>
+                                            @if (movie.Poster == null)
+                                            {
+                                                <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Poster</a></td>
+                                            }
                                             <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
-                                            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@movie.Id">@movie.Description</a></td>
+                                            <td>@movie.AverageRating</td>
+                                            <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>                                            
                                             <td></td>
                                             <td></td>
                                             <td></td>

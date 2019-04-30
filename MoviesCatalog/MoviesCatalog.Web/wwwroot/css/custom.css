@@ -74,7 +74,7 @@ h1 {
 
 .hr-new {
     border-top: 4px solid #ff9800;
-    width:305%;
+    width: 305%;
 }
 
 .vl {
@@ -88,5 +88,9 @@ h1 {
 
 .image-background {
     border: 5px solid #ff9800;
+}
+
+.color-custom {
+    color: #ff9800;
 }
 

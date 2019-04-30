@@ -17,14 +17,19 @@ namespace MoviesCatalog.Web.Controllers
     public class ActorsController : Controller
     {
         private readonly IActorService actorService;
+        private readonly IMovieService movieService;
         private readonly IViewModelMapper<Actor, ActorViewModel> actorMapper;
+        private readonly IViewModelMapper<Movie, MovieViewModel> movieMapper;
 
         public ActorsController(IActorService actorService,
-                                IViewModelMapper<Actor, ActorViewModel> actorMapper)
+                                IMovieService movieService,
+                                IViewModelMapper<Actor, ActorViewModel> actorMapper,
+                                IViewModelMapper<Movie, MovieViewModel> movieMapper)
         {
             this.actorService = actorService ?? throw new ArgumentNullException(nameof(actorService));
+            this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.actorMapper = actorMapper ?? throw new ArgumentNullException(nameof(actorMapper));
-            
+            this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }
 
         public async Task<IActionResult> Index()
@@ -54,13 +59,22 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var actor = await this.actorService.GetActorAsync(id);
-
+            var topRatedMovies = this.movieService.ShowMoviesTop10ByRaiting();
             if (actor == null)
             {
                 return NotFound();
             }
-                
-            return View(this.actorMapper.MapFrom(actor));
+
+            var actorViewModel = new ActorViewModel()
+            {
+                FirstName = actor.FirstName,
+                LastName = actor.LastName,
+                Biography = actor.Biography,
+                TopRatedMovies = topRatedMovies.Select(this.movieMapper.MapFrom).ToList()
+            };
+
+            return View(actorViewModel);
+
         }
 
         [HttpGet]

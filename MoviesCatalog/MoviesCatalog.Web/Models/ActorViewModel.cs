@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MoviesCatalog.Data.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MoviesCatalog.Web.Models
@@ -24,6 +25,6 @@ namespace MoviesCatalog.Web.Models
 
         public ICollection<MovieViewModel> Movies { get; set; }
 
-        public ICollection<ActorViewModel> ShowAllActors { get; set; }
+        public ICollection<MovieViewModel> TopRatedMovies { get; set; }
     }
 }

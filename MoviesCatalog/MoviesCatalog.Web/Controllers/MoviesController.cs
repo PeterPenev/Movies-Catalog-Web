@@ -82,9 +82,27 @@ namespace MoviesCatalog.Web.Controllers
             return View(this.movieViewMapper.MapFrom(movie));
         }
 
+        public async Task<IActionResult> MoviesByName(int id)
+        {
+            var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
+
+            var movieIndexView = new MovieIndexViewModel()
+            {
+                MoviesByName = moviesByStartingSymbol.Select(this.movieViewMapper.MapFrom).ToList()
+            };
+
+            return View(movieIndexView);
+        }       
+
         public IActionResult Index()
         {
-            return View();
+            var showLatest10MoviesByReleaseDate = movieService.ShowMoviesLatest10ByReleaseDate();
+
+            var movieIndexView = new MovieIndexViewModel()
+            {
+                Latest10Movies = showLatest10MoviesByReleaseDate.Select(this.movieViewMapper.MapFrom).ToList()
+            };
+            return View(movieIndexView);
         }
     }
 }

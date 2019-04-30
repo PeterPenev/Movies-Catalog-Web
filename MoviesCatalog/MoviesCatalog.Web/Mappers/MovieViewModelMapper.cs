@@ -15,10 +15,10 @@ namespace MoviesCatalog.Web.Mappers
                 Trailer = entity.Trailer,
                 Poster = entity.Poster,
                 Description = entity.Description,
-                ReleaseDate = entity.ReleaseDate,
+                AverageRating = entity.AverageRating,
+                ReleaseDate = entity.ReleaseDate
                 //User = entity.User.UserName,
-                //NumberOfVotes = entity.NumberOfVotes,
-                //AverageRating = entity.AverageRating
+                //NumberOfVotes = entity.NumberOfVotes,                
             };
         }
     }
