@@ -37,14 +37,14 @@ namespace MoviesCatalog.Services
             return movie;
         }
 
-        public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol)
-        {
-            var movies = this.context.Movies
-                             .Where(t => t.Title.StartsWith(symbol))
-                             .ToList();
+        //public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol)
+        //{
+        //    var movies = this.context.Movies
+        //                     .Where(t => t.Title.StartsWith(symbol))
+        //                     .ToList();
 
-            return movies;
-        }
+        //    return movies;
+        //}
 
         public IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting()
         {
@@ -71,6 +71,16 @@ namespace MoviesCatalog.Services
                              .Where(t => t.Title.Contains(criteria))
                              .OrderByDescending(rd => rd.ReleaseDate)
                              .ToList();
+
+            return movies;
+        }
+
+        public IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(int id)
+        {
+            var symbol = (char)id;
+            var movies = this.context.Movies
+                                     .Where(t => t.Title.ToLower().StartsWith(symbol.ToString().ToLower()))
+                                     .ToList();
 
             return movies;
         }

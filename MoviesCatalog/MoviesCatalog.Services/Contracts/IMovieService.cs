@@ -9,7 +9,7 @@ namespace MoviesCatalog.Services.Contracts
     {
         Movie CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate);
 
-        IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(char symbol);
+        IReadOnlyCollection<Movie> ShowMoviesStartWithSymbol(int id);
 
         IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting();
 

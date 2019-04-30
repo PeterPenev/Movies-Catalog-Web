@@ -1,0 +1,76 @@
+﻿@model MovieIndexViewModel
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>List of all actors</title>
+    <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
+</head>
+<body>
+    <div class="faq">
+        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movie List</h4>
+        <div class="container">
+            <div class="agileits-news-top">
+                <ol class="breadcrumb">
+                    <li class="nav-item"><a asp-controller="Movies" asp-action="Create">Create new movie</a></li>
+                </ol>
+            </div>
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    @for (char i = 'A'; i <= 'Z'; i++)
+                    {
+                        int id = (int)i;
+                        <li role="presentation"><a asp-controller="Movies" asp-action="MoviesByName" asp-route-id="@id" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                    }
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <div class="w3ls-news-result">
+                                <h4>Search Results For Given Letter: <span>@Model.MoviesByName.Count()</span></h4>
+                            </div>
+                            <table id="table-breakpoint">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-breakpoint">
+                                    @foreach (var movie in Model.MoviesByName)
+                                    {
+                                    <tr>
+                                        <td>@movie.Id</td>
+                                        <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Id</a></td>
+                                        <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Title">@movie.Title</a></td>
+                                        <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Description">@movie.Description</a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
