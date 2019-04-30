@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Models
 {
-    public class UserProfileViewModel
+    public class UserViewModel
     {
         public int Id { get; set; }
 
         [Required, MinLength(6)]
         public string UserName { get; set; }
 
-        [Required, Compare(nameof(ConfirmPassword))]
-        public string Password { get; set; }
-
         [EmailAddress]
         public string Email { get; set; }
 
-        public string ConfirmPassword { get; set; }
+        public string Avatar { get; set; }
 
-        public bool IsDeleted { get; set; }
-        
+        [Required, Compare(nameof(ConfirmPassword))]
+        public string Password { get; set; }
+
+        public string ConfirmPassword { get; set; }
     }
 }

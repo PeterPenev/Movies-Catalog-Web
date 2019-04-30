@@ -13,6 +13,7 @@ namespace MoviesCatalog.Web.Mappers
             services.AddSingleton<IViewModelMapper<Movie, MovieViewModel>, MovieViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Review, ReviewViewModel>, ReviewViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Actor, ActorViewModel>, ActorViewModelMapper>();
+            services.AddSingleton<IViewModelMapper<ApplicationUser, UserViewModel>, UserViewModelMapper>();
             services.AddSingleton<IViewModelMapper<Genre, GenreViewModel>, GenreViewModelMapper>();
             //services.AddSingleton<IViewModelMapper<Movie, HomeViewModel>, HomeViewModelMapper>();
            

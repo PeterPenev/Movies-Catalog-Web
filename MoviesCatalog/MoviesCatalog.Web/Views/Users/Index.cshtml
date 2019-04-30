@@ -1,5 +1,5 @@
 ﻿
-@model ActorIndexViewModel
+@model UserIndexViewModel
 <!--
 author: W3layouts
 author URL: http://w3layouts.com
@@ -9,7 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>List of all actors</title>
+    <title>List of all users</title>
     <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
     <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
@@ -17,26 +17,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>
     <div class="faq">
-        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Actors List</h4>
+        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Users List</h4>
         <div class="container">
-            <div class="agileits-news-top">
-                <ol class="breadcrumb">
-                    <li class="nav-item"><a asp-controller="Actors" asp-action="Create">Create new actor</a></li>
-                </ol>
-            </div>
+           
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs" role="tablist">
-                    @for (char i = 'A'; i <= 'W'; i++)
+                    @for (char i = 'A'; i <= 'Z'; i++)
                     {
                         int id = (int)i;
-                        <li role="presentation"><a asp-controller="Actors" asp-action="ActorsByName" asp-route-id="@id" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                        <li role="presentation"><a asp-controller="Users" asp-action="UsersByName" asp-route-id="@id" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
                     }
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                <h4>Search Results : <span>@Model.ActorsByName.Count()</span></h4>
+                                <h4>Search Results : <span>@Model.Top10Users.Count()</span></h4>
                             </div>
                             <table id="table-breakpoint">
                                 <thead>
@@ -52,16 +48,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </tr>
                                 </thead>
                                 <tbody id="table-breakpoint">
-                                    @foreach (var actor in Model.ActorsByName)
+                                    @foreach (var user
+                                        in Model.Top10Users)
                                     {
                                         <tr>
-                                            <td>@actor.Id</td>
-                                            @if (actor.Picture == null)
+                                            <td>@user.Id</td>
+                                            @if (user.Avatar == null)
                                             {
-                                                <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
+                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
                                             }
-                                            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.FirstName</a></td>
-                                            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.LastName</a></td>
+                                            <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
+                                            <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.Email</a></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -78,6 +75,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </body>
 </html>
-
 
 

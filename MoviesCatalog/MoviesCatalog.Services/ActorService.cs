@@ -35,6 +35,7 @@ namespace MoviesCatalog.Services
             var symbol = (char)id;
             var actors = await this.context.Actors
                                      .Where(t => t.FirstName.ToLower().StartsWith(symbol.ToString().ToLower()))
+                                     .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
                                      .ToListAsync();
 
             return actors;
@@ -44,6 +45,7 @@ namespace MoviesCatalog.Services
         {
             var actors = await this.context.Actors
                                      .Take(10)
+                                     .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
                                      .ToListAsync();
 
             return actors;

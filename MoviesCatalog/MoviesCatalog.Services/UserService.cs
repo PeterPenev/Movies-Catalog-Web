@@ -1,8 +1,11 @@
-﻿using MoviesCatalog.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services
 {
@@ -15,9 +18,9 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public ApplicationUser GetUser(int id)
+        public Task<ApplicationUser> GetUserAsync(string id)
         {
-            var user = this.context.Users.Find(id);
+            var user = this.context.Users.FindAsync(id);
             return user;
         }
 
@@ -46,6 +49,27 @@ namespace MoviesCatalog.Services
             context.SaveChanges();
 
             return user;
+        }
+
+        public async Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(int id)
+        {
+            var symbol = (char)id;
+            var users = await this.context.Users
+                                     .Where(t => t.UserName.ToLower().StartsWith(symbol.ToString().ToLower()))
+                                     .OrderBy(x => x.UserName)
+                                     .ToListAsync();
+
+            return users;
+        }
+
+        public async Task<IReadOnlyCollection<ApplicationUser>> ShowTenUsers()
+        {
+            var users = await this.context.Users
+                                     .Take(10)
+                                     .OrderBy(x => x.UserName)
+                                     .ToListAsync();
+
+            return users;
         }
     }
 }
