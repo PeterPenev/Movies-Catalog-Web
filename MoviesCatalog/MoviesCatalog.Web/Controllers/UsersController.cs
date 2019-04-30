@@ -4,6 +4,8 @@ using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Controllers
 {
@@ -11,18 +13,29 @@ namespace MoviesCatalog.Web.Controllers
     {
     
         private readonly IUserService userService;
-        private readonly IViewModelMapper<ApplicationUser, UserProfileViewModel> userMapper;
+        private readonly IViewModelMapper<ApplicationUser, UserViewModel> userMapper;
 
         public UsersController(IUserService userService,
-                               IViewModelMapper<ApplicationUser, UserProfileViewModel> userMapper)
+                               IViewModelMapper<ApplicationUser, UserViewModel> userMapper)
         {
             this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
             this.userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Index()
         {
-            var user = this.userService.GetUser(id);
+            var showTo10Users = await this.userService.ShowTenUsers();
+
+            var userIndexView = new UserIndexViewModel()
+            {
+                Top10Users = showTo10Users.Select(this.userMapper.MapFrom).ToList()
+            };
+            return View(userIndexView);
+        }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            var user = await this.userService.GetUserAsync(id);
 
             if (user == null)
             {
@@ -30,6 +43,18 @@ namespace MoviesCatalog.Web.Controllers
             }
 
             return View(this.userMapper.MapFrom(user));
+        }
+      
+        public async Task<IActionResult> UsersByName(int id)
+        {
+            var usersByStartingSymbol = await this.userService.ShowUsersStartWithSymbolAsync(id);
+
+            var userIndexView = new UserIndexViewModel()
+            {
+                UsersByName = usersByStartingSymbol.Select(this.userMapper.MapFrom).ToList()
+            };
+
+            return View(userIndexView);
         }
 
         [HttpGet]
@@ -40,7 +65,7 @@ namespace MoviesCatalog.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(UserProfileViewModel model)
+        public IActionResult Create(UserViewModel model)
         {
             if (!this.ModelState.IsValid)
             {

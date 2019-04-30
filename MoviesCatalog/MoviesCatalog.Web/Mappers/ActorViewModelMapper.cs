@@ -1,4 +1,5 @@
-﻿using MoviesCatalog.Data.Models;
+﻿
+using MoviesCatalog.Data.Models;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using System;
