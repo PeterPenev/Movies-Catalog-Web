@@ -81,7 +81,7 @@ namespace MoviesCatalog.Web.Controllers
 
             return View(this.movieViewMapper.MapFrom(movie));
         }
-
+        
         public async Task<IActionResult> MoviesByName(int id)
         {
             var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
@@ -92,7 +92,7 @@ namespace MoviesCatalog.Web.Controllers
             };
 
             return View(movieIndexView);
-        }       
+        }
 
         public IActionResult Index()
         {

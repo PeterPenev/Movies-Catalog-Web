@@ -17,7 +17,7 @@ namespace MoviesCatalog.Web.Mappers
                 Description = entity.Description,
                 AverageRating = entity.AverageRating,
                 ReleaseDate = entity.ReleaseDate
-                //User = entity.User.UserName,
+                //User = entity.User.UserName
                 //NumberOfVotes = entity.NumberOfVotes,                
             };
         }
