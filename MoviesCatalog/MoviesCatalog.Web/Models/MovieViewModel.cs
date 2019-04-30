@@ -19,6 +19,8 @@ namespace MoviesCatalog.Web.Models
         public string Poster { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ReleaseDate { get; set; }
 
         public string Description { get; set; }
