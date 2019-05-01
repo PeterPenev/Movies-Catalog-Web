@@ -1,11 +1,5 @@
-﻿
-@model ActorIndexViewModel
-<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+﻿@model ActorIndexViewModel
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +35,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <table id="table-breakpoint">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>№</th>
                                         <th>Picture</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
@@ -52,10 +46,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </tr>
                                 </thead>
                                 <tbody id="table-breakpoint">
+                                    @{
+                                        int counter = 1;
+                                    }
                                     @foreach (var actor in Model.ActorsByName)
                                     {
+
                                     <tr>
-                                        <td>@actor.Id</td>
+                                        <td>@counter</td>
+                                        @{
+                                            counter++;
+                                        }
                                         @{
                                             if (actor.Picture == null)
                                             {

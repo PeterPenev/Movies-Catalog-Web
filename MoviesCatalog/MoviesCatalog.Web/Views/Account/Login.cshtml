@@ -3,16 +3,17 @@
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
 @model LoginViewModel
+@using Microsoft.Extensions.Primitives;
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "Log in";
 }
-
 <div class="row-grey">
-    <div class="row" style="margin:3.5%">
-        <div class="col-md-4">
-            <section>
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <section>
                     <h2 class="custom-format">Sign In</h2>
                     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                         <hr class="hr-new" />
@@ -35,7 +36,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default">Log in</button>
+                            <button type="submit" class="btn btn-default-custom">Sign in</button>
+                            @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                            @if (referrer != default(StringValues))
+                            {
+                                <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                            }
                         </div>
                         <div class="form-group">
                             <p>
@@ -44,12 +50,13 @@
                             <p>
                                 <a asp-action="Register" class="grey" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
                             </p>
+
                         </div>
                         <hr class="hr-new" />
                     </form>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
 </div>
-
 

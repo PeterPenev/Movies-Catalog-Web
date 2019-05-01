@@ -5,6 +5,7 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -1610,14 +1611,16 @@ pre code {
   margin-left: auto;
 }
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-top: 3.5%;
+    margin-bottom: 3.5%
 }
 
 .row-custom {
     margin-right: -15px;
     margin-left: -15px;
-    margin: 3.5%;
+    
 }
 .row-grey {
     padding-left:4%;
@@ -3071,6 +3074,12 @@ fieldset[disabled] .btn {
   background-color: #fff;
   border-color: #ccc;
 }
+.btn-default-custom {
+    color: white;
+    background-color: #ff9800;
+    border-color: #ccc;
+}
+
 .btn-default:hover,
 .btn-default:focus,
 .btn-default.focus,
@@ -4022,12 +4031,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li + li {
   margin-left: 2px;
 }
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #337ab7;
-}
+    .nav-pills > li.active > a,
+    .nav-pills > li.active > a:hover,
+    .nav-pills > li.active > a:focus {
+        color: #fff;
+        background-color: #ff9800;
+    }
 .nav-stacked > li {
   float: none;
 }
@@ -5070,13 +5079,13 @@ a.thumbnail.active {
           transition: width .6s ease;
 }
 .progress-striped .progress-bar,
-.progress-bar-striped {
+/*.progress-bar-striped {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   -webkit-background-size: 40px 40px;
           background-size: 40px 40px;
-}
+}*/
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
@@ -6118,9 +6127,10 @@ button.close {
 
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-    -webkit-perspective: 1000;
-            perspective: 1000;
+    /*-webkit-perspective: 1000;
+            perspective: 1000;*/
   }
+
   .carousel-inner > .item.next,
   .carousel-inner > .item.active.right {
     left: 0;
@@ -6420,6 +6430,9 @@ button.close {
 .visible-lg-inline-block {
   display: none !important;
 }
+
+
+
 @media (max-width: 767px) {
   .visible-xs {
     display: block !important;

@@ -119,7 +119,7 @@ namespace MoviesCatalog.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize(Roles = "Admin")]
-        public IActionResult Update(ActorViewModel model, int id)
+        public IActionResult Update(ActorViewModel model)
         {
             if (!this.ModelState.IsValid)
             {

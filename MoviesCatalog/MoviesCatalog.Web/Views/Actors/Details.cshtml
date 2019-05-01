@@ -1,10 +1,5 @@
-﻿<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-@model ActorViewModel
+﻿@model ActorViewModel
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +10,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
 </head>
 <body>
-
     <div class="container">
         <!-- /w3l-medile-movies-grids -->
         <div class="agileits-single-top">
-
         </div>
         <div class="single-page-agile-info">
             <!-- /movie-browse-agile -->
@@ -31,17 +24,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </div>
                         @{ if (Model.Picture == null)
                             {
-
                                 <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/noimage.jpg" alt="" /> <span></span></a></div>
-
                             }
                             else
                             {
-
                                 <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="@Model.Picture" alt="" /> <span></span></a></div>
-
                             }
-
                         }
                     </div>
                     <div class="song-grid-right">
@@ -51,117 +39,56 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     <div class="all-comments">
                         <div class="all-comments-info">
-                            <a href="#">Comments</a>
+                            <a href="#"></a>
+                            <div>@Model.Biography</div><br />
                             <div class="agile-info-wthree-box">
-
                             </div>
                         </div>
-                        <div class="media-grids">
-
-                            <div class="media">
-
-                            </div>
-                            <div class="media">
-
-                            </div>
-
+                        <div class="media">
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 single-right">
-                    <h3>Top Rated Movies</h3>
-                    <div class="single-grid-right">
-                        @foreach (var movie in Model.TopRatedMovies)
-                        {
-                            <div class="single-right-grids">
-                                <div class="col-md-4 single-right-grid-left">
-                                    @{ if (movie.Poster == null)
-                                        {
-                                            <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/noimage.jpg" alt="" /></a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="@movie.Poster" alt="" /></a>
-                                        }
-                                    }
-                                </div>
-                                <div class="col-md-8 single-right-grid-right">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
-                                    <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
-                                    <p class="views">@movie.NumberOfVotes reviews</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-                 </div>
-                </div>
-    @*<div class="single-page-agile-main">
-            <div class="container">
-                <div class="agileits-single-top">
-                    <ol class="breadcrumb">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="active">Details</li>
-                    </ol>
-                </div>
-                <div class="single-page-agile-info">
-                     /movie-browse-agile
-                    <div class="show-top-grids-w3lagile">
-                        <div class="col-sm-8 single-left">
-                            <div class="song">
-                                <div class="song-info">
-                                    <h3>@Model.FirstName @Model.LastName</h3>
-                                </div>
-                                @{ if (Model.Picture == null)
-                                    {
-                                        <div class="image-background">
-                                            <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/noimage.jpg" alt="" /> <span></span></a></div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="image-background">
-                                            <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="@Model.Picture" alt="" /> <span></span></a></div>
-                                        </div>
-                                    }
-
+                        <div class="media">
+                        </div>
+                        <div class="agile-info-wthree-box">
+                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <input type="submit" asp-action="Update" asp-route-id="@Model.Id" value="Update">
                                 }
-
-                                <h4 style="margin-top:2%">Rating</h4>
-                                <fieldset class="rating">
-                                    <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
-                                    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-                                    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
-                                    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div><br />
-                    <div class="clearfix"> </div>
-                    <div class="all-comments">
-                        <div class="all-comments-info">
-                            <div class="agile-info-wthree-box">
-                                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                                    <div>@Model.Biography</div><br />
-                                    @if (this.User.Identity.IsAuthenticated)
-                                    {
-                                        <input type="submit" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" value="Update">
-                                    }
-                                    <div class="clearfix"> </div>
-                                </form>
-                            </div>
+                                <div class="clearfix"> </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>*@
+            <div class="col-md-4 single-right">
+                <h3>Top Rated Movies</h3>
+                <div class="single-grid-right">
+                    @foreach (var movie in Model.TopRatedMovies)
+                    {
+                        <div class="single-right-grids">
+                            <div class="col-md-4 single-right-grid-left">
+                                @{ if (movie.Poster == null)
+                                    {
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/noimage.jpg" alt="" /></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="@movie.Poster" alt="" /></a>
+                                    }
+                                }
+                            </div>
+                            <div class="col-md-8 single-right-grid-right">
+                                <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
+                                <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+                                <p class="views">@movie.NumberOfVotes reviews</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

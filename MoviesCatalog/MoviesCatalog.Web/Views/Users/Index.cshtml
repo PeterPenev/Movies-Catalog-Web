@@ -1,11 +1,5 @@
-﻿
-@model UserIndexViewModel
-<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+﻿@model UserIndexViewModel
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,18 +46,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </tr>
                                 </thead>
                                 <tbody id="table-breakpoint">
-                                    @{ 
+                                    @{
                                         int counter = 0;
                                     }
-                                    
+
                                     @foreach (var user in Model.AllUsers)
 
                                     {
                                         <tr>
-                                                <td>@counter</td>
-                                                @{
-                                                    counter++;
-                                                    }
+                                            <td>@counter</td>
+                                            counter++;
+                                            }
                                             @{
                                                 if (user.Avatar == null)
                                                 {

@@ -1,28 +1,20 @@
-﻿
+﻿@model ActorViewModel
 
-@model ActorViewModel
+@using Microsoft.Extensions.Primitives;
 @{
     ViewData["Title"] = "Create";
 }
 
-<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Create a new actor</title>
 </head>
-
 <body>
     <!-- single -->
     <div class="single-page-agile-main">
         <div class="container">
             <!-- /w3l-medile-movies-grids -->
-
             <div class="single-page-agile-info">
                 <!-- /movie-browse-agile -->
                 <div class="show-top-grids-w3lagile">
@@ -35,7 +27,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="all-comments">
                             <div class="all-comments-info">
                                 <div class="agile-info-wthree-box">
-                                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                    <form asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                                         <textarea asp-for="Biography" placeholder="Biography"></textarea>
                                         <input type="submit" value="Update">
                                         <div class="clearfix"> </div>
@@ -48,7 +40,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
-
 </body>
 </html>
 
