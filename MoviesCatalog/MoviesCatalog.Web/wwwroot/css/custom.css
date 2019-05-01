@@ -94,6 +94,23 @@ h1 {
     color: #ff9800;
 }
 
+.rating-orange {
+    color: #ff9800;
+    font-size: 30px;
+}
+
+.text-orange {
+    color: #ff9800;
+    font-size: 20px;
+}
+
+.text-custom {
+    font-size: 20px;
+}
+
+.padding-custom {
+   padding-top:1.5%;
+}
 /*.btn-default-custom {
     color: white;
     background-color: #ff9800;

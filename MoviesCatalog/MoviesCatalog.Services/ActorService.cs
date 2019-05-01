@@ -53,7 +53,6 @@ namespace MoviesCatalog.Services
         {
             var actor = await this.context.Actors
                                     .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
-
             if (actor != null)
             {
                 throw new ArgumentException();
@@ -70,7 +69,6 @@ namespace MoviesCatalog.Services
         {
             var actor = await this.context.Actors
                                     .FindAsync(id);
-
             if (actor == null)
             {
                 throw new ArgumentException();

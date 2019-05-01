@@ -108,14 +108,15 @@ namespace MoviesCatalog.Web.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id)
         {
-            var viewModel = await this.actorService.GetActorAsync(id);
-            return View(actorMapper.MapFrom(viewModel));
+            var actor = await this.actorService.GetActorAsync(id);
+            var actorViewModel = this.actorMapper.MapFrom(actor);
+            return View(actorViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Authorize(Roles = "Admin")]
-        public IActionResult Update(ActorViewModel model)
+        public async Task<IActionResult> Update(ActorViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -124,7 +125,7 @@ namespace MoviesCatalog.Web.Controllers
 
             try
             {
-                var actor = this.actorService
+                var actor = await this.actorService
                                 .UpdateActorBiographyAsync(model.Id, model.Biography);
 
 
