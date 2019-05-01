@@ -37,11 +37,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="w3ls-news-result">
                                 @if (Model.MoviesByName.Count != 0)
                                 {
+                                    //TODO color in css class
                                     <h4>Count of movies starting with first letter <span style="color:#ff9800">@Model.MoviesByName.FirstOrDefault().Title.ToString().ToUpper()[0] </span>: <span>@Model.MoviesByName.Count()</span></h4>
                                 }
                                 else
                                 {
-                                    <h4>There are no movies with given criteria</h4>
+                                    //TODO convert to Char
+                                    //int asciNumber = (int)@ViewContext.RouteData.Values["id"];
+                                    //char symbol = (char)asciNumber;
+                                    //<h4>There are no movies starting with first letter @symbol</h4>
+                                    <h4>There are no movies starting with first letter @ViewContext.RouteData.Values["id"]</h4>
                                 }
                             </div>
                             <table id="table-breakpoint">
@@ -73,7 +78,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             }
                                             <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
                                             <td>@movie.AverageRating</td>
-                                            <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>                                            
+                                            <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
