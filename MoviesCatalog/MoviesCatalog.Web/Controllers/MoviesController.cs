@@ -82,7 +82,7 @@ namespace MoviesCatalog.Web.Controllers
             return View(this.movieViewMapper.MapFrom(movie));
         }
         
-        public async Task<IActionResult> MoviesByName(int id)
+        public async Task<IActionResult> MoviesByName(char id)
         {
             var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
 
@@ -96,12 +96,13 @@ namespace MoviesCatalog.Web.Controllers
 
         public IActionResult Index()
         {
-            var showLatest10MoviesByReleaseDate = movieService.ShowMoviesLatest10ByReleaseDate();
+            var allMoviesOrderedDescByRating = movieService.ShowAllMoviesOrderedDescByRating();
 
             var movieIndexView = new MovieIndexViewModel()
             {
-                Latest10Movies = showLatest10MoviesByReleaseDate.Select(this.movieViewMapper.MapFrom).ToList()
+                AllMoviesOrderedDescByRating = allMoviesOrderedDescByRating.Select(this.movieViewMapper.MapFrom).ToList()
             };
+
             return View(movieIndexView);
         }
     }
