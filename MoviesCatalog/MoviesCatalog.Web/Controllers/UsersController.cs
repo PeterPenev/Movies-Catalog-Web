@@ -45,7 +45,7 @@ namespace MoviesCatalog.Web.Controllers
             return View(this.userMapper.MapFrom(user));
         }
       
-        public async Task<IActionResult> UsersByName(int id)
+        public async Task<IActionResult> UsersByName(string id)
         {
             var usersByStartingSymbol = await this.userService.ShowUsersStartWithSymbolAsync(id);
 

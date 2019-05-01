@@ -51,9 +51,8 @@ namespace MoviesCatalog.Services
             return user;
         }
 
-        public async Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(int id)
+        public async Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol)
         {
-            var symbol = (char)id;
             var users = await this.context.Users
                                      .Where(t => t.UserName.ToLower().StartsWith(symbol.ToString().ToLower()))
                                      .OrderBy(x => x.UserName)

@@ -10,7 +10,7 @@ namespace MoviesCatalog.Services.Contracts
 
         ApplicationUser CreateUser(string userName, string password, string email);
 
-        Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(int id);
+        Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol);
 
         Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsers();
     }

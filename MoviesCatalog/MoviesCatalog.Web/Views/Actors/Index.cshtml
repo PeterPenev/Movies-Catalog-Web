@@ -22,8 +22,7 @@
                 <ul id="myTab" class="nav nav-tabs" role="tablist">
                     @for (char i = 'A'; i <= 'Z'; i++)
                     {
-                        int id = (int)i;
-                        <li role="presentation"><a asp-controller="Actors" asp-action="ActorsByName" asp-route-id="@id" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                        <li role="presentation"><a asp-controller="Actors" asp-action="ActorsByName" asp-route-id="@i.ToString()" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
                     }
                 </ul>
                 <div id="myTabContent" class="tab-content">

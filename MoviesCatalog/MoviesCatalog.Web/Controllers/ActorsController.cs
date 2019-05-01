@@ -44,7 +44,7 @@ namespace MoviesCatalog.Web.Controllers
         }
 
 
-        public async Task<IActionResult> ActorsByName(int id)
+        public async Task<IActionResult> ActorsByName(string id)
         {
             var actorsByStartingSymbol = await this.actorService.ShowActorsStartWithSymbolAsync(id);
 
