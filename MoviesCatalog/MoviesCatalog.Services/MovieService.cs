@@ -38,15 +38,26 @@ namespace MoviesCatalog.Services
 
             return movie;
         }
-       
+
+        public IReadOnlyCollection<Movie> ShowAllMoviesOrderedDescByRating()
+        {
+            var movies = this.context.Movies
+                             .OrderByDescending(ar => ar.AverageRating)
+                             .ToList();
+
+            return movies;
+        }
+
         public IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting()
         {
             var movies = this.context.Movies
+                             .OrderByDescending(ar=>ar.AverageRating)
                              .Take(10)
                              .ToList();
 
             return movies;
         }
+        
 
         public IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate()
         {
@@ -68,20 +79,19 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(int id)
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(char symbol)
         {
-            var symbol = (char)id;
             var movies = await this.context.Movies
                                      .Where(t => t.Title.ToLower().StartsWith(symbol.ToString().ToLower()))
                                      .ToListAsync();
 
             return movies;
-        }        
+        }
 
         public Movie GetMovieById(int id)
         {
             var movie = this.context.Movies.Find(id);
-                             
+
             return movie;
         }
     }
