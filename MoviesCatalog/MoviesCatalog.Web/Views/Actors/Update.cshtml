@@ -28,6 +28,10 @@
                             <div class="all-comments-info">
                                 <div class="agile-info-wthree-box">
                                     <form asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                        <input hidden asp-for="Id" />
+                                        <input hidden asp-for="FirstName" />
+                                        <input hidden asp-for="LastName" />
+                                        <input hidden asp-for="Picture" />
                                         <textarea asp-for="Biography" placeholder="Biography"></textarea>
                                         <input type="submit" value="Update">
                                         <div class="clearfix"> </div>

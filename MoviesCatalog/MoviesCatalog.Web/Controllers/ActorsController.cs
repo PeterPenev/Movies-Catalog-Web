@@ -65,13 +65,8 @@ namespace MoviesCatalog.Web.Controllers
                 return NotFound();
             }
 
-            var actorViewModel = new ActorViewModel()
-            {
-                FirstName = actor.FirstName,
-                LastName = actor.LastName,
-                Biography = actor.Biography,
-                TopRatedMovies = topRatedMovies.Select(this.movieMapper.MapFrom).ToList()
-            };
+            var actorViewModel = this.actorMapper.MapFrom(actor);
+            actorViewModel.TopRatedMovies = topRatedMovies.Select(this.movieMapper.MapFrom).ToList();
 
             return View(actorViewModel);
 
@@ -111,9 +106,10 @@ namespace MoviesCatalog.Web.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Admin")]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
-            return View();
+            var viewModel = await this.actorService.GetActorAsync(id);
+            return View(actorMapper.MapFrom(viewModel));
         }
 
         [HttpPost]

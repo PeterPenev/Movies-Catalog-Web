@@ -35,7 +35,7 @@
                             <table id="table-breakpoint">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>№</th>
                                         <th>Picture</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
@@ -46,10 +46,17 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table-breakpoint">
+                                    @{
+                                        int counter = 1;
+                                    }
                                     @foreach (var user in Model.UsersByName)
                                     {
                                     <tr>
-                                        <td>@user.Id</td>
+                                        <td>@counter</td>
+                                        @{
+                                            counter++;
+                                        }
+
                                         @{
                                             if (user.Avatar == null)
                                             {

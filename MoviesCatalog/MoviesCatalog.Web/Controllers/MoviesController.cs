@@ -55,7 +55,7 @@ namespace MoviesCatalog.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search([FromQuery]SearchMovieViewModel model)
+        public IActionResult Search(SearchMovieViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.SearchName) ||
                 model.SearchName.Length < 3)
