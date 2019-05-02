@@ -45,29 +45,22 @@
                                     }
                                     @foreach (var user in Model.UsersByName)
                                     {
-                                    <tr>
-                                        <td>@counter</td>
-                                        @{
-                                            counter++;
-                                        }
+                                        <tr>
+                                            <td>@counter</td>
+                                            @{
+                                                counter++;
+                                            }
 
-                                        @{
-                                            if (user.Avatar == null)
-                                            {
-                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
+                                            @{
+                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/@(user.Avatar ?? "noimage.jpg")"/> <span></span></a></td>
                                             }
-                                            else
-                                            {
-                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="@user.Avatar" alt="" /> <span></span></a></td>
-                                            }
-                                        }
-                                        <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
-                                        <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@user.Id">@user.Email</a></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                            <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
+                                            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@user.Id">@user.Email</a></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

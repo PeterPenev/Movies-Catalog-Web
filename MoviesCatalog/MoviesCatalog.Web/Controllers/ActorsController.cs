@@ -59,17 +59,18 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var actor = await this.actorService.GetActorAsync(id);
-            var topRatedMovies = this.movieService.ShowMoviesTop10ByRaiting();
+
             if (actor == null)
             {
                 return NotFound();
             }
 
+            var actorMovies = await this.actorService.ShowMoviesByActor(actor);
+
             var actorViewModel = this.actorMapper.MapFrom(actor);
-            actorViewModel.TopRatedMovies = topRatedMovies.Select(this.movieMapper.MapFrom).ToList();
+            actorViewModel.MoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();
 
             return View(actorViewModel);
-
         }
 
         [HttpGet]

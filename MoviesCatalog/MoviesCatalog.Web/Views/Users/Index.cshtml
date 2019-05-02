@@ -24,7 +24,10 @@
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                <h4>Search Results : <span>@Model.AllUsers.Count()</span></h4>
+                                <h4>Registrated users: <span>@Model.AllUsers.Count()</span></h4>
+                            </div>
+                            <div class="w3ls-news-result">
+                                <h4>Users orderd alphabetically:</h4>
                             </div>
                             <table id="table-breakpoint">
                                 <thead>
@@ -47,28 +50,21 @@
                                     @foreach (var user in Model.AllUsers)
 
                                     {
-                                    <tr>
-                                        <td>@counter</td>
-                                        @{
-                                            counter++;
-                                        }
-                                        @{
-                                            if (user.Avatar == null)
-                                            {
-                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
+                                        <tr>
+                                            <td>@counter</td>
+                                            @{
+                                                counter++;
                                             }
-                                            else
-                                            {
-                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="@user.Avatar" alt="" /> <span></span></a></td>
+                                            @{
+                                                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/@(user.Avatar ?? "noimage.jpg")"/> <span></span></a></td>
                                             }
-                                        }
-                                        <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
-                                        <td>@Model.TotalNumbersOfReviews</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                            <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
+                                            <td>@Model.TotalNumbersOfReviews</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>

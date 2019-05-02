@@ -24,7 +24,10 @@
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                <h4>Search Results : <span>@Model.AllActors.Count()</span></h4>
+                                <h4>Actors in the catalog: <span>@Model.AllActors.Count()</span></h4>
+                            </div>
+                            <div class="w3ls-news-result">
+                                <h4>Actors orderd alphabetically:</h4>
                             </div>
                             <table id="table-breakpoint">
                                 <thead>
@@ -50,16 +53,7 @@
                                             @{
                                                 counter++;
                                             }
-                                            @{
-                                                if (actor.Picture == null)
-                                                {
-                                                    <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="@actor.Picture" alt="" /> <span></span></a></td>
-                                                }
-                                            }
+                                            <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="~/images/@(actor.Picture ?? "noimage.jpg")" />><span></span></a></td>
                                             <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.FirstName</a></td>
                                             <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.LastName</a></td>
                                             <td></td>

@@ -33,7 +33,8 @@ namespace MoviesCatalog.Services
         public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(string symbol)
         {
             var actors = await this.context.Actors
-                                     .Where(t => t.FirstName.ToLower().StartsWith(symbol.ToString().ToLower()))
+                                     .Where(t => t.FirstName.ToLower().StartsWith(symbol.ToString().ToLower()) ||
+                                                  t.LastName.ToLower().StartsWith(symbol.ToString().ToLower()))
                                      .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
                                      .ToListAsync();
 
@@ -47,6 +48,16 @@ namespace MoviesCatalog.Services
                                            .ToListAsync();
 
             return actors;
+        }
+
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesByActor(Actor actor)
+        {
+            var movies = await this.context.MoviesActors
+                             .Where(a => a.ActorId == actor.Id)
+                             .Select(m => m.Movie)
+                             .ToListAsync();
+
+            return movies;
         }
 
         public async Task<Actor> CreateActorAsync(string firstName, string lastName, string biography)
