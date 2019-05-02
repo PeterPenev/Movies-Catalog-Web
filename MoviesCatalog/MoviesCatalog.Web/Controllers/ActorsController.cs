@@ -88,8 +88,6 @@ namespace MoviesCatalog.Web.Controllers
             {
                 var actor = this.actorService
                                 .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
-
-
                 return RedirectToAction(nameof(Index), new { id = actor.Id });
             }
 
