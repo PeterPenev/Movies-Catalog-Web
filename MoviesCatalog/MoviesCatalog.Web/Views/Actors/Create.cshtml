@@ -1,5 +1,4 @@
 ﻿@model ActorViewModel
-
 @using Microsoft.Extensions.Primitives;
 @{
     ViewData["Title"] = "Create";
@@ -13,38 +12,40 @@
 <body>
     <div class="row-grey">
         <div class="row">
-            <div class="col-md-4">
-                <h3 class="custom-format">Create a new actor</h3>
-                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="custom-format">Create a new actor</h3>
+                    <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                        <hr class="hr-new" />
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="grey"></label>
+                            <input asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="grey"></label>
+                            <input asp-for="LastName" placeholder="Please enter a last name." class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Picture" class="grey"></label>
+                            <input asp-for="Picture" placeholder="Please enter an image url." class="form-control" />
+                            <span asp-validation-for="Picture" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Biography" class="grey"></label>
+                            <textarea asp-for="Biography" placeholder="Please enter a biography." class="form-control"></textarea>
+                            <span asp-validation-for="Biography" class="text-danger-orange"></span>
+                        </div>
+                    </form>
+                    <button type="submit" class="btn btn-default-custom">Submit</button>
+                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                    @if (referrer != default(StringValues))
+                    {
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                    }
                     <hr class="hr-new" />
-                    <div class="form-group">
-                        <label asp-for="FirstName" class="grey"></label>
-                        <input asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
-                        <span asp-validation-for="FirstName" class="text-danger-orange"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="LastName" class="grey"></label>
-                        <input asp-for="LastName" placeholder="Please enter a last name." class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Picture" class="grey"></label>
-                        <input asp-for="Picture" placeholder="Please enter an image url." class="form-control" />
-                        <span asp-validation-for="Picture" class="text-danger-orange"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Biography" class="grey"></label>
-                        <textarea asp-for="Biography" placeholder="Please enter a biography." class="form-control"></textarea>
-                        <span asp-validation-for="Biography" class="text-danger-orange"></span>
-                    </div>
-                </form>
-                <button type="submit" class="btn btn-default-custom">Submit</button>
-                @{ var referrer = this.Context.Request.Headers["Referer"]; }
-                @if (referrer != default(StringValues))
-                {
-                    <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
-                }
-                <hr class="hr-new" />
+                </div>
             </div>
         </div>
     </div>

@@ -1,14 +1,9 @@
 ﻿@model MovieViewModel
+@using Microsoft.Extensions.Primitives;
 @{
     ViewData["Title"] = "Create";
 }
 
-<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,39 +21,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <body>
     <div class="row-grey">
-        <div class="row" style="margin:3.5%">
-            <div class="col-md-4">
-                <h3 class="custom-format">Create a new movie</h3>
-                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                    <hr class="hr-new" />
-                    <div class="form-group">
-                        <label asp-for="Title" class="grey"></label>
-                        <input asp-for="Title" placeholder="Please enter a title name." class="form-control" />
-                        <span asp-validation-for="Title" class="text-danger-orange"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Trailer" class="grey"></label>
-                        <input asp-for="Trailer" placeholder="Please enter a Trailer." class="form-control" />
-                        <span asp-validation-for="Trailer" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Poster" class="grey"></label>
-                        <input asp-for="Poster" placeholder="Please enter a Poster." class="form-control" />
-                        <span asp-validation-for="Poster" class="text-danger-orange"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="grey"></label>
-                        <textarea asp-for="Description" placeholder="Please enter a Description." class="form-control"></textarea>
-                        <span asp-validation-for="Description" class="text-danger-orange"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ReleaseDate" class="grey"></label>
-                        <input asp-for="ReleaseDate" placeholder="Please enter a Release Date." class="form-control" />
-                        <span asp-validation-for="ReleaseDate" class="text-danger-orange"></span>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                    <hr class="hr-new" />
-                </form>               
+        <div class="row">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="custom-format">Create a new movie</h3>
+                    <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                        <hr class="hr-new" />
+                        <div class="form-group">
+                            <label asp-for="Title" class="grey"></label>
+                            <input asp-for="Title" placeholder="Please enter a title name." class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Trailer" class="grey"></label>
+                            <input asp-for="Trailer" placeholder="Please enter a Trailer." class="form-control" />
+                            <span asp-validation-for="Trailer" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Poster" class="grey"></label>
+                            <input asp-for="Poster" placeholder="Please enter a Poster." class="form-control" />
+                            <span asp-validation-for="Poster" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="grey"></label>
+                            <textarea asp-for="Description" placeholder="Please enter a Description." class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ReleaseDate" class="grey"></label>
+                            <input asp-for="ReleaseDate" placeholder="Please enter a Release Date." class="form-control" />
+                            <span asp-validation-for="ReleaseDate" class="text-danger-orange"></span>
+                        </div>
+                        <button type="submit" class="btn btn-default-custom">Submit</button>
+                        @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                        @if (referrer != default(StringValues))
+                        {
+                            <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                        }
+                        <hr class="hr-new" />
+                    </form>
+                </div>
             </div>
         </div>
     </div>
