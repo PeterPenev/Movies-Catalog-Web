@@ -14,15 +14,7 @@
                             <div class="song-info">
                                 <h3>@Model.UserName</h3>
                             </div>
-                            @{ if (Model.Avatar == null)
-                                {
-                                    <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/noimage.jpg" alt="" /> <span></span></a></div>
-                                }
-                                else
-                                {
-                                    <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="@Model.Avatar" alt="" /> <span></span></a></div>
-                                }
-                            }
+                            <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.Avatar ?? "noimage.jpg")"> <span></span></a></div>
                         </div>
                     </div>
                 </div><br />

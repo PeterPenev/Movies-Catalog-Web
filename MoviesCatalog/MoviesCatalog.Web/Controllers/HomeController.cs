@@ -27,12 +27,12 @@ namespace MoviesCatalog.Web.Controllers
         public IActionResult Index()
         {
             var topMoviesByRating = movieService.ShowMoviesTop10ByRaiting();
-            var topMoviesByReleaseDate = movieService.ShowMoviesLatest10ByReleaseDate();
+            var lastMoviesByReleaseDate = movieService.ShowMoviesLatest10ByReleaseDate();
             
             var homeViewModel = new HomeViewModel()
             {
                 TopTenMoviesByRating = topMoviesByRating.Select(this.movieMapper.MapFrom).ToList(),
-                TopTenMoviesByReleaseDate = topMoviesByReleaseDate.Select(this.movieMapper.MapFrom).ToList()
+                TopTenMoviesByReleaseDate = lastMoviesByReleaseDate.Select(this.movieMapper.MapFrom).ToList()
             };
            
             return View(homeViewModel);

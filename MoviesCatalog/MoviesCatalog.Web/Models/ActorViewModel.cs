@@ -25,6 +25,6 @@ namespace MoviesCatalog.Web.Models
 
         public ICollection<MovieViewModel> Movies { get; set; }
 
-        public ICollection<MovieViewModel> TopRatedMovies { get; set; }
+        public ICollection<MovieViewModel> MoviesByActor { get; set; }
     }
 }
