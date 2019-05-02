@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="faq">
-        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movie List</h4>
+        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
         <div class="container">
             <div class="agileits-news-top">
                 <ol class="breadcrumb">
@@ -29,10 +29,10 @@
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                <h4>There are @Model.AllMoviesOrderedDescByRating.Count() movies in the catalog.</h4>
+                                <h4>Movies in the catalog: <span>@Model.AllMoviesOrderedDescByRating.Count()</span></h4>
                             </div>
                             <div class="w3ls-news-result">
-                                <h4>Top @Model.AllMoviesOrderedDescByRating.Take(10).Count() movies ordered by rating are:</h4>
+                                <h4>Top <span>@Model.AllMoviesOrderedDescByRating.Take(10).Count()</span> rated movies:</h4>
                             </div>
                             <table id="table-breakpoint">
                                 <tr>
