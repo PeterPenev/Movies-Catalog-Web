@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="faq">
-        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movie List</h4>
+        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
         <div class="container">
             <div class="agileits-news-top">
                 <ol class="breadcrumb">
@@ -32,7 +32,9 @@
                                 @if (Model.MoviesByName.Count != 0)
                                 {
                                     //TODO color in css class
-                                    <h4>Count of movies starting with first letter <span style="color:#ff9800">@ViewContext.RouteData.Values["id"].ToString().ToUpper()</span>: <span>@Model.MoviesByName.Count()</span></h4>
+                                    <div class="w3ls-news-result">
+                                        <h4>Movies starting with first letter <span style="color:#ff9800">@ViewContext.RouteData.Values["id"].ToString().ToUpper()</span>: <span>@Model.MoviesByName.Count()</span></h4>
+                                    </div>
                                     <table id="table-breakpoint">
                                         <thead>
                                             <tr>
