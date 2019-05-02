@@ -60,12 +60,7 @@ namespace MoviesCatalog.Web.Controllers
         {
             var actor = await this.actorService.GetActorAsync(id);
 
-            if (actor == null)
-            {
-                return NotFound();
-            }
-
-            var actorMovies = await this.actorService.ShowMoviesByActor(actor);
+            var actorMovies = await this.actorService.ShowLastFiveActorMovies(actor.Id);
 
             var actorViewModel = this.actorMapper.MapFrom(actor);
             actorViewModel.MoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();

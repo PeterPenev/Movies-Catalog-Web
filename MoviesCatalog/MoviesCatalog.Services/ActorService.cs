@@ -18,9 +18,9 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<Actor> GetActorAsync(int id)
+        public async Task<Actor> GetActorAsync(int id)
         {
-            var actor = this.context.Actors.FindAsync(id);
+            var actor =  await this.context.Actors.FindAsync(id);
 
             if (actor == null)
             {
@@ -50,11 +50,13 @@ namespace MoviesCatalog.Services
             return actors;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesByActor(Actor actor)
+        public async Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMovies(int actorId)
         {
             var movies = await this.context.MoviesActors
-                             .Where(a => a.ActorId == actor.Id)
+                             .Where(a => a.ActorId == actorId)
                              .Select(m => m.Movie)
+                             .Take(5)
+                             .OrderByDescending(x => x.ReleaseDate)
                              .ToListAsync();
 
             return movies;

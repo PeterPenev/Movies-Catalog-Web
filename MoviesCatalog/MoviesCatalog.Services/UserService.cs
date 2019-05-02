@@ -18,9 +18,15 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<ApplicationUser> GetUserAsync(string id)
+        public async Task<ApplicationUser> GetUserAsync(string id)
         {
-            var user = this.context.Users.FindAsync(id);
+            var user = await this.context.Users.FindAsync(id);
+
+            if (user == null || user.IsDeleted)
+            {
+                throw new ArgumentException();
+            }
+
             return user;
         }
 
@@ -68,6 +74,18 @@ namespace MoviesCatalog.Services
                                           .ToListAsync();
 
             return users;
+        }
+
+        public async Task<ICollection<Review>> ShowUserLastFiveReviewsAsync(string userId)
+        {
+
+            var reviews =  await context.Reviews
+                                        .Where(x => x.User.Id == userId && !x.IsDeleted)
+                                        .Take(5)
+                                        .OrderByDescending(x => x.CreatedOn)
+                                        .Include(x => x.Movie)
+                                        .ToListAsync();
+            return reviews;
         }
     }
 }

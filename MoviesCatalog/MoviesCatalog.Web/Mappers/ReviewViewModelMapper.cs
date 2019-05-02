@@ -19,6 +19,8 @@ namespace MoviesCatalog.Web.Mappers
                 CreatedOn = entity.CreatedOn,
                 UserName = entity.User.UserName,
                 MovieTitle = entity.Movie.Title,
+                MovieId = entity.MovieId,
+                MoviePoster = entity.Movie.Poster
             };
         }
     }

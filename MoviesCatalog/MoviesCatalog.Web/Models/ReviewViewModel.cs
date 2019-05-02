@@ -24,6 +24,8 @@ namespace MoviesCatalog.Web.Models
 
         public int MovieId { get; set; }
 
+        public string MoviePoster { get; set; }
+
         public string MovieTitle { get; set; }
     }
 }

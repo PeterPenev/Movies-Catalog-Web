@@ -14,21 +14,24 @@ namespace MoviesCatalog.Web.Controllers
     
         private readonly IUserService userService;
         private readonly IViewModelMapper<ApplicationUser, UserViewModel> userMapper;
+        private readonly IViewModelMapper<Review, ReviewViewModel> reviewMapper;
 
         public UsersController(IUserService userService,
-                               IViewModelMapper<ApplicationUser, UserViewModel> userMapper)
+                               IViewModelMapper<ApplicationUser, UserViewModel> userMapper,
+                               IViewModelMapper<Review, ReviewViewModel> reviewMapper)
         {
             this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
             this.userMapper = userMapper ?? throw new ArgumentNullException(nameof(userMapper));
+            this.reviewMapper = reviewMapper ?? throw new ArgumentNullException(nameof(reviewMapper));
         }
 
         public async Task<IActionResult> Index()
         {
-            var showTo10Users = await this.userService.ShowAllUsers();
+            var showAllUsers = await this.userService.ShowAllUsers();
 
             var userIndexView = new UserIndexViewModel()
             {
-                AllUsers = showTo10Users.Select(this.userMapper.MapFrom).ToList()
+                AllUsers = showAllUsers.Select(this.userMapper.MapFrom).ToList()
             };
             return View(userIndexView);
         }
@@ -37,12 +40,12 @@ namespace MoviesCatalog.Web.Controllers
         {
             var user = await this.userService.GetUserAsync(id);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var userReviews = await this.userService.ShowUserLastFiveReviewsAsync(user.Id);
 
-            return View(this.userMapper.MapFrom(user));
+            var userViewModel = this.userMapper.MapFrom(user);
+            userViewModel.Reviews = userReviews.Select(this.reviewMapper.MapFrom).ToList();
+
+            return View(userViewModel);
         }
       
         public async Task<IActionResult> UsersByName(string id)

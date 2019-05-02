@@ -13,6 +13,8 @@ namespace MoviesCatalog.Web.Models
         [Required, MinLength(6)]
         public string UserName { get; set; }
 
+        public DateTime RegistratedOn { get; set; }
+
         [EmailAddress]
         public string Email { get; set; }
 
@@ -23,5 +25,7 @@ namespace MoviesCatalog.Web.Models
 
         public string ConfirmPassword { get; set; }
 
-    }
+        public IReadOnlyCollection<ReviewViewModel> Reviews { get; set; }
+
+}
 }
