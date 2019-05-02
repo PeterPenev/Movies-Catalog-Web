@@ -12,12 +12,7 @@
 <body>
     <div class="faq">
         <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
-        <div class="container">
-            @*<div class="agileits-news-top">
-                <ol class="breadcrumb">
-                    <li class="nav-item"><a asp-controller="Movies" asp-action="Create">Create new movie</a></li>
-                </ol>
-            </div>*@
+        <div class="container">            
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs" role="tablist">
                     @for (char i = 'A'; i <= 'Z'; i++)
@@ -57,15 +52,7 @@
                                             @{
                                                 counter++;
                                             }
-
-                                            @if (movie.Poster == null)
-                                            {
-                                                <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
-                                            }
-                                            else
-                                            {
-                                                <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Poster</a></td>
-                                            }
+                                            <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" />><span></span></a></td>
                                             <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
                                             <td>@movie.AverageRating</td>
                                             <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
@@ -75,7 +62,7 @@
                                             <td></td>
                                         </tr>
                                     }
-                                </tbody>                                
+                                </tbody>
                             </table>
                         </div>
                     </div>
