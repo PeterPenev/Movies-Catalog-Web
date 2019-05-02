@@ -49,7 +49,6 @@
                 <div id="owl-demo" class="owl-carousel owl-theme">
                     @foreach (var movie in Model.TopTenMoviesByRating)
                     {
-
                         <div class="item">
                             <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
                                 <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
@@ -85,7 +84,7 @@
                 @foreach (var movie in Model.TopTenMoviesByReleaseDate)
                 {
                     <div class="col-md-2 w3l-movie-gride-agile">
-                        <a href="single.html" class="hvr-shutter-out-horizontal">
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="hvr-shutter-out-horizontal">
                             <img src="~/images/@(movie.Poster ?? "noimage.jpg")" title="album-name" class="img-responsive" alt=" " />
                             @*<img src="images/m15.jpg" title="album-name" class="img-responsive" alt=" " />*@
                             <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
