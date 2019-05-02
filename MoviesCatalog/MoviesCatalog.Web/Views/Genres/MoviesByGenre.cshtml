@@ -1,9 +1,13 @@
 ﻿@model MovieIndexViewModel
+@{
+    ViewBag.Title = "MoviesByGenre";
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>List of all actors</title>
+    <title>List of all genres</title>
     <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
     <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
@@ -13,27 +17,23 @@
     <div class="faq">
         <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
         <div class="container">
-            @*<div class="agileits-news-top">
-                <ol class="breadcrumb">
-                    <li class="nav-item"><a asp-controller="Movies" asp-action="Create">Create new movie</a></li>
-                </ol>
-            </div>*@
             <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs" role="tablist">
-                    @for (char i = 'A'; i <= 'Z'; i++)
+                    @foreach (var genre in ViewBag.AllGenresWithCountOfMovies)
                     {
-                        <li role="presentation"><a asp-controller="Movies" asp-action="MoviesByName" asp-route-id="@i" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                        //TODO move to css style="padding-top:1%">
+                        <li role="presentation" style="padding-top:1%"><a asp-controller="Genres" asp-action="MoviesByGenre" asp-route-id="@genre.Key" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@genre.Key.ToUpper() (<span>@genre.Value</span>)</a></li>
                     }
                 </ul>
                 <div id="myTabContent" class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
                         <div class="agile-news-table">
                             <div class="w3ls-news-result">
-                                @if (Model.MoviesByName.Count != 0)
+                                @if (Model.MoviesByGenre.Count != 0)
                                 {
                                     //TODO color in css class
                                     <div class="w3ls-news-result">
-                                        <h4>Movies starting with first letter <span style="color:#ff9800">@ViewContext.RouteData.Values["id"].ToString().ToUpper()</span>: <span>@Model.MoviesByName.Count()</span></h4>
+                                        <h4>Movies by genre <span style="color:#ff9800">@ViewContext.RouteData.Values["id"].ToString().ToUpper()</span>: <span>@Model.MoviesByGenre.Count()</span></h4>
                                     </div>
                                     <table id="table-breakpoint">
                                         <thead>
@@ -53,7 +53,7 @@
                                             @{
                                                 int counter = 1;
                                             }
-                                            @foreach (var movie in Model.MoviesByName.OrderByDescending(ar => ar.AverageRating))
+                                            @foreach (var movie in Model.MoviesByGenre.OrderByDescending(ar => ar.AverageRating))
                                             {
                                                 <tr>
                                                     <td>@counter</td>
@@ -83,7 +83,7 @@
                                 }
                                 else
                                 {
-                                    <h4>There are no movies in the catalog starting with first letter <span style="color:#ff9800"> @ViewContext.RouteData.Values["id"].ToString().ToUpper().</span></h4>
+                                    <h4>There are no movies in the catalog by genre <span style="color:#ff9800"> @ViewContext.RouteData.Values["id"].ToString().ToUpper().</span></h4>
                                 }
                             </div>
 
@@ -95,3 +95,7 @@
     </div>
 </body>
 </html>
+
+
+
+

@@ -9,6 +9,10 @@ namespace MoviesCatalog.Services.Contracts
     {
         Genre GetGenre(int id);
 
-        IReadOnlyCollection<Movie> ShowMoviesByGenre(int genreId);
+        IReadOnlyCollection<string> GetAllGenres();
+
+        IReadOnlyCollection<Movie> ShowMoviesByGenre(string id);             
+
+        IReadOnlyDictionary<string, int> GetAllGenresWithCountOfMovies();
     }
 }

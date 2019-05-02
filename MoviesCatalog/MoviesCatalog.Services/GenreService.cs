@@ -1,4 +1,5 @@
-﻿using MoviesCatalog.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using System;
@@ -23,12 +24,32 @@ namespace MoviesCatalog.Services
             return genre;
         }
 
-        public IReadOnlyCollection<Movie> ShowMoviesByGenre(int genreId)
+        public IReadOnlyDictionary<string, int> GetAllGenresWithCountOfMovies()
         {
-            Genre genre = context.Genres.Find(genreId);
+            var genresCountMovies = new Dictionary<string, int>();
 
+            var genres = this.context.Genres.OrderBy(gn=>gn.Name).Select(gn => gn.Name).ToList();
+
+            foreach (var genre in genres)
+            {
+                var countOfMoviesForGenre = this.context.MoviesGenres.Where(x => x.Genre.Name == genre).Distinct().Count();
+                genresCountMovies.Add(genre, countOfMoviesForGenre);
+            }
+
+            return genresCountMovies;
+        }
+
+        public IReadOnlyCollection<string> GetAllGenres()
+        {
+            var genres = this.context.Genres.Select(gn => gn.Name).ToList();
+
+            return genres;
+        }
+
+        public IReadOnlyCollection<Movie> ShowMoviesByGenre(string id)
+        {
             var movies = this.context.Movies
-                             .Where(m => m.MoviesGenres.Any(mg => mg.Genre.Id == genreId))
+                             .Where(m => m.MoviesGenres.Any(mg => mg.Genre.Name == id))
                              .ToList();
 
             return movies;

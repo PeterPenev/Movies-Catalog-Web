@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>List of all genres</title>
+    <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
+</head>
+<body>
+    <div class="faq">
+        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Genres List</h4>
+        <div class="container">
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    @foreach (var genre in ViewBag.AllGenresWithCountOfMovies)
+                    {
+                        //TODO move to css style="padding-top:1%">
+                        <li role="presentation" style="padding-top:1%"><a asp-controller="Genres" asp-action="MoviesByGenre" asp-route-id="@genre.Key" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@genre.Key.ToUpper() (<span>@genre.Value</span>)</a></li>
+                    }
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <div class="agile-news-table">
+                            <div class="w3ls-news-result">
+                                <h4>Genres in the catalog: <span>@ViewBag.CountOfGenres</span></h4>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
