@@ -15,6 +15,7 @@ namespace MoviesCatalog.Web.Mappers
             return new UserViewModel()
             {
                 Id = entity.Id,
+                Email = entity.Email,
                 UserName = entity.UserName,
                 Avatar = entity.Avatar,
             };

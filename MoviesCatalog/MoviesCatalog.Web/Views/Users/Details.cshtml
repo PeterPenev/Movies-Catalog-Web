@@ -3,51 +3,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="single-page-agile-main">
-    <div class="container">
-        <div class="single-page-agile-info">
-            <!-- /movie-browse-agile -->
-            <div class="show-top-grids-w3lagile">
-                <div class="col-sm-8 single-left">
-                    <div class="song">
-                        <div class="song-info">
-                            <h3>@Model.UserName</h3>
+    <div class="single-page-agile-main">
+        <div class="container">
+            <div class="single-page-agile-info">
+                <!-- /movie-browse-agile -->
+                <div class="show-top-grids-w3lagile">
+                    <div class="col-sm-8 single-left">
+                        <div class="song">
+                            <div class="song-info">
+                                <h3>@Model.UserName</h3>
+                            </div>
+                            <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.Avatar ?? "noimage.jpg")" /> <span></span></a></div>
                         </div>
-                        <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.Avatar ?? "noimage.jpg")" /> <span></span></a></div>
-                    </div>
-                    <div></div>
-                    <h4 class="padding-custom">Reviews: <span class="text-orange">@Model.Reviews.Count</span></h4>
-                    <h4 class="padding-custom">Registrated On: <span class="text-orange">@Model.RegistratedOn.ToString("MMMM dd, yyyy")</span></h4>
-                        <div class="agile-info-wthree-box">
-                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
-                                @if (this.User.Identity.IsAuthenticated)
-                                {
-                                    <input type="submit" asp-action="Update" asp-route-id="@Model.Id" value="Update">
-                                }
-                                <div class="clearfix"> </div>
-                            </form>
-                        </div>
+                        <h4 class="padding-custom">Reviews: <span class="text-orange">@Model.Reviews.Count</span></h4>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <h4 class="padding-custom">Email: <span class="text-orange">@Model.Email</span></h4>
+                            <div class="agile-info-wthree-box">
+                                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
+                                    @if (this.User.Identity.IsAuthenticated)
+                                    {
+                                        <input type="submit" asp-action="Update" asp-route-id="@Model.Id" value="Update">
+                                    }
+                                    <div class="clearfix"> </div>
+                                </form>
+                            </div>
+                        }
+
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 single-right">
-                <h3>Last @Model.Reviews.Count Reviews by @Model.UserName</h3>
-                <div class="single-grid-right">
+                <div class="col-md-4 single-right">
+                    <h3>Last @Model.Reviews.Count Reviews by @Model.UserName</h3>
+                    <div class="single-grid-right">
 
-                    @foreach (var review in Model.Reviews)
-                    {
-                        <div class="single-right-grids">
-                            <div class="col-md-4 single-right-grid-left">
-                                <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/"noimage.jpg")" /></a>
+                        @foreach (var review in Model.Reviews)
+                        {
+                            <div class="single-right-grids">
+                                <div class="col-md-4 single-right-grid-left">
+                                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/" noimage.jpg")" /></a>
+                                </div>
+                                <div class="col-md-8 single-right-grid-right">
+                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
+                                    <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
+                                    <p class="views">@review.Description</p>
+                                </div>
+                                <div class="clearfix"> </div>
                             </div>
-                            <div class="col-md-8 single-right-grid-right">
-                                <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
-                                <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
-                                <p class="views">@review.Description</p>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
