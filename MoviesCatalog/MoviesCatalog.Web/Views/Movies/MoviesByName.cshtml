@@ -55,28 +55,22 @@
                                             }
                                             @foreach (var movie in Model.MoviesByName.OrderByDescending(ar => ar.AverageRating))
                                             {
-                                                <tr>
-                                                    <td>@counter</td>
-                                                    @{
-                                                        counter++;
-                                                    }
-
-                                                    @if (movie.Poster == null)
-                                                    {
-                                                        <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/noimage.jpg" alt="" /> <span></span></a></td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Poster</a></td>
-                                                    }
-                                                    <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
-                                                    <td>@movie.AverageRating</td>
-                                                    <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
+                                            <tr>
+                                                <td>@counter</td>
+                                                @{
+                                                    counter++;
+                                                }
+                                                @{
+                                                    <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /> <span></span></a></td>
+                                                }                                                
+                                                <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
+                                                <td>@movie.AverageRating</td>
+                                                <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>
