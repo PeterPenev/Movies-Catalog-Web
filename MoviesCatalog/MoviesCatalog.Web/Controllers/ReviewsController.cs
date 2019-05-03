@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
@@ -13,19 +14,36 @@ namespace MoviesCatalog.Web.Controllers
     public class ReviewsController : Controller
     {
         private readonly IReviewService reviewService;
+        private readonly IMovieService movieService;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IViewModelMapper<Review, ReviewViewModel> reviewMapper;
 
         public ReviewsController(IReviewService reviewService,
-                                IViewModelMapper<Review,ReviewViewModel> reviewMapper)
+                                 IMovieService movieService,
+                                 UserManager<ApplicationUser> userManager,
+                                 IViewModelMapper<Review,ReviewViewModel> reviewMapper)
         {
             this.reviewService = reviewService ?? throw new ArgumentNullException(nameof(reviewService));
+            this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
+            this.userManager = userManager;
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             this.reviewMapper = reviewMapper ?? throw new ArgumentNullException(nameof(reviewMapper));
         }
 
+        public IMovieService MovieService { get; }
+
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            var userId = this.userManager.GetUserId(HttpContext.User);
+            //var movie = this.movieService.GetMovieById(movieId);
+            var reviewViewModel = new ReviewViewModel()
+            {
+                MovieId = id,
+                UserId = userId
+            };
+
+            return View(reviewViewModel);
         }
 
         [HttpPost]
@@ -43,7 +61,8 @@ namespace MoviesCatalog.Web.Controllers
                 var review = this.reviewService
                                 .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
 
-                return RedirectToAction("Movies", "Details", new { id = review.MovieId });
+
+                return RedirectToAction("Details", "Movies", new { id = review.MovieId });
             }
 
             catch (ArgumentException ex)

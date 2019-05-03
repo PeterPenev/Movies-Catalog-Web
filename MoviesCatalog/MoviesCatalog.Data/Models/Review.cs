@@ -11,7 +11,7 @@ namespace MoviesCatalog.Data.Models
         public string Description { get; set; }
 
         [Required]
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         public bool IsDeleted { get; set; }
 

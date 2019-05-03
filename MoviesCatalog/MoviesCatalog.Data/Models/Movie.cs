@@ -27,7 +27,7 @@ namespace MoviesCatalog.Data.Models
 
         public int NumberOfVotes { get; set; }
 
-        public int TotalRating { get; set; }
+        public double TotalRating { get; set; }
 
         public double AverageRating { get; set; }
 

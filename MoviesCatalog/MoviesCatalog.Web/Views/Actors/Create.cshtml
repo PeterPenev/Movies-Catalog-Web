@@ -37,13 +37,13 @@
                             <textarea asp-for="Biography" placeholder="Please enter a biography." class="form-control"></textarea>
                             <span asp-validation-for="Biography" class="text-danger-orange"></span>
                         </div>
+                        <button type="submit" class="btn btn-default-custom">Submit</button>
+                        @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                        @if (referrer != default(StringValues))
+                        {
+                            <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                        }
                     </form>
-                    <button type="submit" class="btn btn-default-custom">Submit</button>
-                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
-                    @if (referrer != default(StringValues))
-                    {
-                        <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
-                    }
                     <hr class="hr-new" />
                 </div>
             </div>

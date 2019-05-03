@@ -29,9 +29,8 @@ namespace MoviesCatalog.Services
         }
 
         public Review AddReviewToMovie(int movieId, string userId,
-                                    string description, int rating)
+                                    string description, double rating)
         {
-            
             var review = this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
                                              .Include(x => x.Movie)
                                              .Include(x => x.User)
@@ -70,9 +69,12 @@ namespace MoviesCatalog.Services
                 context.Reviews.Add(review);
             }
 
+            if (rating > 0)
+            {
             movie.NumberOfVotes++;
             movie.TotalRating += rating;
             movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
+            }
 
             context.SaveChanges();
             return review;

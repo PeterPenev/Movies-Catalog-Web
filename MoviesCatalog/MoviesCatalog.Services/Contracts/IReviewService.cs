@@ -7,7 +7,7 @@ namespace MoviesCatalog.Services.Contracts
         Review GetReview(int id);
 
         Review AddReviewToMovie(int movieId, string userId,
-                                    string description, int rating);
+                                    string description, double rating);
     }
 
 

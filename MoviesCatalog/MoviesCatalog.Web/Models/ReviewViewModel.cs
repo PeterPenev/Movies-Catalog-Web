@@ -9,10 +9,10 @@ namespace MoviesCatalog.Web.Models
         public int Id { get; set; }
 
         [MaxLength(500)]
+        [Required]
         public string Description { get; set; }
 
-        [Required]
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
