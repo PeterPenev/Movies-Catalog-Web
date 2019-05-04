@@ -14,11 +14,13 @@ namespace MoviesCatalog.Web.Models
 
         public double Rating { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CreatedOn { get; set; }
 
         public string UserId { get; set; }
 
-        public string CanUserEdit { get; set; }
+        public bool CanUserEdit { get; set; }
 
         public string UserName { get; set; }
 

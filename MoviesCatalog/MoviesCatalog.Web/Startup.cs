@@ -77,8 +77,8 @@ namespace MoviesCatalog.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "adminArea",
-                    template: "{area:exists}/{controller=Users}/{action=Index}/{id?}");
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                     name: "default",

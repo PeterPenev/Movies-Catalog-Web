@@ -4,6 +4,7 @@ using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services
 {
@@ -16,9 +17,9 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context)); 
         }
 
-        public Review GetReview(int id)
+        public async Task<Review> GetReview(int id)
         {
-            var review = this.context.Reviews.Find(id);
+            var review = await this.context.Reviews.FindAsync(id);
 
             if (review == null)
             {

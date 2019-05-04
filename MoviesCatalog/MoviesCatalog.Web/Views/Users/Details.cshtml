@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <body>
     <div class="single-page-agile-main">
         <div class="container">
@@ -15,28 +16,28 @@
                             </div>
                             <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.Avatar ?? "noimage.jpg")" /> <span></span></a></div>
                         </div>
-                        <h4 class="padding-custom">Reviews: <span class="text-orange">@Model.Reviews.Count</span></h4>
+                        <h4 class="padding-custom">Reviews: <span class="text-orange">@Model.NumberOfReviews</span></h4>
                         @if (User.IsInRole("Admin"))
                         {
                             <h4 class="padding-custom">Email: <span class="text-orange">@Model.Email</span></h4>
-                            <div class="agile-info-wthree-box">
-                                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
-                                    @if (this.User.Identity.IsAuthenticated)
-                                    {
-                                        <input type="submit" asp-action="Update" asp-route-id="@Model.Id" value="Update">
-                                    }
-                                    <div class="clearfix"> </div>
-                                </form>
-                            </div>
-                        }
 
+                        }
+                        <div class="agile-info-wthree-box">
+                            <form asp-controller="Users" asp-action="Edit" asp-route-id="@Model.Id" method="get">
+                                @if (Model.CanUserEdit)
+                                {
+                                    <input type="submit" value="Edit">
+                                }
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 single-right">
-                    <h3>Last @Model.Reviews.Count Reviews by @Model.UserName</h3>
+                    <h3>Last @Model.LastFiveReviewsByUser.Count() Reviews by @Model.UserName</h3>
                     <div class="single-grid-right">
 
-                        @foreach (var review in Model.Reviews)
+                        @foreach (var review in Model.LastFiveReviewsByUser)
                         {
                             <div class="single-right-grids">
                                 <div class="col-md-4 single-right-grid-left">

@@ -1,10 +1,11 @@
 ﻿using MoviesCatalog.Data.Models;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services.Contracts
 {
     public interface IReviewService
     {
-        Review GetReview(int id);
+        Task<Review> GetReview(int id);
 
         Review AddReviewToMovie(int movieId, string userId,
                                     string description, double rating);

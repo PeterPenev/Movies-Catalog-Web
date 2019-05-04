@@ -23,7 +23,11 @@ namespace MoviesCatalog.Web.Models
 
         public string ConfirmPassword { get; set; }
 
-        public IReadOnlyCollection<ReviewViewModel> Reviews { get; set; }
+        public int NumberOfReviews { get; set; }
+
+        public bool CanUserEdit { get; set; }
+
+        public IReadOnlyCollection<ReviewViewModel> LastFiveReviewsByUser { get; set; }
 
 }
 }

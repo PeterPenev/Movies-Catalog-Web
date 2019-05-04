@@ -18,50 +18,50 @@
                         </div>
                         <div class="song-grid-right">
                         </div>
-                        <div class="clearfix"> </div>
                         <div class="all-comments">
-                            <div class="all-comments-info">
-                                <a href="#"></a>
+                            @if (Model.Biography != null)
+                            {
                                 <div>@Model.Biography</div><br />
-                                <div class="agile-info-wthree-box">
-                                </div>
-                            </div>
-                            <div class="media">
-                            </div>
-                            <div class="media">
-                            </div>
+                            }
+                            else
+                            {
+                                <div>No biogrpahy for this actor added yet.</div>
+                            }
                         </div>
                         <div class="agile-info-wthree-box">
-                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
-                                @if (this.User.Identity.IsAuthenticated)
+                            <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" method="get">
+                                @if (this.User.IsInRole("Admin"))
                                 {
-                                    <input type="submit" asp-action="Update" asp-route-id="@Model.Id" value="Update">
+                                    <input type="submit" value="Update">
                                 }
                                 <div class="clearfix"> </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 single-right">
-                    <h3>Movies with @Model.FirstName  @Model.LastName</h3>
-                    <div class="single-grid-right">
-
-                        @foreach (var movie in Model.MoviesByActor)
-                        {
-                            <div class="single-right-grids">
-                                <div class="col-md-4 single-right-grid-left">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /></a>
+                @if (Model.MoviesByActor != null)
+                {
+                    <div class="col-md-4 single-right">
+                        <h3>Movies with @Model.FirstName  @Model.LastName</h3>
+                        <div class="single-grid-right">
+                            @foreach (var movie in Model.MoviesByActor)
+                            {
+                                <div class="single-right-grids">
+                                    <div class="col-md-4 single-right-grid-left">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /></a>
+                                    </div>
+                                    <div class="col-md-8 single-right-grid-right">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
+                                        <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+                                        <p class="views">@movie.NumberOfVotes reviews</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
                                 </div>
-                                <div class="col-md-8 single-right-grid-right">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
-                                    <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
-                                    <p class="views">@movie.NumberOfVotes reviews</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
+                }
+
             </div>
         </div>
     </div>

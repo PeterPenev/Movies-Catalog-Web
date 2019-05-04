@@ -17,17 +17,14 @@ namespace MoviesCatalog.Web.Controllers
     public class ActorsController : Controller
     {
         private readonly IActorService actorService;
-        private readonly IMovieService movieService;
         private readonly IViewModelMapper<Actor, ActorViewModel> actorMapper;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieMapper;
 
         public ActorsController(IActorService actorService,
-                                IMovieService movieService,
                                 IViewModelMapper<Actor, ActorViewModel> actorMapper,
                                 IViewModelMapper<Movie, MovieViewModel> movieMapper)
         {
             this.actorService = actorService ?? throw new ArgumentNullException(nameof(actorService));
-            this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.actorMapper = actorMapper ?? throw new ArgumentNullException(nameof(actorMapper));
             this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }
@@ -42,7 +39,6 @@ namespace MoviesCatalog.Web.Controllers
             };
             return View(actorIndexView);
         }
-
 
         public async Task<IActionResult> ActorsByName(string id)
         {
@@ -66,71 +62,6 @@ namespace MoviesCatalog.Web.Controllers
             actorViewModel.MoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();
 
             return View(actorViewModel);
-        }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Create(ActorViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                var actor = this.actorService
-                                .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
-                return RedirectToAction(nameof(Index), new { id = actor.Id });
-            }
-
-            catch (ArgumentException ex)
-            {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
-            }
-        }
-
-        [HttpGet]
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(int id)
-        {
-            var actor = await this.actorService.GetActorAsync(id);
-            var actorViewModel = this.actorMapper.MapFrom(actor);
-            return View(actorViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(ActorViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                var actor = await this.actorService
-                                .UpdateActorBiographyAsync(model.Id, model.Biography);
-
-
-                return RedirectToAction(nameof(Index), new { id = actor.Id });
-            }
-
-            catch (ArgumentException ex)
-            {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
-            }
         }
     }
 }

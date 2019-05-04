@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Web.Extensions;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using System;
@@ -28,7 +29,6 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var showAllUsers = await this.userService.ShowAllUsers();
-
             var userIndexView = new UserIndexViewModel()
             {
                 AllUsers = showAllUsers.Select(this.userMapper.MapFrom).ToList()
@@ -39,11 +39,12 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var user = await this.userService.GetUserAsync(id);
+            var userId = this.User.GetId();
 
-            var userReviews = await this.userService.ShowUserLastFiveReviewsAsync(user.Id);
-
+            var userLastFiveReviews = await this.userService.ShowUserLastFiveReviewsAsync(user.Id);
             var userViewModel = this.userMapper.MapFrom(user);
-            userViewModel.Reviews = userReviews.Select(this.reviewMapper.MapFrom).ToList();
+            userViewModel.CanUserEdit = id == userId;
+            userViewModel.LastFiveReviewsByUser = userLastFiveReviews.Select(this.reviewMapper.MapFrom).ToList();
 
             return View(userViewModel);
         }
@@ -61,14 +62,16 @@ namespace MoviesCatalog.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            var user = await this.userService.GetUserAsync(id);
+            var userViewModel = this.userMapper.MapFrom(user);
+            return View(userViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(UserViewModel model)
+        public async Task<IActionResult> Edit(UserViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -77,11 +80,9 @@ namespace MoviesCatalog.Web.Controllers
 
             try
             {
-                var user = this.userService
-                                .CreateUser(model.UserName, model.Password, model.Email);
-
-
-                return RedirectToAction(nameof(Details), new { id = user.Id });
+                var actor = await this.userService
+                                .EditUserProfileAsync(model.Id, model.Avatar);
+                return RedirectToAction("Details", "Users", new { id = actor.Id });
             }
 
             catch (ArgumentException ex)

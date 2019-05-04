@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Web.Extensions;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 
@@ -30,7 +31,16 @@ namespace MoviesCatalog.Web.Controllers
             this.reviewMapper = reviewMapper ?? throw new ArgumentNullException(nameof(reviewMapper));
         }
 
-        public IMovieService MovieService { get; }
+        public async Task<IActionResult> Details(int id)
+        {
+            var review = await this.reviewService.GetReview(id);
+            var userId = this.User.GetId();
+
+            var reviewViewModel = this.reviewMapper.MapFrom(review);
+            reviewViewModel.CanUserEdit = review.UserId == userId;
+
+            return View(reviewViewModel);
+        }
 
         [HttpGet]
         public IActionResult Create(int id)
@@ -48,7 +58,6 @@ namespace MoviesCatalog.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
         public IActionResult Create(ReviewViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -71,6 +80,5 @@ namespace MoviesCatalog.Web.Controllers
                 return View(model);
             }
         }
-
     }
 }

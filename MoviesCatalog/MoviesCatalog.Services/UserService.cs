@@ -30,30 +30,17 @@ namespace MoviesCatalog.Services
             return user;
         }
 
-        public ApplicationUser CreateUser(string userName, string password, string email)
+        public async Task<ApplicationUser> EditUserProfileAsync(string id, string avatar)
         {
-            var user = context.Users
-                              .FirstOrDefault(x => x.UserName == userName);
-
+            var user = await this.context.Users
+                                    .FindAsync(id);
             if (user == null)
-            {
-                user = new ApplicationUser()
-                           { UserName = userName, PasswordHash = password, Email = email};
-            }
-
-            else if (user.IsDeleted)
-            {
-                user.IsDeleted = false;
-                context.SaveChanges();
-                return user;
-            }
-            else
             {
                 throw new ArgumentException();
             }
-            context.Users.Add(user);
-            context.SaveChanges();
 
+            user.Avatar = avatar;
+            await this.context.SaveChangesAsync();
             return user;
         }
 
@@ -82,6 +69,16 @@ namespace MoviesCatalog.Services
             var reviews =  await context.Reviews
                                         .Where(x => x.User.Id == userId && !x.IsDeleted)
                                         .Take(5)
+                                        .OrderByDescending(x => x.CreatedOn)
+                                        .Include(x => x.Movie)
+                                        .ToListAsync();
+            return reviews;
+        }
+
+        public async Task<ICollection<Review>> ShowUserReviewsAsync(string userId)
+        {
+            var reviews =  await context.Reviews
+                                        .Where(x => x.User.Id == userId && !x.IsDeleted)
                                         .OrderByDescending(x => x.CreatedOn)
                                         .Include(x => x.Movie)
                                         .ToListAsync();

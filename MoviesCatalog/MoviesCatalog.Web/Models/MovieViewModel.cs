@@ -35,7 +35,11 @@ namespace MoviesCatalog.Web.Models
         public double AverageRating { get; set; }
 
         //[Required]
-        public ICollection<Genre> Genres { get; set; }
+        public IReadOnlyCollection<GenreViewModel> Genres { get; set; }
+
+        public IReadOnlyCollection<ReviewViewModel> LastFiveReviewsByMovie { get; set; }
+
+        public IReadOnlyCollection<ReviewViewModel> AllReviewsByMovie { get; set; }
 
         public override string ToString() => $"{this.Title} {this.Description} {this.ReleaseDate.ToShortDateString()}";
     }
