@@ -31,28 +31,41 @@
                                 <div class="clearfix"> </div>
                             </form>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 single-right">
-                    <h3>Last @Model.LastFiveReviewsByUser.Count() Reviews by @Model.UserName</h3>
-                    <div class="single-grid-right">
-
-                        @foreach (var review in Model.LastFiveReviewsByUser)
-                        {
-                            <div class="single-right-grids">
-                                <div class="col-md-4 single-right-grid-left">
-                                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/@(review.MoviePoster?? "noimage.jpg")" /></a>
-                                </div>
-                                <div class="col-md-8 single-right-grid-right">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
-                                    <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
-                                    <p class="views">@review.Description</p>
-                                </div>
+                        <div class="agile-info-wthree-box">
+                            <form asp-controller="Users" asp-action="Delete" asp-route-id="@Model.Id" method="get">
+                                @if (Model.CanUserEdit)
+                                {
+                                    <input type="submit" value="Delete profile">
+                                }
                                 <div class="clearfix"> </div>
-                            </div>
-                        }
+                            </form>
+                        </div>
                     </div>
                 </div>
+                @if (Model.LastFiveReviewsByUser.Count() > 0)
+                {
+                    <div class="col-md-4 single-right">
+                        <h3>Last @Model.LastFiveReviewsByUser.Count() Reviews by @Model.UserName</h3>
+                        <div class="single-grid-right">
+
+                            @foreach (var review in Model.LastFiveReviewsByUser)
+                            {
+                                <div class="single-right-grids">
+                                    <div class="col-md-4 single-right-grid-left">
+                                        <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/@(review.MoviePoster?? "noimage.jpg")" /></a>
+                                    </div>
+                                    <div class="col-md-8 single-right-grid-right">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
+                                        <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
+                                        <p class="views">@review.Description</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
             </div>
         </div>
     </div>

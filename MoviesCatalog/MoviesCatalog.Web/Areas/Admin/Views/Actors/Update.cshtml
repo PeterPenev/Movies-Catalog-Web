@@ -1,43 +1,27 @@
 ﻿@model ActorViewModel
 
 @using Microsoft.Extensions.Primitives;
-@{
-    ViewData["Title"] = "Create";
-}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Create a new actor</title>
-</head>
 <body>
     <!-- single -->
     <div class="single-page-agile-main">
         <div class="container">
-            <!-- /w3l-medile-movies-grids -->
             <div class="single-page-agile-info">
-                <!-- /movie-browse-agile -->
                 <div class="show-top-grids-w3lagile">
                     <div class="col-sm-8 single-left">
-                        <div class="song">
-                            <div class="song-info">
-                                <h3>Update @Model.FirstName @Model.LastName Biography</h3>
-                            </div>
-                        </div>
-                        <div class="all-comments">
-                            <div class="all-comments-info">
-                                <div class="agile-info-wthree-box">
-                                    <form asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                                        <input hidden asp-for="Id" />
-                                        <input hidden asp-for="FirstName" />
-                                        <input hidden asp-for="LastName" />
-                                        <input hidden asp-for="Picture" />
-                                        <textarea asp-for="Biography" placeholder="Biography"></textarea>
-                                        <input type="submit" value="Update">
-                                        <div class="clearfix"> </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <h3>Update @Model.FirstName @Model.LastName Details</h3>
+                        <div class="agile-info-wthree-box">
+                            <form asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                <input hidden asp-for="Id" />
+                                <input hidden asp-for="FirstName" />
+                                <input hidden asp-for="LastName" />
+                                <input hidden asp-for="Picture" />
+                                <textarea asp-for="Biography" placeholder="Biography"></textarea>
+                                <input type="submit" value="Update">
+                                <div class="clearfix"> </div>
+                            </form>
                         </div>
                     </div>
                 </div>

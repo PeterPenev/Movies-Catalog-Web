@@ -1,0 +1,28 @@
+﻿
+@model UserViewModel
+@using Microsoft.Extensions.Primitives;
+
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            @*@Html.Partial("_StatusMessage", TempData["StatusMessage"])*@
+            <div class="col-md-4">
+                <form asp-controller="User" asp-action="Delete" method="post">
+                    <h2 class="custom-format">@ViewData["Title"]</h2>
+                    <h3 class="custom-format">Are you sure you want to delete your profile?</h3>
+                    <hr class="hr-new" />
+                    <button type="submit" class="btn btn-default-custom">Delete</button>
+                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
+
+                    @if (referrer != default(StringValues))
+                    {
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                    }
+                    <hr class="hr-new" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,8 +1,5 @@
 ﻿@model ActorViewModel
 @using Microsoft.Extensions.Primitives;
-@{
-    ViewData["Title"] = "Create";
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +9,7 @@
 <body>
     <div class="row-grey">
         <div class="row">
+            @Html.Partial("_StatusMessage", TempData["StatusMessage"])
             <div class="row">
                 <div class="col-md-4">
                     <h3 class="custom-format">Create a new actor</h3>

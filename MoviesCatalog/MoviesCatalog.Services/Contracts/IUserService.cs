@@ -6,7 +6,7 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IUserService
     {
-        Task<ApplicationUser> GetUserAsync(string id);
+        Task<ApplicationUser> GetUserByIdAsync(string id);
 
         Task<ApplicationUser> EditUserProfileAsync(string id, string avatar);
 
@@ -17,5 +17,7 @@ namespace MoviesCatalog.Services.Contracts
         Task<ICollection<Review>> ShowUserLastFiveReviewsAsync(string userId);
 
         Task<ICollection<Review>> ShowUserReviewsAsync(string userId);
+
+        Task<ApplicationUser> DeleteUserAsync(string userId);
     }
 }

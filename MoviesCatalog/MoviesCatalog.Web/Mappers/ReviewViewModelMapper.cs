@@ -14,6 +14,7 @@ namespace MoviesCatalog.Web.Mappers
         {
             return new ReviewViewModel()
             {
+                Id = entity.Id,
                 Description = entity.Description,
                 Rating = entity.Rating,
                 CreatedOn = entity.CreatedOn,

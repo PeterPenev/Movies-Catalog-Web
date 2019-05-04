@@ -17,7 +17,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context)); 
         }
 
-        public async Task<Review> GetReview(int id)
+        public async Task<Review> GetReviewById(int id)
         {
             var review = await this.context.Reviews.FindAsync(id);
 
@@ -78,6 +78,31 @@ namespace MoviesCatalog.Services
             }
 
             context.SaveChanges();
+            return review;
+        }
+
+        public async Task<Review> DeleteReviewAsync(int reviewId)
+        {
+            var review = await this.context.Reviews.Where(x => x.Id == reviewId && !x.IsDeleted)
+                                     .Include(x => x.Movie)
+                                     .FirstOrDefaultAsync();
+            if (review == null)
+            {
+                throw new ArgumentException();
+            }
+
+            //var user = this.context.Users.Find(userId);
+
+            //if (review.UserId != user.Id)
+            //{
+            //    throw new ArgumentException();
+            //}
+
+            var movie = review.Movie;
+            review.IsDeleted = true;
+            movie.TotalRating -= review.Rating;
+
+            await context.SaveChangesAsync();
             return review;
         }
     }

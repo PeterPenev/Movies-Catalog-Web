@@ -36,5 +36,10 @@ namespace MoviesCatalog.Data.Models
         public ICollection<MoviesGenres> MoviesGenres { get; set; }
 
         public ICollection<MoviesActors> MoviesActors { get; set; }
+
+        public override string ToString()
+        {
+            return $"{AverageRating:F1}";
+        }
     }
 }

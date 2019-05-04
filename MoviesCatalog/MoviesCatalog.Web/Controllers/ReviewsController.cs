@@ -16,26 +16,33 @@ namespace MoviesCatalog.Web.Controllers
     {
         private readonly IReviewService reviewService;
         private readonly IMovieService movieService;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserService userService;
         private readonly IViewModelMapper<Review, ReviewViewModel> reviewMapper;
 
         public ReviewsController(IReviewService reviewService,
                                  IMovieService movieService,
+                                 IUserService userService,
                                  UserManager<ApplicationUser> userManager,
                                  IViewModelMapper<Review,ReviewViewModel> reviewMapper)
         {
             this.reviewService = reviewService ?? throw new ArgumentNullException(nameof(reviewService));
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
-            this.userManager = userManager;
-            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
             this.reviewMapper = reviewMapper ?? throw new ArgumentNullException(nameof(reviewMapper));
         }
 
+        [TempData] public string StatusMessage { get; set; }
+
         public async Task<IActionResult> Details(int id)
         {
-            var review = await this.reviewService.GetReview(id);
+            var review = await this.reviewService.GetReviewById(id);
             var userId = this.User.GetId();
-
+            var user = await this.userService.GetUserByIdAsync(review.UserId);
+            var movie = this.movieService.GetMovieById(review.MovieId);
+            review.Movie.Title = movie.Title;
+            review.Movie.Poster = movie.Poster;
+            review.User.UserName = user.UserName;
+           
             var reviewViewModel = this.reviewMapper.MapFrom(review);
             reviewViewModel.CanUserEdit = review.UserId == userId;
 
@@ -45,7 +52,7 @@ namespace MoviesCatalog.Web.Controllers
         [HttpGet]
         public IActionResult Create(int id)
         {
-            var userId = this.userManager.GetUserId(HttpContext.User);
+            var userId = this.User.GetId();
             //var movie = this.movieService.GetMovieById(movieId);
             var reviewViewModel = new ReviewViewModel()
             {
@@ -70,8 +77,8 @@ namespace MoviesCatalog.Web.Controllers
                 var review = this.reviewService
                                 .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
 
-
-                return RedirectToAction("Details", "Movies", new { id = review.MovieId });
+                model.Id = review.Id;
+                return RedirectToAction("Details", "Reviews", new { id = model.Id });
             }
 
             catch (ArgumentException ex)
@@ -79,6 +86,27 @@ namespace MoviesCatalog.Web.Controllers
                 this.ModelState.AddModelError("Error", ex.Message);
                 return View(model);
             }
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var review = await reviewService.GetReviewById(id);
+            if (review == null) return NotFound();
+            var userId = this.User.GetId();
+            var userViewModel = this.reviewMapper.MapFrom(review);
+            userViewModel.CanUserEdit = review.UserId == userId;
+            var reviewViewModel = this.reviewMapper.MapFrom(review);
+            return View(reviewViewModel);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await reviewService.DeleteReviewAsync(id);
+            StatusMessage = "Successfully deleted the review.";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

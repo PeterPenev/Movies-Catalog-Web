@@ -31,6 +31,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }
 
+        [TempData] public string StatusMessage { get; set; }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -50,6 +52,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 var actor = await this.actorService
                                 .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
+                StatusMessage = $"Successfully added {model.FirstName} {model.LastName}.";
                 return RedirectToAction("Details" , "Actors", new { id = actor.Id });
             }
 
@@ -82,7 +85,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 var actor = await this.actorService
                                 .UpdateActorBiographyAsync(model.Id, model.Biography);
 
-
+                StatusMessage = $"Successfully updated {model.FirstName} {model.LastName} details.";
                 return RedirectToAction("Details" , "Actors", new { id = actor.Id });
             }
 

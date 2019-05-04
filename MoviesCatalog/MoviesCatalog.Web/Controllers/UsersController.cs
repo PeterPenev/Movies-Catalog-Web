@@ -26,6 +26,8 @@ namespace MoviesCatalog.Web.Controllers
             this.reviewMapper = reviewMapper ?? throw new ArgumentNullException(nameof(reviewMapper));
         }
 
+        [TempData] public string StatusMessage { get; set; }
+
         public async Task<IActionResult> Index()
         {
             var showAllUsers = await this.userService.ShowAllUsers();
@@ -38,7 +40,7 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            var user = await this.userService.GetUserAsync(id);
+            var user = await this.userService.GetUserByIdAsync(id);
             var userId = this.User.GetId();
 
             var userLastFiveReviews = await this.userService.ShowUserLastFiveReviewsAsync(user.Id);
@@ -64,8 +66,10 @@ namespace MoviesCatalog.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var user = await this.userService.GetUserAsync(id);
+            var userId = this.User.GetId();
+            var user = await this.userService.GetUserByIdAsync(id);
             var userViewModel = this.userMapper.MapFrom(user);
+            userViewModel.CanUserEdit = id == userId;
             return View(userViewModel);
         }
 
@@ -90,6 +94,27 @@ namespace MoviesCatalog.Web.Controllers
                 this.ModelState.AddModelError("Error", ex.Message);
                 return View(model);
             }
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            var user = await userService.GetUserByIdAsync(id);
+            if (user == null) return NotFound();
+            var userId = this.User.GetId();
+            var userViewModel = this.userMapper.MapFrom(user);
+            userViewModel.CanUserEdit = userId == id;
+           
+            return View(userViewModel);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            await userService.DeleteUserAsync(id);
+            StatusMessage = "Successfully deleted your profile.";
+            return RedirectToAction("Logout", "Account");
         }
     }
 }

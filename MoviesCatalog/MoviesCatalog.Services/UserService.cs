@@ -18,7 +18,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<ApplicationUser> GetUserAsync(string id)
+        public async Task<ApplicationUser> GetUserByIdAsync(string id)
         {
             var user = await this.context.Users.FindAsync(id);
 
@@ -47,7 +47,7 @@ namespace MoviesCatalog.Services
         public async Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol)
         {
             var users = await this.context.Users
-                                     .Where(t => t.UserName.ToLower().StartsWith(symbol.ToString().ToLower()))
+                                     .Where(t =>! t.IsDeleted && t.UserName.ToLower().StartsWith(symbol.ToString().ToLower()))
                                      .OrderBy(x => x.UserName)
                                      .ToListAsync();
 
@@ -57,6 +57,7 @@ namespace MoviesCatalog.Services
         public async Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsers()
         {
             var users = await this.context.Users
+                                          .Where(x => !x.IsDeleted)
                                           .OrderBy(x => x.UserName)
                                           .ToListAsync();
 
@@ -83,6 +84,14 @@ namespace MoviesCatalog.Services
                                         .Include(x => x.Movie)
                                         .ToListAsync();
             return reviews;
+        }
+
+        public async Task<ApplicationUser> DeleteUserAsync(string userId)
+        {
+            var user = await context.Users.FindAsync(userId);
+            user.IsDeleted = true;
+            await context.SaveChangesAsync();
+            return user;
         }
     }
 }

@@ -2,7 +2,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+</head>
 <body>
     <div class="single-page-agile-main">
         <div class="container">
@@ -39,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                @if (Model.MoviesByActor != null)
+                @if(Model.MoviesByActor.Count() > 0)
                 {
                     <div class="col-md-4 single-right">
                         <h3>Movies with @Model.FirstName  @Model.LastName</h3>
@@ -65,6 +68,35 @@
             </div>
         </div>
     </div>
+
+    <table id="table_id" class="cell-border compact stripe">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Row 1 Data 1</td>
+                <td>Row 1 Data 2</td>
+            </tr>
+            <tr>
+                <td>Row 2 Data 1</td>
+                <td>Row 2 Data 2</td>
+            </tr>
+        </tbody>
+    </table>
+    @section Scripts
+        {
+        @*<script type="text/javascript" src="jQuery-3.3.1/jquery-3.3.1.js"></script>*@
+        @*<script>
+            $(document).ready(function () {
+                $('#myTable').DataTable();
+            });
+        </script>*@
+    }
+
 </body>
 </html>
 
