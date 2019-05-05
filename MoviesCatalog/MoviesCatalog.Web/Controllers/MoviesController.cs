@@ -14,13 +14,15 @@ namespace MoviesCatalog.Web.Controllers
     {
         private readonly IMovieService movieService;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieViewMapper;
+        private readonly IViewModelMapper<Review,ReviewViewModel> reviewViewMapper;
 
         public MoviesController(IMovieService movieService,
-                                IViewModelMapper<Movie, MovieViewModel> movieViewMapper)
+                                IViewModelMapper<Movie, MovieViewModel> movieViewMapper,
+                                IViewModelMapper<Review, ReviewViewModel> reviewViewMapper)
         {
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.movieViewMapper = movieViewMapper ?? throw new ArgumentNullException(nameof(movieViewMapper));
-
+            this.reviewViewMapper = reviewViewMapper ?? throw new ArgumentNullException(nameof(reviewViewMapper));
         }
 
         [HttpGet]
@@ -105,5 +107,33 @@ namespace MoviesCatalog.Web.Controllers
 
             return View(movieIndexView);
         }
+
+        public async Task<IActionResult> AllReviewsByMovie (int movieId)
+        {
+            var allReviewsByMovie = await this.movieService.AllReviewsByMovie(movieId);
+
+            var reviewIndexView = new ReviewViewModel()
+            {
+                 AllReviewsByMovie= allReviewsByMovie.Select(this.reviewViewMapper.MapFrom).ToList()
+            };
+
+            return View(reviewIndexView);
+        }
+
+        public async Task<IActionResult> LastFiveReviewsByMovie(int movieId)
+        {
+            var lastFiveReviewsByMovie = await this.movieService.LastFiveReviewsByMovie(movieId);
+
+            var reviewIndexView = new ReviewViewModel()
+            {
+                LastFiveReviewsByMovie = lastFiveReviewsByMovie.Select(this.reviewViewMapper.MapFrom).ToList()
+            };
+
+            return View(reviewIndexView);
+        }
+
+        
+
+
     }
 }

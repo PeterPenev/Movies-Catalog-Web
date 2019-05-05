@@ -1,5 +1,6 @@
 ﻿using MoviesCatalog.Data.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MoviesCatalog.Web.Models
@@ -29,5 +30,9 @@ namespace MoviesCatalog.Web.Models
         public string MoviePoster { get; set; }
 
         public string MovieTitle { get; set; }
+
+        public IReadOnlyCollection<ReviewViewModel> AllReviewsByMovie { get; set; }
+
+        public IReadOnlyCollection<ReviewViewModel> LastFiveReviewsByMovie { get; set; }
     }
 }

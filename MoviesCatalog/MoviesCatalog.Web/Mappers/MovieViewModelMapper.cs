@@ -1,6 +1,7 @@
 ﻿using MoviesCatalog.Data.Models;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
+using System.Linq;
 
 namespace MoviesCatalog.Web.Mappers
 {
@@ -11,13 +12,14 @@ namespace MoviesCatalog.Web.Mappers
             return new MovieViewModel()
             {
                 Id = entity.Id,
-                Title = entity.Title,                
+                Title = entity.Title,
                 Trailer = entity.Trailer,
                 Poster = entity.Poster,
                 Description = entity.Description,
                 AverageRating = entity.AverageRating,
                 ReleaseDate = entity.ReleaseDate,
                 NumberOfVotes = entity.NumberOfVotes,
+                //AllReviewsByMovie = entity.Reviews.Where(x => x.MovieId == entity.Id).ToList(),
                 User = entity.User?.UserName
                 //NumberOfVotes = entity.NumberOfVotes,                
             };

@@ -94,5 +94,26 @@ namespace MoviesCatalog.Services
 
             return movie;
         }
+
+        public async Task<ICollection<Review>> AllReviewsByMovie(int movieId)
+        {
+            var reviews = await context.Reviews
+                                .Where(x => x.Movie.Id == movieId && !x.IsDeleted)
+                                .OrderByDescending(co => co.CreatedOn)
+                                .Include(x => x.User)
+                                .ToListAsync();
+            return reviews;
+        }
+
+        public async Task<ICollection<Review>> LastFiveReviewsByMovie(int movieId)
+        {
+            var reviews = await context.Reviews
+                                .Where(x => x.Movie.Id == movieId && !x.IsDeleted)
+                                .OrderByDescending(co => co.CreatedOn)
+                                .Include(x => x.User)
+                                .Take(5)
+                                .ToListAsync();
+            return reviews;
+        }
     }
 }

@@ -21,5 +21,9 @@ namespace MoviesCatalog.Services.Contracts
         IReadOnlyCollection<Movie> SearchMoviesContainsString(string criteria);
 
         Movie GetMovieById(int id);
+
+        Task<ICollection<Review>> AllReviewsByMovie(int movieId);
+
+        Task<ICollection<Review>> LastFiveReviewsByMovie(int movieId);
     }
 }
