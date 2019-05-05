@@ -12,7 +12,7 @@ using MoviesCatalog.Web.Models;
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class ActorsController : Controller
     {
         private readonly IActorService actorService;
@@ -31,7 +31,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }
 
-        [TempData] public string StatusMessage { get; set; }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         [HttpGet]
         public IActionResult Create()
@@ -50,10 +51,16 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
-                var actor = await this.actorService
-                                .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
-                StatusMessage = $"Successfully added {model.FirstName} {model.LastName}.";
-                return RedirectToAction("Details" , "Actors", new { id = actor.Id });
+                if (await this.actorService.IsActorExistAsync(model.FirstName, model.LastName))
+                {
+                    StatusMessage = $"Actor {model.FirstName} {model.LastName} already exists.";
+                    return RedirectToAction("Create", "Actors");
+                }
+                
+                    StatusMessage = $"Successfully added {model.FirstName} {model.LastName}.";
+                    var actor = await this.actorService
+                                    .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
+                    return RedirectToAction("Details", "Actors", new { id = actor.Id });
             }
 
             catch (ArgumentException ex)
@@ -86,7 +93,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                                 .UpdateActorBiographyAsync(model.Id, model.Biography);
 
                 StatusMessage = $"Successfully updated {model.FirstName} {model.LastName} details.";
-                return RedirectToAction("Details" , "Actors", new { id = actor.Id });
+                return RedirectToAction("Details", "Actors", new { id = actor.Id });
             }
 
             catch (ArgumentException ex)
@@ -95,5 +102,40 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        public IActionResult AddToMovie(int id)
+        {
+            var actor = this.actorService.GetActorAsync(id);
+            var movies = this.movieService.ShowAllMoviesOrderedDescByRating();
+            var movieViewModel = movies.Select(this.movieMapper.MapFrom);
+            return View(movieViewModel);
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult AddToMovie(MovieViewModel model)
+        //{
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    try
+        //    {
+        //        //var actor = await this.actorService
+        //        //                .UpdateActorBiographyAsync(model.Id, model.Biography);
+
+        //        //StatusMessage = $"Successfully updated {model.FirstName} {model.LastName} details.";
+        //        //return RedirectToAction("Details", "Actors", new { id = actor.Id });
+        //        return View();
+        //    }
+
+        //    catch (ArgumentException ex)
+        //    {
+        //        this.ModelState.AddModelError("Error", ex.Message);
+        //        return View(model);
+        //    }
+        //}
     }
 }

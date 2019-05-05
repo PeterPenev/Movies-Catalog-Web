@@ -18,5 +18,9 @@ namespace MoviesCatalog.Services.Contracts
         Task<Actor> UpdateActorBiographyAsync(int id, string biography);
 
         Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMovies(int actorId);
+
+        Task<bool> IsActorExistAsync(string firstName, string lastName);
+
+        Movie AddActorToMovie(int movieId, int actorId);
     }
 }

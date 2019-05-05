@@ -13,7 +13,7 @@
                     <div class="col-sm-8 single-left">
                         <h3>Update @Model.FirstName @Model.LastName Details</h3>
                         <div class="agile-info-wthree-box">
-                            <form asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                            <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                                 <input hidden asp-for="Id" />
                                 <input hidden asp-for="FirstName" />
                                 <input hidden asp-for="LastName" />

@@ -62,16 +62,49 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<Actor> CreateActorAsync(string firstName, string lastName, string biography)
+        public async Task<bool> IsActorExistAsync(string firstName, string lastName)
         {
-            var actor = await this.context.Actors
-                                    .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
-            if (actor != null)
+            return await this.context.Actors
+                                    .AnyAsync(x => x.FirstName == firstName && x.LastName == lastName);
+        }
+
+        public Movie AddActorToMovie(int movieId, int actorId)
+        {
+            var movie = this.context.Movies.Find(movieId);
+
+            var actor = this.context.Actors.Find(actorId);
+
+            var actorFullName = actor.FirstName + ' ' + actor.LastName;
+
+            var existingActorsInMovie = this.context.MoviesActors
+                                            .Where(t => t.Movie.Title == movie.Title)
+                                            .Select(a => a.Actor.FirstName + ' ' + a.Actor.LastName)
+                                            .ToList();
+
+            if (existingActorsInMovie.Contains(actorFullName))
             {
                 throw new ArgumentException();
             }
 
-            actor =  new Actor() {FirstName = firstName, LastName = lastName, Biography = biography};
+            this.context.MoviesActors.Add(new MoviesActors() { MovieId = movie.Id, ActorId = actor.Id });
+
+            this.context.SaveChanges();
+
+            return movie;
+        }
+
+
+
+        public async Task<Actor> CreateActorAsync(string firstName, string lastName, string biography)
+        {
+            //var actor = await this.context.Actors
+            //                        .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
+            //if (actor != null)
+            //{
+            //    throw new ArgumentException();
+            //}
+
+            var actor =  new Actor() {FirstName = firstName, LastName = lastName, Biography = biography};
 
             this.context.Actors.Add(actor);
             await this.context.SaveChangesAsync();
