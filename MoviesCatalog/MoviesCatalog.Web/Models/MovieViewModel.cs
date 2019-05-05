@@ -41,6 +41,7 @@ namespace MoviesCatalog.Web.Models
 
         public IReadOnlyCollection<ReviewViewModel> AllReviewsByMovie { get; set; }
 
-        public override string ToString() => $"{this.Title} {this.Description} {this.ReleaseDate.ToShortDateString()}";
+        public override string ToString() => $"{this.AverageRating:F1}";
+        //public override string ToString() => $"{this.Title} {this.Description} {this.ReleaseDate.ToShortDateString()}";
     }
 }

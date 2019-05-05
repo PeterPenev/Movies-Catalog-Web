@@ -40,6 +40,15 @@
                                 <div class="clearfix"> </div>
                             </form>
                         </div>
+                        <div class="agile-info-wthree-box">
+                            <form asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" asp-route-id="@Model.Id" method="get">
+                                @if (this.User.IsInRole("Admin"))
+                                {
+                                    <input type="submit" value="Add to movie">
+                                }
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 @if(Model.MoviesByActor.Count() > 0)
@@ -68,35 +77,6 @@
             </div>
         </div>
     </div>
-
-    <table id="table_id" class="cell-border compact stripe">
-        <thead>
-            <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Row 1 Data 1</td>
-                <td>Row 1 Data 2</td>
-            </tr>
-            <tr>
-                <td>Row 2 Data 1</td>
-                <td>Row 2 Data 2</td>
-            </tr>
-        </tbody>
-    </table>
-    @section Scripts
-        {
-        @*<script type="text/javascript" src="jQuery-3.3.1/jquery-3.3.1.js"></script>*@
-        @*<script>
-            $(document).ready(function () {
-                $('#myTable').DataTable();
-            });
-        </script>*@
-    }
-
 </body>
 </html>
 

@@ -31,25 +31,16 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var showTo10Actors = await this.actorService.ShowAllActors();
-
-            var actorIndexView = new ActorIndexViewModel()
-            {
-                AllActors = showTo10Actors.Select(this.actorMapper.MapFrom).ToList()
-            };
-            return View(actorIndexView);
+            var actors = await this.actorService.ShowAllActors();
+            var actorViewModel = actors.Select(this.actorMapper.MapFrom).ToList();
+            return View(actorViewModel);
         }
 
         public async Task<IActionResult> ActorsByName(string id)
         {
-            var actorsByStartingSymbol = await this.actorService.ShowActorsStartWithSymbolAsync(id);
-
-            var actorIndexView = new ActorIndexViewModel()
-            {
-                ActorsByName = actorsByStartingSymbol.Select(this.actorMapper.MapFrom).ToList()
-            };
-
-            return View(actorIndexView);
+            var actors = await this.actorService.ShowActorsStartWithSymbolAsync(id);
+            var actorViewModel = actors.Select(this.actorMapper.MapFrom).ToList();
+            return View(actorViewModel);
         }
 
         public async Task<IActionResult> Details(int id)

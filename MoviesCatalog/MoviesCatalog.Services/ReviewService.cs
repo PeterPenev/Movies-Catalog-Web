@@ -29,6 +29,16 @@ namespace MoviesCatalog.Services
             return review;
         }
 
+        //public bool IsUserAlreadyVotedForMovie(int movieId, string userId)
+        //{
+        //    var movie = this.context.Movies.Find(movieId);
+        //    var user = this.context.Users.Find(userId);
+        //    var review = this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
+        //                                     .Include(x => x.Movie)
+        //                                     .Include(x => x.User)
+        //                                     .FirstOrDefault();
+        //}
+            
         public Review AddReviewToMovie(int movieId, string userId,
                                     string description, double rating)
         {
