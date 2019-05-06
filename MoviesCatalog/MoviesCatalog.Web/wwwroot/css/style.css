@@ -47,6 +47,11 @@ input[type="submit"], .agileinfo_chat a, .w3ls_footer_grid1_left p a, .w3l_sign_
     border-top: 3px solid #FF8D1B;
 }
 
+.header-custom {
+    border-top: 3px solid #FF8D1B;
+}
+
+
 .w3layouts_logo {
     float: left;
 }

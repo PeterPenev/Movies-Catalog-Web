@@ -53,11 +53,10 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 if (await this.actorService.IsActorExistAsync(model.FirstName, model.LastName))
                 {
-                    StatusMessage = $"Actor {model.FirstName} {model.LastName} already exists.";
+                    StatusMessage = $"Actor \"{model.FirstName} {model.LastName}\" already exists.";
                     return RedirectToAction("Create", "Actors");
                 }
-                
-                    StatusMessage = $"Successfully added {model.FirstName} {model.LastName}.";
+                    StatusMessage = $"Successfully added \"{model.FirstName} {model.LastName}\".";
                     var actor = await this.actorService
                                     .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
                     return RedirectToAction("Details", "Actors", new { id = actor.Id });

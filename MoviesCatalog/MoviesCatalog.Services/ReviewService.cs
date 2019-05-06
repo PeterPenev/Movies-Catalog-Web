@@ -29,23 +29,18 @@ namespace MoviesCatalog.Services
             return review;
         }
 
-        //public bool IsUserAlreadyVotedForMovie(int movieId, string userId)
-        //{
-        //    var movie = this.context.Movies.Find(movieId);
-        //    var user = this.context.Users.Find(userId);
-        //    var review = this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
-        //                                     .Include(x => x.Movie)
-        //                                     .Include(x => x.User)
-        //                                     .FirstOrDefault();
-        //}
-            
-        public Review AddReviewToMovie(int movieId, string userId,
+        public async Task<bool> DidUserAlreadyVoteForMovieAsync(int movieId, string userId)
+        {
+            return await this.context.Reviews.AnyAsync(x => x.UserId == userId && x.MovieId == movieId && !x.IsDeleted);
+        }
+
+        public async Task<Review> AddReviewToMovie(int movieId, string userId,
                                     string description, double rating)
         {
-            var review = this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
+            var review = await this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
                                              .Include(x => x.Movie)
                                              .Include(x => x.User)
-                                             .FirstOrDefault();
+                                             .FirstOrDefaultAsync();
 
             var movie = this.context.Movies.Find(movieId);
             var user = this.context.Users.Find(userId);

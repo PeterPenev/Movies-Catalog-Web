@@ -8,6 +8,7 @@
             <div class="single-page-agile-info">
                 <!-- /movie-browse-agile -->
                 <div class="show-top-grids-w3lagile">
+                    @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
                     <div class="col-sm-8 single-left">
                         <div class="song">
                             <div class="song-info">
@@ -33,11 +34,12 @@
                                 <div>No description for this movie added yet.</div>
                             }
                         </div>
+                        <hr class="header-custom" />
                         <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
                             <div class="agile-info-wthree-box">
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
-                                    <input type="submit" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" value="Add review">
+                                    <input type="submit" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" value="ADD REVIEW">
                                 }
                             </div>
                         </form>
@@ -45,7 +47,7 @@
                             <form asp-area="Admin" asp-controller="Movies" asp-action="Update" asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <input type="submit" asp-controller="Movies" asp-action="Update" asp-route-id="@Model.Id" value="Update">
+                                    <input type="submit" asp-controller="Movies" asp-action="Update" asp-route-id="@Model.Id" value="UPDATE">
                                 }
                                 <div class="clearfix"> </div>
                             </form>

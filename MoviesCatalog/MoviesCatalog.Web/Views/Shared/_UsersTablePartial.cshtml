@@ -1,0 +1,28 @@
+﻿
+@model IEnumerable<UserViewModel>
+
+<table id="table" class="table table-striped border border-info">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">№</th>
+            <th scope="col" width="30%">Avatar</th>
+            <th scope="col">Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@counter</td>
+                @{
+                    counter++;
+                }
+                <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/@(user.Avatar ?? "noimage.jpg")" /><span></span></a></td>
+                <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

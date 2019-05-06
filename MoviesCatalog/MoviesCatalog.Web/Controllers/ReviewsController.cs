@@ -65,7 +65,7 @@ namespace MoviesCatalog.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ReviewViewModel model)
+        public async Task<IActionResult> Create(ReviewViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -74,11 +74,17 @@ namespace MoviesCatalog.Web.Controllers
 
             try
             {
-                var review = this.reviewService
-                                .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
+                if (await this.reviewService.DidUserAlreadyVoteForMovieAsync(model.MovieId, model.UserId))
+                {
+                    StatusMessage = "You already voted for this movie.";
+                    return RedirectToAction("Details", "Movies", new { id = model.MovieId });
+                }
 
-                model.Id = review.Id;
-                return RedirectToAction("Details", "Reviews", new { id = model.Id });
+                StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
+                var review = await this.reviewService
+                                .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
+                return RedirectToAction("Details", "Reviews", new { id = review.Id });
+
             }
 
             catch (ArgumentException ex)

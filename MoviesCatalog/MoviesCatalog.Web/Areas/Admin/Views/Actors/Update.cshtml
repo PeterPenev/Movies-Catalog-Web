@@ -2,34 +2,32 @@
 
 @using Microsoft.Extensions.Primitives;
 
-<!DOCTYPE html>
-<html lang="en">
-<body>
-    <!-- single -->
-    <div class="single-page-agile-main">
-        <div class="container">
-            <div class="single-page-agile-info">
-                <div class="show-top-grids-w3lagile">
-                    <div class="col-sm-8 single-left">
-                        <h3>Update @Model.FirstName @Model.LastName Details</h3>
-                        <div class="agile-info-wthree-box">
-                            <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                                <input hidden asp-for="Id" />
-                                <input hidden asp-for="FirstName" />
-                                <input hidden asp-for="LastName" />
-                                <input hidden asp-for="Picture" />
-                                <textarea asp-for="Biography" placeholder="Biography"></textarea>
-                                <input type="submit" value="Update">
-                                <div class="clearfix"> </div>
-                            </form>
-                        </div>
+
+<div class="single-page-agile-main">
+    <div class="container">
+        <div class="single-page-agile-info">
+            <div class="show-top-grids-w3lagile">
+                <div class="col-sm-8 single-left">
+                    <h3>Update @Model.FirstName @Model.LastName Details</h3>
+                    <div class="agile-info-wthree-box">
+                        <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                            <input hidden asp-for="Id" />
+                            <input hidden asp-for="FirstName" />
+                            <input hidden asp-for="LastName" />
+                            <input hidden asp-for="Picture" />
+                            <textarea asp-for="Biography" placeholder="Biography"></textarea>
+                            <input type="submit" value="Update">
+                            <div class="clearfix"> </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
 
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
 
 

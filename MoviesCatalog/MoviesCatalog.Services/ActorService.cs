@@ -97,13 +97,6 @@ namespace MoviesCatalog.Services
 
         public async Task<Actor> CreateActorAsync(string firstName, string lastName, string biography)
         {
-            //var actor = await this.context.Actors
-            //                        .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
-            //if (actor != null)
-            //{
-            //    throw new ArgumentException();
-            //}
-
             var actor =  new Actor() {FirstName = firstName, LastName = lastName, Biography = biography};
 
             this.context.Actors.Add(actor);

@@ -1,5 +1,6 @@
 ﻿@model ActorViewModel
 @using Microsoft.Extensions.Primitives;
+
 <div class="row-grey">
     <div class="row">
         <div class="row">
@@ -7,9 +8,7 @@
                 <h3 class="custom-format">Create a new actor</h3>
                 <form asp-area="Admin" asp-controller="Actors" asp-action="Create" method="post">
                     <hr class="hr-new" />
-                <div class="text-center">
-                    @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
-                </div>
+                        @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
                     <div class="form-group">
                         <label asp-for="FirstName" class="grey"></label>
                         <input asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
@@ -18,7 +17,7 @@
                     <div class="form-group">
                         <label asp-for="LastName" class="grey"></label>
                         <input asp-for="LastName" placeholder="Please enter a last name." class="form-control" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
+                        <span asp-validation-for="LastName" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Picture" class="grey"></label>
@@ -30,11 +29,11 @@
                         <textarea asp-for="Biography" placeholder="Please enter a biography." class="form-control"></textarea>
                         <span asp-validation-for="Biography" class="text-danger-orange"></span>
                     </div>
-                    <button type="submit" class="btn btn-default-custom">Submit</button>
+                    <button type="submit" class="btn btn-default-custom">SUBMIT</button>
                     @{ var referrer = this.Context.Request.Headers["Referer"]; }
                     @if (referrer != default(StringValues))
                     {
-                        <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
                     }
                 </form>
                 <hr class="hr-new" />
@@ -43,9 +42,6 @@
     </div>
 </div>
 
-@*<script>
-    var msg = '@TempData["StatusMessage"]';
-    if (msg.length) {
-        alert(msg);
-    }
-</script>*@
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

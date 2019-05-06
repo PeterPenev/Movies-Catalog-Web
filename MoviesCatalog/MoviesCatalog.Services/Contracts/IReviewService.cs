@@ -7,11 +7,11 @@ namespace MoviesCatalog.Services.Contracts
     {
         Task<Review> GetReviewById(int id);
 
-        Review AddReviewToMovie(int movieId, string userId,
-                                    string description, double rating);
+        Task<Review> AddReviewToMovie(int movieId, string userId,
+                                     string description, double rating);
 
         Task<Review> DeleteReviewAsync(int reviewId);
+
+        Task<bool> DidUserAlreadyVoteForMovieAsync(int movieId, string userId);
     }
-
-
 }

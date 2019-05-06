@@ -3079,7 +3079,7 @@ fieldset[disabled] .btn {
 .btn-default-custom {
     color: white;
     background-color: #ff9800;
-    border-color: #ccc;
+    /*border-color: black;*/
 }
 
 .btn-default:hover,
@@ -3355,9 +3355,9 @@ fieldset[disabled] .btn-danger.active {
   background-color: #fff;
 }
 .btn-link {
-  font-weight: normal;
-  color: #337ab7;
-  border-radius: 0;
+    font-weight: normal;
+    color: #ff9800;
+    border-radius: 0;
 }
 .btn-link,
 .btn-link:active,
@@ -4998,8 +4998,9 @@ a.thumbnail.active {
 
 .alert-success {
     color: white;
-    background-color: #ff9800;
-    border-color: #ccc;
+    /*background-color: #ff9800;*/
+    background-color: black;
+    border-color: black;
 }
 
 /*.alert-success {

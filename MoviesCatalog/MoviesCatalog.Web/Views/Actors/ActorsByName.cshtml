@@ -1,38 +1,37 @@
 ﻿@model IEnumerable<ActorViewModel>
 
-<!DOCTYPE html>
-<html lang="en">
+@{
+    ViewData["Title"] = "List of actors";
+}
+
 <head>
-    <title>List of all actors</title>
-    <link rel="stylesheet" href="/css/news.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="/list-css/list.css" type="text/css" media="all" />
     <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
     <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
 </head>
-<body>
-    <div class="faq">
-        <h4 class="latest-text w3_faq_latest_text w3_latest_text">Actors List</h4>
-        <div class="container">
-            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                <ul id="myTab" class="nav nav-tabs" role="tablist">
-                    @for (char i = 'A'; i <= 'Z'; i++)
-                    {
-                        <li role="presentation"><a asp-controller="Actors" asp-action="ActorsByName" asp-route-id="@i.ToString()" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
-                    }
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-                        <div class="agile-news-table">
-                            <div class="w3ls-news-result">
-                                <h4>Actors starting with first letter <span style="color:#ff9800">@ViewContext.RouteData.Values["id"].ToString().ToUpper()</span>: <span>@Model.Count()</span></h4>
-                            </div>
-                            <div class="main main-raised">
-                                <div class="section">
-                                    <div class="container">
-                                        <hr />
-                                        <div class="table-responsive">
-                                            @await Html.PartialAsync("_ActorsTable", Model)
-                                        </div>
+
+
+<div class="faq">
+    <h4 class="latest-text w3_faq_latest_text w3_latest_text">Actors List</h4>
+    <div class="container">
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                @for (char i = 'A'; i <= 'Z'; i++)
+                {
+                    <li role="presentation"><a asp-controller="Actors" asp-action="ActorsByName" asp-route-id="@i.ToString()" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                }
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <div class="agile-news-table">
+                        <div class="w3ls-news-result">
+                            <h4>Actors starting with first letter <span style="color:#ff9800">@ViewContext.RouteData.Values["id"].ToString().ToUpper()</span>: <span>@Model.Count()</span></h4>
+                        </div>
+                        <div class="main main-raised">
+                            <div class="section">
+                                <div class="container">
+                                    <hr />
+                                    <div class="table-responsive">
+                                        @await Html.PartialAsync("_ActorsTablePartial", Model)
                                     </div>
                                 </div>
                             </div>
@@ -42,8 +41,7 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
 
 @section Scripts
     {

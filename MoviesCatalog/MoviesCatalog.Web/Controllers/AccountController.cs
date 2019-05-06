@@ -39,6 +39,9 @@ namespace MoviesCatalog.Web.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -78,6 +81,7 @@ namespace MoviesCatalog.Web.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    StatusMessage = "Invalid username or password.";
                     return View(model);
                 }
             }

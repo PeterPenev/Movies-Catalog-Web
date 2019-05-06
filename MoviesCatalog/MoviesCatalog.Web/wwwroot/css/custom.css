@@ -48,7 +48,8 @@ h1 {
     .rating > input:checked ~ label, /* show gold star when clicked */
     .rating:not(:checked) > label:hover, /* hover current star */
     .rating:not(:checked) > label:hover ~ label {
-        color: #ff9800;
+        color: black;
+        /*color: #ff9800*/;
         /*color: #FFD700;*/
     }
         /* hover previous stars in list */
@@ -69,11 +70,13 @@ h1 {
 .custom-format {
     padding-left: 4.5%;
     padding-top: 3%;
-    color: dimgray
+    /*color: black;*/ 
+   color: dimgray
 }
 
 .hr-new {
     border-top: 4px solid #ff9800;
+    /*border-top: 4px solid black;*/
     width: 305%;
 }
 
@@ -128,7 +131,8 @@ h1 {
 
 .alert-success-custom {
     color: white;
-    background-color: #ff9800;
+    background-color: black;
+    /*background-color: #ff9800;*/
     border-color: #d6e9c6;
 }
 

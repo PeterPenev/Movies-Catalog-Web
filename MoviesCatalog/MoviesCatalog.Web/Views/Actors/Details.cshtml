@@ -1,17 +1,17 @@
 ﻿@model ActorViewModel
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-</head>
-<body>
-    <div class="single-page-agile-main">
-        <div class="container">
-            <div class="single-page-agile-info">
-                <!-- /movie-browse-agile -->
+@{
+    ViewData["Title"] = $"{Model.FirstName} {Model.LastName} details";
+}
+
+
+<div class="single-page-agile-main">
+    <div class="container">
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
                 <div class="show-top-grids-w3lagile">
+                    @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
                     <div class="col-sm-8 single-left">
                         <div class="song">
                             <div class="song-info">
@@ -31,11 +31,12 @@
                                 <div>No biogrpahy for this actor added yet.</div>
                             }
                         </div>
+                        <hr class="header-custom"/>
                         <div class="agile-info-wthree-box">
                             <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" method="get">
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <input type="submit" value="Update">
+                                    <input type="submit" value="UPDATE">
                                 }
                                 <div class="clearfix"> </div>
                             </form>
@@ -44,41 +45,39 @@
                             <form asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" asp-route-id="@Model.Id" method="get">
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <input type="submit" value="Add to movie">
+                                    <input type="submit" value="ADD TO MOVIE">
                                 }
                                 <div class="clearfix"> </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                @if(Model.MoviesByActor.Count() > 0)
-                {
-                    <div class="col-md-4 single-right">
-                        <h3>Movies with @Model.FirstName  @Model.LastName</h3>
-                        <div class="single-grid-right">
-                            @foreach (var movie in Model.MoviesByActor)
-                            {
-                                <div class="single-right-grids">
-                                    <div class="col-md-4 single-right-grid-left">
-                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /></a>
-                                    </div>
-                                    <div class="col-md-8 single-right-grid-right">
-                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
-                                        <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
-                                        <p class="views">@movie.NumberOfVotes reviews</p>
-                                    </div>
-                                    <div class="clearfix"> </div>
+            @if (Model.MoviesByActor.Count() > 0)
+            {
+                <div class="col-md-4 single-right">
+                    <h3>Movies with @Model.FirstName  @Model.LastName</h3>
+                    <div class="single-grid-right">
+                        @foreach (var movie in Model.MoviesByActor)
+                        {
+                            <div class="single-right-grids">
+                                <div class="col-md-4 single-right-grid-left">
+                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /></a>
                                 </div>
-                            }
-                        </div>
+                                <div class="col-md-8 single-right-grid-right">
+                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
+                                    <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+                                    <p class="views">@movie.NumberOfVotes reviews</p>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        }
                     </div>
-                }
+                </div>
+            }
 
-            </div>
         </div>
     </div>
-</body>
-</html>
+</div>
 
 
 

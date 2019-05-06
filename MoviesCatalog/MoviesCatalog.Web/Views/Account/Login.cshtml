@@ -17,6 +17,7 @@
                     <h2 class="custom-format">Sign In</h2>
                     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                         <hr class="hr-new" />
+                        @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
                         <div class="form-group">
                             <label asp-for="UserName" class="grey"></label>
                             <input asp-for="UserName" placeholder="Please enter your username." class="form-control" />
@@ -36,11 +37,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default-custom">Sign in</button>
+                            <button type="submit" class="btn btn-default-custom">SIGN IN</button>
                             @{ var referrer = this.Context.Request.Headers["Referer"]; }
                             @if (referrer != default(StringValues))
                             {
-                                <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                                <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
                             }
                         </div>
                         <div class="form-group">
@@ -60,3 +61,6 @@
     </div>
 </div>
 
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

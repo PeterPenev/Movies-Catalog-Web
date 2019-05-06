@@ -32,12 +32,12 @@
                         <input asp-for="ConfirmPassword" placeholder="Please confirm your password." class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger-orange"></span>
                     </div>
-                    <button type="submit" class="btn btn-default-custom">Register</button>
+                    <button type="submit" class="btn btn-default-custom">REGISTER</button>
                     @{ var referrer = this.Context.Request.Headers["Referer"]; }
 
                     @if (referrer != default(StringValues))
                     {
-                        <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
                     }
                     <hr class="hr-new" />
                     @*<hr class="vl"/>*@
@@ -46,3 +46,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

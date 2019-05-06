@@ -30,12 +30,10 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var showAllUsers = await this.userService.ShowAllUsers();
-            var userIndexView = new UserIndexViewModel()
-            {
-                AllUsers = showAllUsers.Select(this.userMapper.MapFrom).ToList()
-            };
-            return View(userIndexView);
+            var users = await this.userService.ShowAllUsers();
+
+            var userViewModel = users.Select(this.userMapper.MapFrom).ToList();
+            return View(userViewModel);
         }
 
         public async Task<IActionResult> Details(string id)
@@ -53,14 +51,10 @@ namespace MoviesCatalog.Web.Controllers
       
         public async Task<IActionResult> UsersByName(string id)
         {
-            var usersByStartingSymbol = await this.userService.ShowUsersStartWithSymbolAsync(id);
+            var users = await this.userService.ShowUsersStartWithSymbolAsync(id);
 
-            var userIndexView = new UserIndexViewModel()
-            {
-                UsersByName = usersByStartingSymbol.Select(this.userMapper.MapFrom).ToList(),
-            };
-
-            return View(userIndexView);
+            var userViewModel = users.Select(this.userMapper.MapFrom).ToList();
+            return View(userViewModel);
         }
 
         [HttpGet]
