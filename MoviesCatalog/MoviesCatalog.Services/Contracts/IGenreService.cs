@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services.Contracts
 {
@@ -11,8 +12,10 @@ namespace MoviesCatalog.Services.Contracts
 
         IReadOnlyCollection<string> GetAllGenres();
 
-        IReadOnlyCollection<Movie> ShowMoviesByGenre(string id);             
+        //IReadOnlyCollection<Movie> ShowMoviesByGenre(string id);
+        Task<IReadOnlyCollection<Movie>> ShowMoviesByGenre(string id);
 
+        //Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies(); 
         IReadOnlyDictionary<string, int> GetAllGenresWithCountOfMovies();
     }
 }

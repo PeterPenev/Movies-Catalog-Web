@@ -88,25 +88,17 @@ namespace MoviesCatalog.Web.Controllers
         {
             var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
 
-            var movieIndexView = new MovieIndexViewModel()
-            {
-                MoviesByName = moviesByStartingSymbol.Select(this.movieViewMapper.MapFrom).ToList()
-            };
-
-            return View(movieIndexView);
+            var movieViewModel = moviesByStartingSymbol.Select(this.movieViewMapper.MapFrom).ToList();            
+            
+            return View(movieViewModel);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allMoviesOrderedDescByRating = movieService.ShowAllMoviesOrderedDescByRating();
-
-            var movieIndexView = new MovieIndexViewModel()
-            {
-                AllMoviesOrderedDescByRating = allMoviesOrderedDescByRating.Select(this.movieViewMapper.MapFrom).ToList()
-            };
-
-            return View(movieIndexView);
-        }
+            var movies = await this.movieService.ShowAllMoviesOrderedDescByRating();
+            var movieViewModel = movies.Select(this.movieViewMapper.MapFrom).ToList();
+            return View(movieViewModel);
+        }        
 
         public async Task<IActionResult> AllReviewsByMovie (int movieId)
         {
@@ -130,10 +122,6 @@ namespace MoviesCatalog.Web.Controllers
             };
 
             return View(reviewIndexView);
-        }
-
-        
-
-
+        }      
     }
 }

@@ -5,6 +5,7 @@ using MoviesCatalog.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services
 {
@@ -46,11 +47,11 @@ namespace MoviesCatalog.Services
             return genres;
         }
 
-        public IReadOnlyCollection<Movie> ShowMoviesByGenre(string id)
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesByGenre(string id)
         {
-            var movies = this.context.Movies
+            var movies = await this.context.Movies
                              .Where(m => m.MoviesGenres.Any(mg => mg.Genre.Name == id))
-                             .ToList();
+                             .ToListAsync();
 
             return movies;
         }

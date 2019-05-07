@@ -12,7 +12,9 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(char symbol);
 
-        IReadOnlyCollection<Movie> ShowAllMoviesOrderedDescByRating();
+        //IReadOnlyCollection<Movie> ShowAllMoviesOrderedDescByRating();
+
+        Task<IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRating();
 
         IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting();
 

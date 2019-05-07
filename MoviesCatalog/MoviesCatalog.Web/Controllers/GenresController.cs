@@ -23,32 +23,16 @@ namespace MoviesCatalog.Web.Controllers
 
         }
 
-
-        //public IActionResult Details(string id)
-        //{
-        //    var movie = this.movieService.GetMovieById(id);
-
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(this.movieViewMapper.MapFrom(movie));
-        //}
-
-        public IActionResult MoviesByGenre(string id)
+        public async Task<IActionResult> MoviesByGenre(string id)
         {
-            var moviesByGenre = this.genreService.ShowMoviesByGenre(id);
+            var moviesByGenre = await this.genreService.ShowMoviesByGenre(id);
 
-            var movieIndexView = new MovieIndexViewModel()
-            {
-                MoviesByGenre = moviesByGenre.Select(this.movieViewMapper.MapFrom).ToList()
-            };
-
+            var movieModelView = moviesByGenre.Select(this.movieViewMapper.MapFrom).ToList();           
+            
             var allGenresWithCountMovies = genreService.GetAllGenresWithCountOfMovies();
             ViewBag.AllGenresWithCountOfMovies = allGenresWithCountMovies;
 
-            return View(movieIndexView);              
+            return View(movieModelView);              
         }
 
         public IActionResult Index()

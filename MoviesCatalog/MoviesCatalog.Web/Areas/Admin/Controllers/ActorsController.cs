@@ -103,10 +103,10 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddToMovie(int id)
+        public async Task <IActionResult> AddToMovie(int id)
         {
-            var actor = this.actorService.GetActorAsync(id);
-            var movies = this.movieService.ShowAllMoviesOrderedDescByRating();
+            var actor = await this.actorService.GetActorAsync(id);
+            var movies = await this.movieService.ShowAllMoviesOrderedDescByRating();
             var movieViewModel = movies.Select(this.movieMapper.MapFrom);
             return View(movieViewModel);
         }

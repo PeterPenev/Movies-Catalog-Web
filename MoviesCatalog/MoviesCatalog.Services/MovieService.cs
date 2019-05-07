@@ -39,11 +39,11 @@ namespace MoviesCatalog.Services
             return movie;
         }
 
-        public IReadOnlyCollection<Movie> ShowAllMoviesOrderedDescByRating()
+        public async Task <IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRating()
         {
-            var movies = this.context.Movies
+            var movies = await this.context.Movies
                              .OrderByDescending(ar => ar.AverageRating)
-                             .ToList();
+                             .ToListAsync();
 
             return movies;
         }
