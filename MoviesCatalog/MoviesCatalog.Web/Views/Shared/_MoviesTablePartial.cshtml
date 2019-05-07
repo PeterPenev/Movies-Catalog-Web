@@ -6,10 +6,14 @@
             <th scope="col" width="5%">№</th>
             <th scope="col" width="30%">Poster</th>
             <th scope="col">Title</th>
-            <th scope="col">Average Rating</th>            
+            <th scope="col">Average Rating</th>
             <th scope="col">Release Date</th>
             <th scope="col">Uploaded by</th>
-            <th scope="col">Actions</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th scope="col">Actions</th>
+                <th scope="col">Actions</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -28,9 +32,15 @@
             <td>@($"{movie.AverageRating:f1}")</td>
             <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
             <td>@movie.User</td>
-            <td>
-                <a asp-area="Admin" asp-action="Actors" asp-controller="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add to movie</i></a>
-            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Actor To Movie</i></a>                    
+                </td>
+                <td>                    
+                    <a asp-area="Admin" asp-controller="Reviews" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Review To Movie</i></a>
+                </td>
+            }
         </tr>
         }
     </tbody>

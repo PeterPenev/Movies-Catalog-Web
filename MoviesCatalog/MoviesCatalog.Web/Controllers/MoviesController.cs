@@ -25,46 +25,40 @@ namespace MoviesCatalog.Web.Controllers
             this.reviewViewMapper = reviewViewMapper ?? throw new ArgumentNullException(nameof(reviewViewMapper));
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(MovieViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Create(MovieViewModel model)
+        //{
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            try
-            {
-                var movie = this.movieService
-                                .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate);
+        //    try
+        //    {
+        //        var movie = this.movieService
+        //                        .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate);
 
 
-                return RedirectToAction(nameof(Index), new { id = movie.Id });
-            }
+        //        return RedirectToAction(nameof(Index), new { id = movie.Id });
+        //    }
 
-            catch (ArgumentException ex)
-            {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
-            }
-        }
+        //    catch (ArgumentException ex)
+        //    {
+        //        this.ModelState.AddModelError("Error", ex.Message);
+        //        return View(model);
+        //    }
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Search(SearchMovieViewModel model)
-        {
-            //if (string.IsNullOrWhiteSpace(model.SearchName) ||
-            //    model.SearchName.Length < 3)
-            //{
-            //    return View();
-            //}
-
+        {          
             model.SearchResults = (await this.movieService.SearchMoviesContainsString(model.SearchName))
                                                     .Select(this.movieViewMapper.MapFrom)
                                                     .ToList();
@@ -74,14 +68,24 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var movie = await this.movieService.GetMovieById(id);
+            var movie = await this.movieService.GetMovieById(id);            
 
             if (movie == null)
             {
                 return NotFound();
             }
 
-            return View(this.movieViewMapper.MapFrom(movie));
+            var movieLast5Reviews = await this.movieService.LastFiveReviewsByMovie(id);
+
+            var movieViewModel = this.movieViewMapper.MapFrom(movie);
+
+            movieViewModel.LastFiveReviewsByMovie = movieLast5Reviews.Select(this.reviewViewMapper.MapFrom).ToList();
+
+            return View(movieViewModel);
+
+            //da vidia actor details kak vrysta kolekcia
+            //poslednite 5 review za daden film podredeni po release data. da vzema ot review service ot staria proekt
+            // systia da go prehvyrlia v movie service
         }
         
         public async Task<IActionResult> MoviesByName(char id)

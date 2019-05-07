@@ -34,7 +34,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(MovieViewModel model)
+        public async Task<IActionResult> Create(MovieViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
-                var movie = this.movieService
+                var movie = await this.movieService
                                 .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate);
 
 
