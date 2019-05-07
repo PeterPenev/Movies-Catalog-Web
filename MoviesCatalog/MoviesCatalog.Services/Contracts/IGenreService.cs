@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 namespace MoviesCatalog.Services.Contracts
 {
     public interface IGenreService
-    {
-        Genre GetGenre(int id);
+    {                    
+        Task<IReadOnlyCollection<string>> GetAllGenres();
 
-        IReadOnlyCollection<string> GetAllGenres();
-
-        //IReadOnlyCollection<Movie> ShowMoviesByGenre(string id);
         Task<IReadOnlyCollection<Movie>> ShowMoviesByGenre(string id);
 
-        //Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies(); 
-        IReadOnlyDictionary<string, int> GetAllGenresWithCountOfMovies();
+        Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies();        
     }
 }

@@ -48,33 +48,33 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting()
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaiting()
         {
-            var movies = this.context.Movies
+            var movies = await this.context.Movies
                              .OrderByDescending(ar=>ar.AverageRating)
                              .Take(10)
-                             .ToList();
+                             .ToListAsync();
 
             return movies;
         }
         
 
-        public IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate()
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesLatest6ByReleaseDate()
         {
-            var movies = this.context.Movies
+            var movies = await this.context.Movies
                              .OrderByDescending(rd => rd.ReleaseDate)
-                             .Take(10)
-                             .ToList();
+                             .Take(6)
+                             .ToListAsync();
 
             return movies;
         }
 
-        public IReadOnlyCollection<Movie> SearchMoviesContainsString(string criteria)
+        public async Task<IReadOnlyCollection<Movie>> SearchMoviesContainsString(string criteria)
         {
-            var movies = this.context.Movies
+            var movies = await this.context.Movies
                              .Where(t => t.Title.Contains(criteria))
                              .OrderByDescending(rd => rd.ReleaseDate)
-                             .ToList();
+                             .ToListAsync();
 
             return movies;
         }
@@ -88,9 +88,9 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public Movie GetMovieById(int id)
+        public async Task<Movie> GetMovieById(int id)
         {
-            var movie = this.context.Movies.Find(id);
+            var movie = await this.context.Movies.FindAsync(id);
 
             return movie;
         }

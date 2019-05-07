@@ -18,18 +18,11 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Genre GetGenre(int id)
-        {
-            var genre = this.context.Genres.Find(id);
-
-            return genre;
-        }
-
-        public IReadOnlyDictionary<string, int> GetAllGenresWithCountOfMovies()
+        public async Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies()
         {
             var genresCountMovies = new Dictionary<string, int>();
 
-            var genres = this.context.Genres.OrderBy(gn=>gn.Name).Select(gn => gn.Name).ToList();
+            var genres = await this.context.Genres.OrderBy(gn => gn.Name).Select(gn => gn.Name).ToListAsync();
 
             foreach (var genre in genres)
             {
@@ -40,9 +33,9 @@ namespace MoviesCatalog.Services
             return genresCountMovies;
         }
 
-        public IReadOnlyCollection<string> GetAllGenres()
+        public async Task<IReadOnlyCollection<string>> GetAllGenres()
         {
-            var genres = this.context.Genres.Select(gn => gn.Name).ToList();
+            var genres = await this.context.Genres.Select(gn => gn.Name).ToListAsync();
 
             return genres;
         }
