@@ -24,10 +24,10 @@ namespace MoviesCatalog.Web.Controllers
             this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var topMoviesByRating = movieService.ShowMoviesTop10ByRaiting();
-            var lastMoviesByReleaseDate = movieService.ShowMoviesLatest10ByReleaseDate();
+            var topMoviesByRating = await this.movieService.ShowMoviesTop10ByRaiting();
+            var lastMoviesByReleaseDate = await this.movieService.ShowMoviesLatest6ByReleaseDate();
             
             var homeViewModel = new HomeViewModel()
             {

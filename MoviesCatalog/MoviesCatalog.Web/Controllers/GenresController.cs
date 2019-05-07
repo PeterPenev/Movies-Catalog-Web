@@ -29,19 +29,19 @@ namespace MoviesCatalog.Web.Controllers
 
             var movieModelView = moviesByGenre.Select(this.movieViewMapper.MapFrom).ToList();           
             
-            var allGenresWithCountMovies = genreService.GetAllGenresWithCountOfMovies();
+            var allGenresWithCountMovies = await genreService.GetAllGenresWithCountOfMovies();
             ViewBag.AllGenresWithCountOfMovies = allGenresWithCountMovies;
 
             return View(movieModelView);              
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allGenres = genreService.GetAllGenres();
+            var allGenres = await genreService.GetAllGenres();
 
             var countOfGenres = allGenres.Count();
 
-            var allGenresWithCountMovies = genreService.GetAllGenresWithCountOfMovies();                       
+            var allGenresWithCountMovies = await genreService.GetAllGenresWithCountOfMovies();                       
 
             ViewBag.AllGenres = allGenres;
             ViewBag.CountOfGenres = countOfGenres;

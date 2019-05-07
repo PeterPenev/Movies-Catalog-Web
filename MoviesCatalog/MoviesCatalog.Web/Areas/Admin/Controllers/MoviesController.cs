@@ -58,7 +58,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search(SearchMovieViewModel model)
+        public async Task<IActionResult> Search(SearchMovieViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.SearchName) ||
                 model.SearchName.Length < 3)
@@ -66,7 +66,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 return View();
             }
 
-            model.SearchResults = this.movieService.SearchMoviesContainsString(model.SearchName)
+            model.SearchResults = (await this.movieService.SearchMoviesContainsString(model.SearchName))
                                                     .Select(this.movieViewMapper.MapFrom)
                                                     .ToList();
 

@@ -57,24 +57,24 @@ namespace MoviesCatalog.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search(SearchMovieViewModel model)
+        public async Task<IActionResult> Search(SearchMovieViewModel model)
         {
-            if (string.IsNullOrWhiteSpace(model.SearchName) ||
-                model.SearchName.Length < 3)
-            {
-                return View();
-            }
+            //if (string.IsNullOrWhiteSpace(model.SearchName) ||
+            //    model.SearchName.Length < 3)
+            //{
+            //    return View();
+            //}
 
-            model.SearchResults = this.movieService.SearchMoviesContainsString(model.SearchName)
+            model.SearchResults = (await this.movieService.SearchMoviesContainsString(model.SearchName))
                                                     .Select(this.movieViewMapper.MapFrom)
                                                     .ToList();
 
             return View(model);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var movie = this.movieService.GetMovieById(id);
+            var movie = await this.movieService.GetMovieById(id);
 
             if (movie == null)
             {
