@@ -80,9 +80,10 @@ namespace MoviesCatalog.Web.Controllers
                     return RedirectToAction("Details", "Movies", new { id = model.MovieId });
                 }
 
-                StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
+               
                 var review = await this.reviewService
                                 .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
+                StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
                 return RedirectToAction("Details", "Reviews", new { id = review.Id });
 
             }
