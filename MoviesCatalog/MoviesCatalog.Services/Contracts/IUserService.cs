@@ -19,5 +19,7 @@ namespace MoviesCatalog.Services.Contracts
         Task<ICollection<Review>> ShowUserReviewsAsync(string userId);
 
         Task<ApplicationUser> DeleteUserAsync(string userId);
+
+        Task AddRole(ApplicationUser user);
     }
 }

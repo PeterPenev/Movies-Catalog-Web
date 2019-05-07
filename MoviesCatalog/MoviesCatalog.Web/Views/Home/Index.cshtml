@@ -15,7 +15,7 @@
                 }
                 <p class='title'>@movie.Title</p>
                 <p class='description'>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</p><br />
-                <p class='description'>@movie.AverageRating</p>
+                <p class='description'>@($"{movie.AverageRating:f1}")</p>
             </li>
         }
     </ul>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="mid-2 agile_mid_2_home">
                                     <p>@movie.ReleaseDate.ToString("MMMM dd, yyyy") </p><br />
-                                    <p> Rating: <span class="text-orange">@movie.ToString()</span></p>
+                                    <p> Rating: <span class="text-orange">@($"{movie.AverageRating:F1}")</span></p>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="mid-2 agile_mid_2_home">
                             <p>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</p><br />
-                            <p> Rating: <span class="text-orange">@movie.ToString()</span></p>
+                            <p> Rating: <span class="text-orange">@($"{movie.AverageRating:f1}")</span></p>
                             <div class="clearfix"></div>
                         </div>
                     </div>

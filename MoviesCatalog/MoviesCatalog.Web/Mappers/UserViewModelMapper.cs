@@ -18,7 +18,7 @@ namespace MoviesCatalog.Web.Mappers
                 Email = entity.Email,
                 UserName = entity.UserName,
                 Avatar = entity.Avatar,
-                //NumberOfReviews = entity.Reviews.Count()
+                NumberOfReviews = entity.Reviews.Count()
             };
         }
     }

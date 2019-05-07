@@ -65,8 +65,9 @@
                                 </div>
                                 <div class="col-md-8 single-right-grid-right">
                                     <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
-                                    <p class="author">"Release date" : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+                                    <p class="author">Release date : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
                                     <p class="views">@movie.NumberOfVotes reviews</p>
+                                    <p class="author">Rating: @($"{movie.AverageRating:f1}")</p>
                                 </div>
                                 <div class="clearfix"> </div>
                             </div>
