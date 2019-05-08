@@ -26,7 +26,7 @@ namespace MoviesCatalog.Web.Models
         public string Description { get; set; }
 
         //[Required]
-        public string User { get; set; }
+        public string UserId { get; set; }
 
         //[Required]
         public int NumberOfVotes { get; set; }

@@ -22,6 +22,7 @@
         }
         @foreach (var movie in Model)
         {
+<<<<<<< HEAD
         <tr>
             <td>@counter</td>
             @{
@@ -47,6 +48,28 @@
                 </td>
             }
         </tr>
+=======
+            <tr>
+                <td>@counter</td>
+                @{
+                    counter++;
+                }
+                <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /><span></span></a></td>
+                <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
+                <td>@($"{movie.AverageRating:f1}")</td>
+                <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
+                <td>@movie.UserId</td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-area="Admin" asp-controller="Reviews" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Review To Movie</i></a>
+                    </td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Actor To Movie</i></a>
+                    </td>
+                }
+            </tr>
+>>>>>>> fe9c650800ee9802d03743631b91a344ed71b092
         }
     </tbody>
 </table>
