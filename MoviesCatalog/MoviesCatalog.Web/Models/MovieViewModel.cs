@@ -41,5 +41,6 @@ namespace MoviesCatalog.Web.Models
 
         public IReadOnlyCollection<ReviewViewModel> AllReviewsByMovie { get; set; }
 
+        public override string ToString() => $"{this.AverageRating:F1}";
     }
 }
