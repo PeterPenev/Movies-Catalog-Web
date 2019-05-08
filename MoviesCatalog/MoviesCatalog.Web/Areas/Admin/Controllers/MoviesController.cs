@@ -26,6 +26,9 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
         }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -43,34 +46,27 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
+                if (await this.movieService.IsMovieExist(model.Title))
+                {
+                    StatusMessage = $"Movie with title \"{model.Title}\" already exists.";
+
+                    return RedirectToAction("Create", "Movies");
+                   
+                }
+
+                StatusMessage = $"Successfully added movie with title \"{model.Title}\".";
+
                 var movie = await this.movieService
-                                .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate);
+                                        .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate);               
 
-
-                return RedirectToAction("Movies", "Details", new { id = movie.Id });
+                return RedirectToAction("Details", "Movies", new { id = movie.Id });
             }
 
             catch (ArgumentException ex)
             {
                 this.ModelState.AddModelError("Error", ex.Message);
                 return View(model);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Search(SearchMovieViewModel model)
-        {
-            if (string.IsNullOrWhiteSpace(model.SearchName) ||
-                model.SearchName.Length < 3)
-            {
-                return View();
-            }
-
-            model.SearchResults = (await this.movieService.SearchMoviesContainsString(model.SearchName))
-                                                    .Select(this.movieViewMapper.MapFrom)
-                                                    .ToList();
-
-            return View(model);
+            }            
         }
     }
 }

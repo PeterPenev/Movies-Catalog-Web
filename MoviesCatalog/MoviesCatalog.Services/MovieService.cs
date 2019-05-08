@@ -115,5 +115,12 @@ namespace MoviesCatalog.Services
                                 .ToListAsync();
             return reviews;
         }
+
+        public async Task<bool> IsMovieExist(string movieTitle)
+        {
+            return await this.context.Movies
+                                    .AnyAsync(t => t.Title == movieTitle);
+        }
+        
     }
 }
