@@ -27,10 +27,7 @@ namespace MoviesCatalog.Services
         {
             var user = await this.context.Users.Include(x => x.Reviews).FirstOrDefaultAsync(x => x.Id == id); 
 
-            if (user == null || user.IsDeleted)
-            {
-                throw new ArgumentException();
-            }
+            
 
             return user;
         }
@@ -39,11 +36,6 @@ namespace MoviesCatalog.Services
         {
             var user = await this.context.Users
                                     .FindAsync(id);
-            if (user == null)
-            {
-                throw new ArgumentException();
-            }
-
             
             await this.context.SaveChangesAsync();
             return user;
@@ -58,14 +50,8 @@ namespace MoviesCatalog.Services
         }
 
 
-        public async Task<ApplicationUser> EditUserProfileAsync(string id, string avatar)
+        public async Task<ApplicationUser> EditUserProfileAsync(ApplicationUser user, string avatar)
         {
-            var user = await this.context.Users
-                                    .FindAsync(id);
-            if (user == null)
-            {
-                throw new ArgumentException();
-            }
 
             user.Avatar = avatar;
             await this.context.SaveChangesAsync();
@@ -97,7 +83,7 @@ namespace MoviesCatalog.Services
         {
 
             var reviews =  await context.Reviews
-                                        .Where(x => x.User.Id == userId && !x.IsDeleted)
+                                        .Where(x => x.User.Id == userId)
                                         .Take(5)
                                         .OrderByDescending(x => x.CreatedOn)
                                         .Include(x => x.Movie)
@@ -108,7 +94,7 @@ namespace MoviesCatalog.Services
         public async Task<ICollection<Review>> ShowUserReviewsAsync(string userId)
         {
             var reviews =  await context.Reviews
-                                        .Where(x => x.User.Id == userId && !x.IsDeleted)
+                                        .Where(x => x.User.Id == userId)
                                         .OrderByDescending(x => x.CreatedOn)
                                         .Include(x => x.Movie)
                                         .ToListAsync();

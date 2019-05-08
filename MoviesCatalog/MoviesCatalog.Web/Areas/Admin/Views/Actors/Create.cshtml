@@ -8,7 +8,7 @@
                 <h3 class="custom-format">Create a new actor</h3>
                 <form asp-area="Admin" asp-controller="Actors" asp-action="Create" method="post">
                     <hr class="hr-new" />
-                        @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+                    @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
                     <div class="form-group">
                         <label asp-for="FirstName" class="grey"></label>
                         <input asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
@@ -44,4 +44,8 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
 }

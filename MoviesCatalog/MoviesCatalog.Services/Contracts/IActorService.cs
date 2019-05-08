@@ -22,6 +22,6 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<bool> IsActorExistAsync(string firstName, string lastName);
 
-        Movie AddActorToMovie(int movieId, Actor actor);
+        Movie AddActorToMovie(int movieId, int actorId);
     }
 }

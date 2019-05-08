@@ -50,7 +50,6 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
                await arrangeContext.Users.AddAsync(TestHelper.TestUser1());
                await  arrangeContext.Reviews.AddAsync(TestHelper.TestReview2());
 
-               await arrangeContext.Movies.AddAsync(TestHelper.TestMovie1());
                 arrangeContext.SaveChanges();
             }
 
@@ -67,15 +66,13 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
         }
 
         [TestMethod]
-        public async Task AddReviewToMovie_ReturnCorrectReview_WhenOverrideExistingNonActive()
+        public async Task ReturnCorrect_WhenOverrideExistingNonActive()
         {
-            var options = TestUtils.GetOptions(nameof(AddReviewToMovie_ReturnCorrectReview_WhenOverrideExistingNonActive));
+            var options = TestUtils.GetOptions(nameof(ReturnCorrect_WhenOverrideExistingNonActive));
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Users.Add(TestHelper.TestUser1());
                 arrangeContext.Reviews.Add(TestHelper.TestReview3());
-                arrangeContext.Movies.Add(TestHelper.TestMovie2());
                 arrangeContext.SaveChanges();
             }
 
@@ -83,7 +80,32 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var rating = await sut.AddReviewToMovie(1, TestHelper.TestUser1().Id, "Perfect movie!", 3);
+                var rating = await sut.AddReviewToMovie(TestHelper.TestMovie2().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
+                var movie = rating.Movie;
+
+                Assert.AreEqual(8, movie.TotalRating);
+                Assert.IsTrue(movie.AverageRating == 4);
+                Assert.IsTrue(movie.NumberOfVotes == 2);
+                Assert.IsTrue(assertContext.Reviews.Count() == 1);
+            }
+        }
+
+        [TestMethod]
+        public async Task ReturnCorrect_RatingIsNotSet()
+        {
+            var options = TestUtils.GetOptions(nameof(ReturnCorrect_RatingIsNotSet));
+
+            using (var arrangeContext = new MoviesCatalogContext(options))
+            {
+                arrangeContext.Reviews.Add(TestHelper.TestReview3());
+                arrangeContext.SaveChanges();
+            }
+
+            using (var assertContext = new MoviesCatalogContext(options))
+            {
+                var sut = new ReviewService(assertContext);
+
+                var rating = await sut.AddReviewToMovie(TestHelper.TestMovie2().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
                 var movie = rating.Movie;
 
                 Assert.AreEqual(8, movie.TotalRating);

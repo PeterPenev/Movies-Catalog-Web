@@ -8,7 +8,7 @@ namespace MoviesCatalog.Services.Contracts
     {
         Task<ApplicationUser> GetUserByIdAsync(string id);
 
-        Task<ApplicationUser> EditUserProfileAsync(string id, string avatar);
+        Task<ApplicationUser> EditUserProfileAsync(ApplicationUser user, string avatar);
 
         Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol);
 

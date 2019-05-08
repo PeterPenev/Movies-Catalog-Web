@@ -51,7 +51,8 @@
                     </div>
                 </div>
             </div>
-            @if (Model.LastFiveReviewsByMovie != null)
+
+            @if (Model.LastFiveReviewsByMovie.Count > 0)
             {
                 <div class="col-md-4 single-right">
                     <h3>Last five reviews for @Model.Title</h3>
@@ -63,9 +64,10 @@
                                     <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/@(review.MoviePoster?? "noimage.jpg")" /></a>
                                 </div>
                                 <div class="col-md-8 single-right-grid-right">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
+                                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">@review.MovieTitle</a>
                                     <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
                                     <p class="views">@review.Description</p>
+                                    <p class="author">@($"Author: {review.UserName}")</p>
                                 </div>
                                 <div class="clearfix"> </div>
                             </div>
@@ -74,10 +76,23 @@
                 </div>
             }
         </div>
+        
     </div>
 </div>
 
-
+@section Scripts
+    {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+        });
+    </script>
+}
 
 
 

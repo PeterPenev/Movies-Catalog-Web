@@ -35,7 +35,12 @@
             @if (User.IsInRole("Admin"))
             {
                 <td>
-                    <a asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Actor To Movie</i></a>                    
+                    <form asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie">
+                    <input type="hidden" name="movieId" value="@movie.Id"/>
+                    <input type="hidden" name="actorId" value="@ViewData["ActorId"]"/>
+                        <button type="submit" asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" class="btn btn-success"><i class="material-icons">Add Actor To Movie</i></button>                    
+
+</form>
                 </td>
                 <td>                    
                     <a asp-area="Admin" asp-controller="Reviews" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Review To Movie</i></a>

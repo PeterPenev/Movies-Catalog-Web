@@ -68,23 +68,13 @@ namespace MoviesCatalog.Services
                                     .AnyAsync(x => x.FirstName == firstName && x.LastName == lastName);
         }
 
-        public Movie AddActorToMovie(int movieId, Actor actor)
+        public Movie AddActorToMovie(int movieId, int actorId)
         {
-            var movie = this.context.Movies.Find(movieId);
-
-            var actorFullName = actor.FirstName + ' ' + actor.LastName;
-
-            var existingActorsInMovie = this.context.MoviesActors
-                                            .Where(t => t.Movie.Title == movie.Title)
-                                            .Select(a => a.Actor.FirstName + ' ' + a.Actor.LastName)
-                                            .ToList();
-
-            if (existingActorsInMovie.Contains(actorFullName))
-            {
+            var movie = this.context.Movies.Include(m => m.MoviesActors).FirstOrDefault(m => m.Id == movieId);
+            if (movie.MoviesActors.Any(a => a.ActorId == actorId))
                 throw new ArgumentException();
-            }
 
-            this.context.MoviesActors.Add(new MoviesActors() { MovieId = movie.Id, ActorId = actor.Id });
+            this.context.MoviesActors.Add(new MoviesActors() { MovieId = movie.Id, ActorId = actorId });
 
             this.context.SaveChanges();
 

@@ -78,8 +78,13 @@ namespace MoviesCatalog.Web.Controllers
 
             try
             {
+                var user = await this.userService.GetUserByIdAsync(model.Id);
+                if (user == null)
+                {
+                    RedirectToAction("Index", "Reviews");
+                }
                 var actor = await this.userService
-                                .EditUserProfileAsync(model.Id, model.Avatar);
+                                .EditUserProfileAsync(user, model.Avatar);
                 return RedirectToAction("Details", "Users", new { id = actor.Id });
             }
 
@@ -93,7 +98,10 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var user = await userService.GetUserByIdAsync(id);
-            if (user == null) return NotFound();
+            if (user == null)
+            {
+                RedirectToAction("Index", "Movies");
+            }
             var userId = this.User.GetId();
             var userViewModel = this.userMapper.MapFrom(user);
             userViewModel.CanUserEdit = userId == id;

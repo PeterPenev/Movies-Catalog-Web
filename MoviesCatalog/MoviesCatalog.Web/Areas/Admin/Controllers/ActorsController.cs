@@ -89,6 +89,10 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             try
             {
                 var actor = await this.actorService.GetActorByIdAsync(model.Id);
+                if (actor == null)
+                {
+                    return NotFound();
+                }
                 actor = await this.actorService
                                   .UpdateActorAsync(actor, model.FirstName, model.LastName,
                                                     model.Picture, model.Biography);
@@ -112,35 +116,30 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         public async Task <IActionResult> AddToMovie(int id)
         {
             var actor = await this.actorService.GetActorByIdAsync(id);
+            if (actor == null)
+            {
+                return NotFound();
+            }
             var movies = await this.movieService.ShowAllMoviesOrderedDescByRating();
             var movieViewModel = movies.Select(this.movieMapper.MapFrom);
+            ViewData["ActorId"] = id;
             return View(movieViewModel);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult AddToMovie(MovieViewModel model)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    try
-        //    {
-        //        //var actor = await this.actorService
-        //        //                .UpdateActorBiographyAsync(model.Id, model.Biography);
-
-        //        //StatusMessage = $"Successfully updated {model.FirstName} {model.LastName} details.";
-        //        //return RedirectToAction("Details", "Actors", new { id = actor.Id });
-        //        return View();
-        //    }
-
-        //    catch (ArgumentException ex)
-        //    {
-        //        this.ModelState.AddModelError("Error", ex.Message);
-        //        return View(model);
-        //    }
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddToMovie(int movieId, int actorId)
+        {
+            try
+            {
+                this.actorService.AddActorToMovie(movieId, actorId);
+                return View();
+            }
+            catch (ArgumentException ex)
+            {
+                this.ModelState.AddModelError("Error", ex.Message);
+                return View();
+            }
+        }
     }
 }

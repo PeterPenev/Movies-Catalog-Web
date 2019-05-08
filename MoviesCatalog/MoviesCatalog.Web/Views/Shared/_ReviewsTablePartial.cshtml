@@ -1,0 +1,35 @@
+﻿
+@model MovieViewModel
+
+<table id="table" class="table table-striped border border-info">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">№</th>
+            <th scope="col" width="30%">Picture</th>
+            <th scope="col">Description</th>
+            <th scope="col">Username</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th scope="col">Add To Movie</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @foreach (var review in Model.AllReviewsByMovie)
+        {
+            <tr>
+                <td>@counter</td>
+                @{
+                    counter++;
+                }
+                <td class="w3-list-img"><a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/@(Model.Poster ?? "noimage.jpg")" /><span></span></a></td>
+                <td>@review.Description</td>
+                <td><a asp-controller="Users" asp-action="Details" asp-route-id="@review.UserId">@review.UserName</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

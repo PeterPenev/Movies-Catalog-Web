@@ -80,7 +80,6 @@ namespace MoviesCatalog.Web.Controllers
                     return RedirectToAction("Details", "Movies", new { id = model.MovieId });
                 }
 
-               
                 var review = await this.reviewService
                                 .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
                 StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
@@ -98,6 +97,7 @@ namespace MoviesCatalog.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            
             var review = await this.reviewService.GetReviewById(id);
             var reviewViewModel = this.reviewMapper.MapFrom(review);
             return View(reviewViewModel);
@@ -115,8 +115,13 @@ namespace MoviesCatalog.Web.Controllers
             try
             {
                 var review = await this.reviewService.GetReviewById(model.Id);
-                 review = await this.reviewService
-                                    .EditReviewAsync(review, model.Rating, model.Description);
+                if (review == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                
+                review = await this.reviewService
+                                    .EditReviewAsync(review, model.UserId, model.Rating, model.Description);
 
                 if (review.Description == model.Description && review.Rating == model.Rating)
                 {
@@ -136,7 +141,11 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var review = await reviewService.GetReviewById(id);
-            if (review == null) return NotFound();
+            if (review == null)
+            {
+                return RedirectToAction("Index"); 
+            }
+
             var userId = this.User.GetId();
             var userViewModel = this.reviewMapper.MapFrom(review);
             userViewModel.CanUserEdit = review.UserId == userId;
@@ -149,7 +158,8 @@ namespace MoviesCatalog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await reviewService.DeleteReviewAsync(id);
+            var userId = User.GetId();
+            await reviewService.DeleteReviewAsync(id, userId);
             StatusMessage = "Successfully deleted the review.";
             return RedirectToAction("Index", "Home");
         }

@@ -31,7 +31,10 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Promote(string id)
         {
             var user = await userServie.GetUserByIdAsync(id);
-
+            if (user == null)
+            {
+                return NotFound();
+            }
             var userManeger = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             if (await userManeger.IsInRoleAsync(user,"Admin"))

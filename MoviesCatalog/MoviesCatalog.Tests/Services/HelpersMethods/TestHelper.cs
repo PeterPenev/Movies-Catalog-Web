@@ -51,7 +51,7 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 UserName = "Pitur",
                 Email = "d@abv.bg",
                 PasswordHash = "Admin123@",
-                //Id = "00000000 - 0000 - 0000 - 0000 - 000000000001",
+                Id = "24776b40-e657-479a-846c-00da0e80b7c5",
                 
             };
         }
@@ -59,12 +59,11 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
         public static ApplicationUser TestUser2()
         {
             return new ApplicationUser
-
-            {    UserName = "Ivan",
+            {
+                 UserName = "Ivan",
                  Email = "di@abv.bg",
                  PasswordHash = "Admin123@",
-                //Id = "00000000 - 0000 - 0000 - 0000 - 000000000002",
-                
+                 Id = "01418677-E407-4C7B-9D84-0BA79C9BFCBD"               
             };
         }
 
@@ -73,10 +72,11 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             return new Movie
             {
                 Title = "Gone in 60 seconds",
-                
+                Id = 1,
                 ReleaseDate = new DateTime(01 / 01 / 2017),
                 NumberOfVotes = 1,
-                TotalRating = 5
+                TotalRating = 5,
+                User = TestUser1()
             };
         }
 
@@ -85,10 +85,11 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             return new Movie
             {
                 Title = "Gladiator",
-               
+                Id = 2,
                 ReleaseDate = new DateTime(01 / 01 / 2017),
                 NumberOfVotes = 2,
-                TotalRating = 10
+                TotalRating = 10,
+                User = TestUser2()
             };
         }
 
