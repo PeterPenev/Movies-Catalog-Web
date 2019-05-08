@@ -8,8 +8,8 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IMovieService
     {
-        //Movie CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate);
-        Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate);
+        Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate, string UserName);
+        //Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate);
 
         Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(char symbol);
         

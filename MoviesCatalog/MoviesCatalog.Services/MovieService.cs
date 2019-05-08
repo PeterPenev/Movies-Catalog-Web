@@ -18,9 +18,9 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate)
+        public async Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate,string userId)
         {
-            //var user = this.context.Users.Find(userId);
+            var user = this.context.Users.Find(userId);
 
             var movie = await this.context.Movies.FirstOrDefaultAsync(t => t.Title == title);
 
@@ -29,9 +29,9 @@ namespace MoviesCatalog.Services
                 throw new ArgumentException();
             }
 
-            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate, };
+            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate};
 
-            //movie.User = user;
+            movie.User = user;
 
             this.context.Movies.Add(movie);
             this.context.SaveChanges();
@@ -39,7 +39,7 @@ namespace MoviesCatalog.Services
             return movie;
         }
 
-        public async Task <IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRating()
+        public async Task<IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRating()
         {
             var movies = await this.context.Movies
                              .OrderByDescending(ar => ar.AverageRating)
@@ -51,13 +51,13 @@ namespace MoviesCatalog.Services
         public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaiting()
         {
             var movies = await this.context.Movies
-                             .OrderByDescending(ar=>ar.AverageRating)
+                             .OrderByDescending(ar => ar.AverageRating)
                              .Take(10)
                              .ToListAsync();
 
             return movies;
         }
-        
+
 
         public async Task<IReadOnlyCollection<Movie>> ShowMoviesLatest6ByReleaseDate()
         {
@@ -121,6 +121,6 @@ namespace MoviesCatalog.Services
             return await this.context.Movies
                                     .AnyAsync(t => t.Title == movieTitle);
         }
-        
+
     }
 }
