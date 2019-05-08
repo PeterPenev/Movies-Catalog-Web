@@ -18,7 +18,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Actor> GetActorAsync(int id)
+        public async Task<Actor> GetActorByIdAsync(int id)
         {
             var actor =  await this.context.Actors.FindAsync(id);
 
@@ -68,11 +68,9 @@ namespace MoviesCatalog.Services
                                     .AnyAsync(x => x.FirstName == firstName && x.LastName == lastName);
         }
 
-        public Movie AddActorToMovie(int movieId, int actorId)
+        public Movie AddActorToMovie(int movieId, Actor actor)
         {
             var movie = this.context.Movies.Find(movieId);
-
-            var actor = this.context.Actors.Find(actorId);
 
             var actorFullName = actor.FirstName + ' ' + actor.LastName;
 
@@ -104,14 +102,9 @@ namespace MoviesCatalog.Services
             return actor;
         }
 
-        public async Task<Actor> UpdateActorBiographyAsync(int id, string biography)
+        public async Task<Actor> UpdateActorAsync(Actor actor,string firstName, 
+                                                  string lastName, string picture, string biography)
         {
-            var actor = await this.context.Actors
-                                    .FindAsync(id);
-            if (actor == null)
-            {
-                throw new ArgumentException();
-            }
 
             actor.Biography = biography;
             await this.context.SaveChangesAsync();

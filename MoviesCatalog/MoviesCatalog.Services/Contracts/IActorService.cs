@@ -7,7 +7,7 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IActorService
     {
-        Task<Actor> GetActorAsync(int id);
+        Task<Actor> GetActorByIdAsync(int id);
 
         Task<IReadOnlyCollection<Actor>> ShowAllActors();
 
@@ -15,12 +15,13 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(string id);
 
-        Task<Actor> UpdateActorBiographyAsync(int id, string biography);
+        Task<Actor> UpdateActorAsync(Actor actor, string firstName,
+                                     string lastName, string picture, string biography);
 
         Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMovies(int actorId);
 
         Task<bool> IsActorExistAsync(string firstName, string lastName);
 
-        Movie AddActorToMovie(int movieId, int actorId);
+        Movie AddActorToMovie(int movieId, Actor actor);
     }
 }

@@ -13,5 +13,7 @@ namespace MoviesCatalog.Services.Contracts
         Task<Review> DeleteReviewAsync(int reviewId);
 
         Task<bool> DidUserAlreadyVoteForMovieAsync(int movieId, string userId);
+
+        Task<Review> EditReviewAsync(Review review, double rating, string description);
     }
 }

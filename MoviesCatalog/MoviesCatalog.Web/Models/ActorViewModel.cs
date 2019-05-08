@@ -22,6 +22,8 @@ namespace MoviesCatalog.Web.Models
 
         public bool CanUserEdit { get; set; }
 
-        public ICollection<MovieViewModel> MoviesByActor { get; set; }
+        public int NumberOfMovies { get; set; }
+
+        public ICollection<MovieViewModel> LastFiveMoviesByActor { get; set; }
     }
 }

@@ -2,7 +2,51 @@
 
 @using Microsoft.Extensions.Primitives;
 
-<div class="single-page-agile-main">
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="custom-format">Update @Model.FirstName @Model.LastName details</h3>
+                <form asp-area="Admin" asp-controller="Actors" asp-action="Update" method="post">
+                    <hr class="hr-new" />
+                    @*@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])*@
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="grey"></label>
+                        <input asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="grey"></label>
+                        <input asp-for="LastName" placeholder="Please enter a last name." class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Picture" class="grey"></label>
+                        <input asp-for="Picture" placeholder="Please enter an image url." class="form-control" />
+                        <span asp-validation-for="Picture" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Biography" class="grey"></label>
+                        <textarea asp-for="Biography" placeholder="Please enter a biography." class="form-control"></textarea>
+                        <span asp-validation-for="Biography" class="text-danger-orange"></span>
+                    </div>
+                    <button type="submit" class="btn btn-default-custom">SUBMIT</button>
+                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                    @if (referrer != default(StringValues))
+                    {
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
+                    }
+                </form>
+                <hr class="hr-new" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="single-page-agile-main">
     <div class="container">
         <div class="single-page-agile-info">
             <div class="show-top-grids-w3lagile">
@@ -23,7 +67,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

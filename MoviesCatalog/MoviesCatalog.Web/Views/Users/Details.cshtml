@@ -37,7 +37,7 @@
                                     <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/@(review.MoviePoster?? "noimage.jpg")" /></a>
                                 </div>
                                 <div class="col-md-8 single-right-grid-right">
-                                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
+                                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">@review.MovieTitle</a>
                                     <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
                                     <p class="views">@review.Description</p>
                                 </div>

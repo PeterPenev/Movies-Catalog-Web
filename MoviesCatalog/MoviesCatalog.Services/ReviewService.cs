@@ -19,12 +19,16 @@ namespace MoviesCatalog.Services
 
         public async Task<Review> GetReviewById(int id)
         {
-            var review = await this.context.Reviews.FindAsync(id);
+            var review = await this.context.Reviews
+                                           .Where(x => x.Id == id)
+                                           .Include(x => x.Movie)
+                                           .Include(x => x.User)
+                                           .FirstOrDefaultAsync();
 
-            if (review == null)
-            {
-                throw new ArgumentException();
-            }
+            //if (review == null)
+            //{
+            //    throw new ArgumentException();
+            //}
 
             return review;
         }
@@ -42,8 +46,8 @@ namespace MoviesCatalog.Services
                                              .Include(x => x.User)
                                              .FirstOrDefaultAsync();
 
-            var movie = this.context.Movies.Find(movieId);
-            var user = this.context.Users.Find(userId);
+            var movie = await this.context.Movies.FindAsync(movieId);
+            var user =  await this.context.Users.FindAsync(userId);
 
             if (review == null)
             {
@@ -108,6 +112,18 @@ namespace MoviesCatalog.Services
             movie.TotalRating -= review.Rating;
 
             await context.SaveChangesAsync();
+            return review;
+        }
+
+        public async Task<Review> EditReviewAsync(Review review, double rating, string description)
+        {
+            review.Description = description;
+            var movie = review.Movie;
+            movie.TotalRating -= review.Rating;
+            review.Rating = rating;
+            movie.TotalRating += rating;
+
+            await this.context.SaveChangesAsync();
             return review;
         }
     }

@@ -45,12 +45,12 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var actor = await this.actorService.GetActorAsync(id);
+            var actor = await this.actorService.GetActorByIdAsync(id);
 
             var actorMovies = await this.actorService.ShowLastFiveActorMovies(actor.Id);
 
             var actorViewModel = this.actorMapper.MapFrom(actor);
-            actorViewModel.MoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();
+            actorViewModel.LastFiveMoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();
 
             return View(actorViewModel);
         }

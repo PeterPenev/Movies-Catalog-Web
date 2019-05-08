@@ -72,7 +72,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var actor = await this.actorService.GetActorAsync(id);
+            var actor = await this.actorService.GetActorByIdAsync(id);
             var actorViewModel = this.actorMapper.MapFrom(actor);
             return View(actorViewModel);
         }
@@ -88,11 +88,17 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
-                var actor = await this.actorService
-                                .UpdateActorBiographyAsync(model.Id, model.Biography);
-
-                StatusMessage = $"Successfully updated {model.FirstName} {model.LastName} details.";
-                return RedirectToAction("Details", "Actors", new { id = actor.Id });
+                var actor = await this.actorService.GetActorByIdAsync(model.Id);
+                actor = await this.actorService
+                                  .UpdateActorAsync(actor, model.FirstName, model.LastName,
+                                                    model.Picture, model.Biography);
+                if (actor.FirstName == model.FirstName && actor.LastName == model.LastName &&
+                    actor.Picture == model.Picture && actor.Biography == model.Biography)
+                {
+                    StatusMessage = $"Successfully updated \"{model.FirstName} {model.LastName}\" details.";
+                }
+                    return RedirectToAction("Details", "Actors", new { id = actor.Id });
+                
             }
 
             catch (ArgumentException ex)
@@ -105,7 +111,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task <IActionResult> AddToMovie(int id)
         {
-            var actor = await this.actorService.GetActorAsync(id);
+            var actor = await this.actorService.GetActorByIdAsync(id);
             var movies = await this.movieService.ShowAllMoviesOrderedDescByRating();
             var movieViewModel = movies.Select(this.movieMapper.MapFrom);
             return View(movieViewModel);

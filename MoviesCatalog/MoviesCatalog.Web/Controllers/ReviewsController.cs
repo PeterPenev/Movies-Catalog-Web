@@ -39,9 +39,9 @@ namespace MoviesCatalog.Web.Controllers
             var userId = this.User.GetId();
             var user = await this.userService.GetUserByIdAsync(review.UserId);
             var movie = await this.movieService.GetMovieById(review.MovieId);
-            review.Movie.Title = movie.Title;
-            review.Movie.Poster = movie.Poster;
-            review.User.UserName = user.UserName;
+            //review.Movie.Title = movie.Title;
+            //review.Movie.Poster = movie.Poster;
+            //review.User.UserName = user.UserName;
            
             var reviewViewModel = this.reviewMapper.MapFrom(review);
             reviewViewModel.CanUserEdit = review.UserId == userId;
@@ -86,6 +86,44 @@ namespace MoviesCatalog.Web.Controllers
                 StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
                 return RedirectToAction("Details", "Reviews", new { id = review.Id });
 
+            }
+
+            catch (ArgumentException ex)
+            {
+                this.ModelState.AddModelError("Error", ex.Message);
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var review = await this.reviewService.GetReviewById(id);
+            var reviewViewModel = this.reviewMapper.MapFrom(review);
+            return View(reviewViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ReviewViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var review = await this.reviewService.GetReviewById(model.Id);
+                 review = await this.reviewService
+                                    .EditReviewAsync(review, model.Rating, model.Description);
+
+                if (review.Description == model.Description && review.Rating == model.Rating)
+                {
+                    StatusMessage = $"Successfully edited your review.";
+                }
+
+                return RedirectToAction("Details", "Reviews", new { id = review.Id });
             }
 
             catch (ArgumentException ex)
