@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services;
+using MoviesCatalog.Services.Utils;
 using MoviesCatalog.Tests.Services.HelpersMethods;
 using MoviesCatalog.Tests.Services.Utils;
 using System;
@@ -31,7 +32,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var review = await sut.AddReviewToMovie(1, TestHelper.TestUser2().Id, "Perfect movie.", 5);
+                var review = await sut.AddReviewToMovieAsync(1, TestHelper.TestUser2().Id, "Perfect movie.", 5);
                 var movie = review.Movie;
                 Assert.IsTrue(movie.TotalRating == 10);
                 Assert.IsTrue(movie.AverageRating == 5);
@@ -47,8 +48,8 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-               await arrangeContext.Users.AddAsync(TestHelper.TestUser1());
-               await  arrangeContext.Reviews.AddAsync(TestHelper.TestReview2());
+                await arrangeContext.Users.AddAsync(TestHelper.TestUser1());
+                await arrangeContext.Reviews.AddAsync(TestHelper.TestReview2());
 
                 arrangeContext.SaveChanges();
             }
@@ -57,7 +58,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var review = await sut.AddReviewToMovie(TestHelper.TestMovie1().Id, TestHelper.TestUser1().Id, "Perfect movie!", 7);
+                var review = await sut.AddReviewToMovieAsync(TestHelper.TestMovie1().Id, TestHelper.TestUser1().Id, "Perfect movie!", 7);
 
                 Assert.AreEqual("Perfect movie!", review.Description);
                 Assert.AreEqual(7, review.Rating);
@@ -80,7 +81,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var rating = await sut.AddReviewToMovie(TestHelper.TestMovie2().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
+                var rating = await sut.AddReviewToMovieAsync(TestHelper.TestMovie2().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
                 var movie = rating.Movie;
 
                 Assert.AreEqual(8, movie.TotalRating);
@@ -105,13 +106,35 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var rating = await sut.AddReviewToMovie(TestHelper.TestMovie2().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
+                var rating = await sut.AddReviewToMovieAsync(TestHelper.TestMovie2().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
                 var movie = rating.Movie;
 
                 Assert.AreEqual(8, movie.TotalRating);
                 Assert.IsTrue(movie.AverageRating == 4);
                 Assert.IsTrue(movie.NumberOfVotes == 2);
                 Assert.IsTrue(assertContext.Reviews.Count() == 1);
+            }
+        }
+
+        [TestMethod]
+        public async Task ThrowExeption_WhenUserIsVoted()
+        {
+            var options = TestUtils.GetOptions(nameof(ThrowExeption_WhenUserIsVoted));
+
+            using (var arrangeContext = new MoviesCatalogContext(options))
+            {
+                arrangeContext.Reviews.Add(TestHelper.TestReview1());
+                arrangeContext.SaveChanges();
+            }
+
+            using (var assertContext = new MoviesCatalogContext(options))
+            {
+                var sut = new ReviewService(assertContext);
+
+                var ex = await Assert.ThrowsExceptionAsync<ArgumentException>(() => sut.AddReviewToMovieAsync(TestHelper.TestMovie1().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3));
+
+                Assert.AreEqual(ex.Message, string.Format(ServicesConstants.UserAlreadyVoted,
+                                                           TestHelper.TestUser1().UserName, TestHelper.TestMovie1().Title));
             }
         }
     }

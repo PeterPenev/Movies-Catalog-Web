@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\ActorServiceTests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MoviesCatalog.Data\MoviesCatalog.Data.csproj" />
     <ProjectReference Include="..\MoviesCatalog.Services\MoviesCatalog.Services.csproj" />
   </ItemGroup>

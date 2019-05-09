@@ -5,9 +5,9 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IReviewService
     {
-        Task<Review> GetReviewById(int id);
+        Task<Review> GetReviewByIdAsync(int id);
 
-        Task<Review> AddReviewToMovie(int movieId, string userId,
+        Task<Review> AddReviewToMovieAsync(int movieId, string userId,
                                      string description, double rating);
 
         Task<Review> DeleteReviewAsync(int reviewId, string userId);

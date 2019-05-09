@@ -28,7 +28,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var review = await sut.GetReviewById(1);
+                var review = await sut.GetReviewByIdAsync(1);
 
                 Assert.AreEqual(review.Id, 1);
             }
@@ -43,7 +43,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var review = await sut.GetReviewById(1);
+                var review = await sut.GetReviewByIdAsync(1);
 
                 Assert.IsNull(review);
             }

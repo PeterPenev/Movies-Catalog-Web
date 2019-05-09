@@ -12,12 +12,12 @@
                     @*@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])*@
                     <div class="form-group">
                         <label asp-for="FirstName" class="grey"></label>
-                        <input asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
+                        <input readonly  asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
                         <span asp-validation-for="FirstName" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="LastName" class="grey"></label>
-                        <input asp-for="LastName" placeholder="Please enter a last name." class="form-control" />
+                        <input readonly asp-for="LastName" placeholder="Please enter a last name." class="form-control" />
                         <span asp-validation-for="LastName" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">

@@ -11,11 +11,14 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
         {
             return new Review
             {
+                Id = 1,
                 User = TestUser1(),
                 Movie = TestMovie1(),
                 Rating = 4,
                 Description = "Very nice movie",
-                IsDeleted = false
+                IsDeleted = false,
+                UserId = "24776b40-e657-479a-846c-00da0e80b7c5"
+
             };
         }
 
@@ -23,6 +26,7 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
         {
             return new Review
             {
+                Id = 2,
                 User = TestUser2(),
                 Movie = TestMovie1(),
                 Rating = 4,
@@ -35,6 +39,7 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
         {
             return new Review
             {
+                Id = 3,
                 User = TestUser1(),
                 Movie = TestMovie2(),
                 Rating = 5,
@@ -97,9 +102,21 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
         {
             return new Actor
             {
-                
+                Id = 1,
                 FirstName = "Brad",
-                LastName = "Pit"
+                LastName = "Pit",
+                Biography= "Very good actor"
+            };
+        }
+
+        public static MoviesActors MoviesActors1()
+        {
+            return new MoviesActors
+            {
+                ActorId = 1,
+                MovieId = 1,
+                Actor = TestActor1(),
+                Movie = TestMovie1()
             };
         }
     }

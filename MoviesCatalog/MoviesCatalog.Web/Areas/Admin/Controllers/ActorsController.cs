@@ -94,8 +94,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                     return NotFound();
                 }
                 actor = await this.actorService
-                                  .UpdateActorAsync(actor, model.FirstName, model.LastName,
-                                                    model.Picture, model.Biography);
+                                  .UpdateActorAsync(actor, model.Picture, model.Biography);
+
                 if (actor.FirstName == model.FirstName && actor.LastName == model.LastName &&
                     actor.Picture == model.Picture && actor.Biography == model.Biography)
                 {
@@ -128,11 +128,23 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddToMovie(int movieId, int actorId)
+        public async Task<IActionResult> AddToMovie(int movieId, int actorId)
         {
             try
             {
-                this.actorService.AddActorToMovie(movieId, actorId);
+                var movie = await this.movieService.GetMovieById(movieId);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                var actor = await this.actorService.GetActorByIdAsync(actorId);
+                if (actor == null)
+                {
+                    return NotFound();
+                }
+
+                await this.actorService.AddActorToMovieAsync(movie.Id, actor.Id);
+                
                 return RedirectToAction("Index");
             }
             catch (ArgumentException ex)

@@ -9,19 +9,19 @@ namespace MoviesCatalog.Services.Contracts
     {
         Task<Actor> GetActorByIdAsync(int id);
 
-        Task<IReadOnlyCollection<Actor>> ShowAllActors();
+        Task<IReadOnlyCollection<Actor>> ShowAllActorsAsync();
 
         Task<Actor> CreateActorAsync(string firstName, string lastName, string biography);
 
         Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(string id);
 
-        Task<Actor> UpdateActorAsync(Actor actor, string firstName,
-                                     string lastName, string picture, string biography);
+        Task<Actor> UpdateActorAsync(Actor actor, string picture, string biography);
 
-        Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMovies(int actorId);
+
+        Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMoviesAsync(int actorId);
 
         Task<bool> IsActorExistAsync(string firstName, string lastName);
 
-        Movie AddActorToMovie(int movieId, int actorId);
+        Task<Movie> AddActorToMovieAsync(int movieId, int actorId);
     }
 }

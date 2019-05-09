@@ -31,7 +31,7 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var actors = await this.actorService.ShowAllActors();
+            var actors = await this.actorService.ShowAllActorsAsync();
             var actorViewModel = actors.Select(this.actorMapper.MapFrom).ToList();
             return View(actorViewModel);
         }
@@ -47,7 +47,7 @@ namespace MoviesCatalog.Web.Controllers
         {
             var actor = await this.actorService.GetActorByIdAsync(id);
 
-            var actorMovies = await this.actorService.ShowLastFiveActorMovies(actor.Id);
+            var actorMovies = await this.actorService.ShowLastFiveActorMoviesAsync(actor.Id);
 
             var actorViewModel = this.actorMapper.MapFrom(actor);
             actorViewModel.LastFiveMoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();

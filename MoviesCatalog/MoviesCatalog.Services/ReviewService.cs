@@ -18,18 +18,13 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context)); 
         }
 
-        public async Task<Review> GetReviewById(int id)
+        public async Task<Review> GetReviewByIdAsync(int id)
         {
             var review = await this.context.Reviews
                                            .Where(x => x.Id == id)
                                            .Include(x => x.Movie)
                                            .Include(x => x.User)
                                            .FirstOrDefaultAsync();
-
-            //if (review == null)
-            //{
-            //    throw new ArgumentException(string.Format(ServicesConstants.ReviewNotPresent));
-            //}
 
             return review;
         }
@@ -39,7 +34,7 @@ namespace MoviesCatalog.Services
             return await this.context.Reviews.AnyAsync(x => x.UserId == userId && x.MovieId == movieId && !x.IsDeleted);
         }
 
-        public async Task<Review> AddReviewToMovie(int movieId, string userId,
+        public async Task<Review> AddReviewToMovieAsync(int movieId, string userId,
                                     string description, double rating)
         {
             var review = await this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
@@ -98,10 +93,6 @@ namespace MoviesCatalog.Services
             var review = await this.context.Reviews.Where(x => x.Id == reviewId && !x.IsDeleted)
                                      .Include(x => x.Movie)
                                      .FirstOrDefaultAsync();
-            if (review == null)
-            {
-                throw new ArgumentException(string.Format(ServicesConstants.ReviewNotPresent));
-            }
 
             var user = this.context.Users.Find(userId);
 

@@ -14,6 +14,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
     [TestClass]
     public class DeleteReview_Should
     {
+        [TestMethod]
         public async Task ThrowExeption_WhenReviewNotFromUser()
         {
             var options = TestUtils.GetOptions(nameof(ThrowExeption_WhenReviewNotFromUser));
@@ -29,13 +30,29 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var result = await sut.DeleteReviewAsync(TestHelper.TestReview1().Id, TestHelper.TestUser2().Id);
+                var ex = await Assert.ThrowsExceptionAsync<ArgumentException>(() => sut.DeleteReviewAsync(TestHelper.TestReview1().Id, TestHelper.TestUser2().Id));
+                Assert.AreEqual(ex.Message, string.Format(ServicesConstants.ReviewNotFromUser, TestHelper.TestUser2().UserName));
+            }
+        }
 
-               var ex = Assert.ThrowsException<ArgumentException>(() => result);
-                Assert.AreEqual(ex.Message, string.Format(ServicesConstants.ReviewNotFromUser,
-                                                          TestHelper.TestUser2().UserName));
+        [TestMethod]
+        public async Task Return_Succeed()
+        {
+            var options = TestUtils.GetOptions(nameof(Return_Succeed));
 
+            using (var arrangeContext = new MoviesCatalogContext(options))
+            {
+                arrangeContext.Reviews.Add(TestHelper.TestReview1());
+                arrangeContext.SaveChanges();
+            }
 
+            using (var assertContext = new MoviesCatalogContext(options))
+            {
+                var sut = new ReviewService(assertContext);
+
+                var review = await sut.DeleteReviewAsync(TestHelper.TestReview1().Id, TestHelper.TestUser1().Id);
+
+                Assert.IsTrue(review.IsDeleted);
             }
         }
     }
