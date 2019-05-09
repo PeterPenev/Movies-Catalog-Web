@@ -36,6 +36,8 @@ namespace MoviesCatalog.Web.Models
         //[Required]
         public double AverageRating { get; set; }
 
+        public string SliderImage { get; set; }
+
         //[Required]
         public IReadOnlyCollection<GenreViewModel> Genres { get; set; }
 

@@ -28,5 +28,7 @@ namespace MoviesCatalog.Services.Contracts
         Task<ICollection<Review>> LastFiveReviewsByMovie(int movieId);
 
         Task<bool> IsMovieExist(string movieTitle);
+
+        Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImage();
     }
 }

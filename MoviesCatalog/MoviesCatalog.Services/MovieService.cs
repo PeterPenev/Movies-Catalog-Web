@@ -59,6 +59,17 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImage()
+        {
+            var movies = await this.context.Movies
+                             .Where(si => si.SliderImage != null)
+                             .OrderByDescending(ar => ar.AverageRating)
+                             .Take(10)
+                             .ToListAsync();
+
+            return movies;
+        }
+
 
         public async Task<IReadOnlyCollection<Movie>> ShowMoviesLatest6ByReleaseDate()
         {
