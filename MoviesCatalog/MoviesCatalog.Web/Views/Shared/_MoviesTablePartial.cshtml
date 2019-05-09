@@ -9,10 +9,9 @@
             <th scope="col">Average Rating</th>
             <th scope="col">Release Date</th>
             <th scope="col">Uploaded by</th>
-            @if (User.IsInRole("Admin"))
+            @if (User.Identity.IsAuthenticated)
             {
-                <th scope="col">Actions</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Add review</th>
             }
         </tr>
     </thead>
@@ -22,7 +21,6 @@
         }
         @foreach (var movie in Model)
         {
-
             <tr>
                 <td>@counter</td>
                 @{
@@ -40,7 +38,14 @@
                     </td>
                 }
             </tr>
-
         }
     </tbody>
 </table>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}
