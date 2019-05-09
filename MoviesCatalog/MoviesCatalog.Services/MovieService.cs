@@ -18,11 +18,15 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate, string userId)
+        public async Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string description, DateTime releaseDate, string userId)
         {
-            var user = this.context.Users.Find(userId);
+            var user = await this.context
+                .Users
+                .FindAsync(userId);
 
-            var movie = await this.context.Movies.FirstOrDefaultAsync(t => t.Title == title);
+            var movie = await this.context
+                .Movies
+                .FirstOrDefaultAsync(t => t.Title == title);
 
             if (movie != null)
             {
@@ -34,12 +38,12 @@ namespace MoviesCatalog.Services
             movie.User = user;
 
             this.context.Movies.Add(movie);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return movie;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRating()
+        public async Task<IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRatingAsync()
         {
             var movies = await this.context.Movies
                              .Include(x => x.User)
@@ -49,7 +53,7 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaiting()
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingAsync()
         {
             var movies = await this.context.Movies
                              .OrderByDescending(ar => ar.AverageRating)
@@ -59,7 +63,7 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImage()
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImageAsync()
         {
             var movies = await this.context.Movies
                              .Where(si => si.SliderImage != null)
@@ -71,7 +75,7 @@ namespace MoviesCatalog.Services
         }
 
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesLatest6ByReleaseDate()
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesLatest6ByReleaseDateAsync()
         {
             var movies = await this.context.Movies
                              .OrderByDescending(rd => rd.ReleaseDate)
@@ -81,7 +85,7 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> SearchMoviesContainsString(string criteria)
+        public async Task<IReadOnlyCollection<Movie>> SearchMoviesContainsStringAsync(string criteria)
         {
             var movies = await this.context.Movies
                              .Where(t => t.Title.Contains(criteria))
@@ -91,7 +95,7 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(char symbol)
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbolAsync(char symbol)
         {
             var movies = await this.context.Movies
                                      .Where(t => t.Title.ToLower().StartsWith(symbol.ToString().ToLower()))
@@ -100,14 +104,16 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<Movie> GetMovieById(int id)
+        public async Task<Movie> GetMovieByIdAsync(int id)
         {
-            var movie = await this.context.Movies.FindAsync(id);
+            var movie = await this.context
+                .Movies
+                .FindAsync(id);
 
             return movie;
         }
 
-        public async Task<ICollection<Review>> AllReviewsByMovie(int movieId)
+        public async Task<ICollection<Review>> AllReviewsByMovieAsync(int movieId)
         {
             var reviews = await context.Reviews
                                 .Where(x => x.Movie.Id == movieId && !x.IsDeleted)
@@ -117,7 +123,7 @@ namespace MoviesCatalog.Services
             return reviews;
         }
 
-        public async Task<ICollection<Review>> LastFiveReviewsByMovie(int movieId)
+        public async Task<ICollection<Review>> LastFiveReviewsByMovieAsync(int movieId)
         {
             var reviews = await context.Reviews
                                 .Where(x => x.Movie.Id == movieId && !x.IsDeleted)
@@ -128,13 +134,13 @@ namespace MoviesCatalog.Services
             return reviews;
         }
 
-        public async Task<bool> IsMovieExist(string movieTitle)
+        public async Task<bool> IsMovieExistAsync(string movieTitle)
         {
             return await this.context.Movies
                                     .AnyAsync(t => t.Title == movieTitle);
         }
 
-        public async Task<Movie> UpdateMovie(Movie movie, string description, string poster, string sliderImage)
+        public async Task<Movie> UpdateMovieAsync(Movie movie, string description, string poster, string sliderImage)
         {
             movie.Description = description;
             movie.Poster = poster;
@@ -143,6 +149,23 @@ namespace MoviesCatalog.Services
             await this.context.SaveChangesAsync();
 
             return movie;
+        }
+
+        public async Task<ICollection<Genre>> AllGenresByMovieAsync(int movieId)
+        {
+            var genres = await context.Genres
+                                      .Where(m => m.MoviesGenres.Any(mg => mg.Movie.Id == movieId))
+                                      .ToListAsync();
+            return genres;
+        }
+
+        public async Task<ICollection<Actor>> AllActorsByMovieAsync(int movieId)
+        {
+            var actors = await context.Actors
+                                .Where(am => am.ActorMovies.Any(m => m.Movie.Id == movieId))
+                                .ToListAsync();                                
+                                
+            return actors;
         }
     }
 }

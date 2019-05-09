@@ -40,7 +40,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
-                if (await this.genreService.IsGenreExist(model.Name))
+                if (await this.genreService.IsGenreExistAsync(model.Name))
                 {
                     StatusMessage = $"Genre with name \"{model.Name}\" already exists.";
 
@@ -49,7 +49,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 }               
 
                 var genre = await this.genreService
-                        .CreateGenre(model.Name);
+                        .CreateGenreAsync(model.Name);
 
                 StatusMessage = $"Successfully added genre with name \"{model.Name}\".";
 

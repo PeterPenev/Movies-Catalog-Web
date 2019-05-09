@@ -38,7 +38,7 @@ namespace MoviesCatalog.Web.Controllers
             var review = await this.reviewService.GetReviewByIdAsync(id);
             var userId = this.User.GetId();
             var user = await this.userService.GetUserByIdAsync(review.UserId);
-            var movie = await this.movieService.GetMovieById(review.MovieId);
+            var movie = await this.movieService.GetMovieByIdAsync(review.MovieId);
             //review.Movie.Title = movie.Title;
             //review.Movie.Poster = movie.Poster;
             //review.User.UserName = user.UserName;

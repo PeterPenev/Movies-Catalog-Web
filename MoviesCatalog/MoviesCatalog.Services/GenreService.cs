@@ -18,29 +18,40 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies()
+        public async Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMoviesAsync()
         {
             var genresCountMovies = new Dictionary<string, int>();
 
-            var genres = await this.context.Genres.OrderBy(gn => gn.Name).Select(gn => gn.Name).ToListAsync();
+            var genres = await this.context.Genres
+                .OrderBy(gn => gn.Name)
+                .Select(gn => gn.Name)
+                .ToListAsync();
 
             foreach (var genre in genres)
             {
-                var countOfMoviesForGenre = this.context.MoviesGenres.Where(x => x.Genre.Name == genre).Distinct().Count();
+                var countOfMoviesForGenre = this.context
+                    .MoviesGenres
+                    .Where(x => x.Genre.Name == genre)
+                    .Distinct()
+                    .Count();
+
                 genresCountMovies.Add(genre, countOfMoviesForGenre);
             }
 
             return genresCountMovies;
         }
 
-        public async Task<IReadOnlyCollection<string>> GetAllGenres()
+        public async Task<IReadOnlyCollection<string>> GetAllGenresAsync()
         {
-            var genres = await this.context.Genres.Select(gn => gn.Name).ToListAsync();
+            var genres = await this.context
+                .Genres
+                .Select(gn => gn.Name)
+                .ToListAsync();
 
             return genres;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowMoviesByGenre(string id)
+        public async Task<IReadOnlyCollection<Movie>> ShowMoviesByGenreAsync(string id)
         {
             var movies = await this.context.Movies
                              .Where(m => m.MoviesGenres.Any(mg => mg.Genre.Name == id))
@@ -49,25 +60,18 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<bool> IsGenreExist(string genreName)
+        public async Task<bool> IsGenreExistAsync(string genreName)
         {
             return await this.context.Genres
                                     .AnyAsync(gn => gn.Name == genreName);
         }
 
-        public async Task<Genre> CreateGenre(string genreName)
+        public async Task<Genre> CreateGenreAsync(string genreName)
         {
-            var genre = await this.context.Genres.FirstOrDefaultAsync(g => g.Name == genreName);
-
-            if (genre != null)
-            {
-                throw new ArgumentException();
-            }
-
-            genre = new Genre() { Name = genreName };
+            var genre = new Genre() { Name = genreName };
 
             this.context.Genres.Add(genre);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return genre;
         }

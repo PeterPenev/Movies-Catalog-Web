@@ -17,6 +17,9 @@
                     <h3 class="padding-custom">Rating: <span class="rating-orange">@($"{Model.AverageRating:F1}")</span><span class="text-custom"> / 5</span></h3>
                     <h4 class="padding-custom">Votes: <span class="text-orange">@Model.NumberOfVotes</span></h4>
                     <h4 class="padding-custom">Release Date : <span class="text-orange">@Model.ReleaseDate.ToString("MMMM dd, yyyy")</span></h4>
+                    <h4 class="padding-custom">Genres : <span class="text-orange">@string.Join(", ", Model.AllGenresByMovie.Select(x=>x.Name))</span></h4>
+                    <h4 class="padding-custom">Actors : <span class="text-orange">@string.Join(", ", Model.AllActorsByMovie.Select(x=>x.FirstName + ' ' + x.LastName))</span></h4>
+                    <h4 class="padding-custom">Description : </h4>
 
                     <div class="song-grid-right">
                     </div>

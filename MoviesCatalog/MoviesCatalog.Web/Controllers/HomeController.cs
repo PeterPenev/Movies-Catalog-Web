@@ -26,8 +26,8 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var topMoviesByRating = await this.movieService.ShowMoviesTop10ByRaiting();
-            var lastMoviesByReleaseDate = await this.movieService.ShowMoviesLatest6ByReleaseDate();
+            var topMoviesByRating = await this.movieService.ShowMoviesTop10ByRaitingAsync();
+            var lastMoviesByReleaseDate = await this.movieService.ShowMoviesLatest6ByReleaseDateAsync();
             
             var homeViewModel = new HomeViewModel()
             {

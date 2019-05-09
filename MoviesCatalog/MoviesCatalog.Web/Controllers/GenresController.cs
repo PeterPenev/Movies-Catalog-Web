@@ -25,11 +25,11 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> MoviesByGenre(string id)
         {
-            var moviesByGenre = await this.genreService.ShowMoviesByGenre(id);
+            var moviesByGenre = await this.genreService.ShowMoviesByGenreAsync(id);
 
             var movieModelView = moviesByGenre.Select(this.movieViewMapper.MapFrom).ToList();           
             
-            var allGenresWithCountMovies = await genreService.GetAllGenresWithCountOfMovies();
+            var allGenresWithCountMovies = await genreService.GetAllGenresWithCountOfMoviesAsync();
             ViewBag.AllGenresWithCountOfMovies = allGenresWithCountMovies;
 
             return View(movieModelView);              
@@ -37,11 +37,11 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allGenres = await genreService.GetAllGenres();
+            var allGenres = await genreService.GetAllGenresAsync();
 
             var countOfGenres = allGenres.Count();
 
-            var allGenresWithCountMovies = await genreService.GetAllGenresWithCountOfMovies();                       
+            var allGenresWithCountMovies = await genreService.GetAllGenresWithCountOfMoviesAsync();                       
 
             ViewBag.AllGenres = allGenres;
             ViewBag.CountOfGenres = countOfGenres;

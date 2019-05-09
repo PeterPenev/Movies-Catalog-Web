@@ -51,7 +51,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
-                if (await this.movieService.IsMovieExist(model.Title))
+                if (await this.movieService.IsMovieExistAsync(model.Title))
                 {
                     StatusMessage = $"Movie with title \"{model.Title}\" already exists.";
 
@@ -64,8 +64,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
 
                 var movie = await this.movieService
-                        .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate, model.UserId);
-               
+                        .CreateMovieAsync(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate, model.UserId);
+
                 return RedirectToAction("Details", "Movies", new { id = movie.Id });
             }
 
@@ -79,7 +79,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var movie = await this.movieService.GetMovieById(id);
+            var movie = await this.movieService.GetMovieByIdAsync(id);
             var movieViewModel = this.movieViewMapper.MapFrom(movie);
             return View(movieViewModel);
         }
@@ -95,16 +95,16 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
-                var movie = await this.movieService.GetMovieById(model.Id);
+                var movie = await this.movieService.GetMovieByIdAsync(model.Id);
                 if (movie == null)
                 {
                     return NotFound();
                 }
                 movie = await this.movieService
-                                  .UpdateMovie(movie, model.Description,model.Poster,model.SliderImage);
-                //if (movie.Description == model.Description)
-                    if (movie.Title == model.Title && movie.Description == model.Description && movie.Poster==model.Poster && movie.SliderImage==model.SliderImage)
-                    {
+                                  .UpdateMovieAsync(movie, model.Description, model.Poster, model.SliderImage);
+
+                if (movie.Title == model.Title && movie.Description == model.Description && movie.Poster == model.Poster && movie.SliderImage == model.SliderImage)
+                {
                     StatusMessage = $"Successfully updated details of movie with title \"{model.Title}\"";
                 }
                 return RedirectToAction("Details", "Movies", new { id = movie.Id });

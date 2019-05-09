@@ -121,7 +121,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var movies = await this.movieService.ShowAllMoviesOrderedDescByRating();
+            var movies = await this.movieService.ShowAllMoviesOrderedDescByRatingAsync();
             var movieViewModel = movies.Select(this.movieMapper.MapFrom);
             ViewData["ActorId"] = id;
             return View(movieViewModel);
@@ -133,7 +133,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         {
             try
             {
-                var movie = await this.movieService.GetMovieById(movieId);
+                var movie = await this.movieService.GetMovieByIdAsync(movieId);
                 if (movie == null)
                 {
                     return NotFound();
