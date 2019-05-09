@@ -16,6 +16,8 @@ namespace MoviesCatalog.Data.Models
 
         public string Poster { get; set; }
 
+        public string SliderImage { get; set; }
+
         [Required]
         public DateTime ReleaseDate { get; set; }
 
@@ -37,9 +39,5 @@ namespace MoviesCatalog.Data.Models
 
         public ICollection<MoviesActors> MoviesActors { get; set; }
 
-        public override string ToString()
-        {
-            return $"{AverageRating:F1}";
-        }
     }
 }
