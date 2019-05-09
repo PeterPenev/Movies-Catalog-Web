@@ -75,5 +75,47 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var movie = await this.movieService.GetMovieById(id);
+            var movieViewModel = this.movieViewMapper.MapFrom(movie);
+            return View(movieViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(MovieViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var movie = await this.movieService.GetMovieById(model.Id);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                movie = await this.movieService
+                                  .UpdateMovie(movie, model.Description,model.Poster,model.SliderImage);
+                //if (movie.Description == model.Description)
+                    if (movie.Title == model.Title && movie.Description == model.Description && movie.Poster==model.Poster && movie.SliderImage==model.SliderImage)
+                    {
+                    StatusMessage = $"Successfully updated details of movie with title \"{model.Title}\"";
+                }
+                return RedirectToAction("Details", "Movies", new { id = movie.Id });
+
+            }
+
+            catch (ArgumentException ex)
+            {
+                this.ModelState.AddModelError("Error", ex.Message);
+                return View(model);
+            }
+        }
     }
 }

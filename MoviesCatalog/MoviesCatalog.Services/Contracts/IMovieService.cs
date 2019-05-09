@@ -30,5 +30,7 @@ namespace MoviesCatalog.Services.Contracts
         Task<bool> IsMovieExist(string movieTitle);
 
         Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImage();
+
+        Task<Movie> UpdateMovie(Movie movie, string description, string poster, string sliderImage);
     }
 }

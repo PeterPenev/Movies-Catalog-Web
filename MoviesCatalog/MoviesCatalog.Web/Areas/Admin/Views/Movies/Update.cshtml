@@ -1,0 +1,51 @@
+﻿@model MovieViewModel
+
+@using Microsoft.Extensions.Primitives;
+
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="custom-format">Update @Model.Title details</h3>
+                <form asp-area="Admin" asp-controller="Movies" asp-action="Update" method="post">
+                    <hr class="hr-new" />
+                    @*@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])*@
+                    <div class="form-group">
+                        <label asp-for="Title" class="grey"></label>
+                        <input readonly asp-for="Title" placeholder="Please enter a title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Poster" class="grey"></label>
+                        <input asp-for="Poster" placeholder="Please enter a poster" class="form-control" />
+                        <span asp-validation-for="Poster" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SliderImage" class="grey"></label>
+                        <input asp-for="SliderImage" placeholder="Please enter a SliderImage" class="form-control" />
+                        <span asp-validation-for="SliderImage" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="grey"></label>
+                        <input asp-for="Description" placeholder="Please enter a description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger-orange"></span>
+                    </div>
+                    <button type="submit" class="btn btn-default-custom">SUBMIT</button>
+                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                    @if (referrer != default(StringValues))
+                    {
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
+                    }
+                </form>
+                <hr class="hr-new" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+

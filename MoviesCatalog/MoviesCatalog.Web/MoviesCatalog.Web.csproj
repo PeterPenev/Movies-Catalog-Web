@@ -18,9 +18,4 @@
     <ProjectReference Include="..\MoviesCatalog.Services\MoviesCatalog.Services.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Movies\" />
-  </ItemGroup>
-
 </Project>

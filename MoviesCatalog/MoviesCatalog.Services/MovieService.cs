@@ -134,5 +134,15 @@ namespace MoviesCatalog.Services
                                     .AnyAsync(t => t.Title == movieTitle);
         }
 
+        public async Task<Movie> UpdateMovie(Movie movie, string description, string poster, string sliderImage)
+        {
+            movie.Description = description;
+            movie.Poster = poster;
+            movie.SliderImage = sliderImage;
+
+            await this.context.SaveChangesAsync();
+
+            return movie;
+        }
     }
 }
