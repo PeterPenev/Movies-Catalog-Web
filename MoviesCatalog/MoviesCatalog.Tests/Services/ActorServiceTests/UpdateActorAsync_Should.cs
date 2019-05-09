@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MoviesCatalog.Tests.Services.ActorServiceTests
 {
     [TestClass]
-    public class UpdateActor_Should
+    public class UpdateActorAsync_Should
     {
         [TestMethod]
         public async Task Succeed_ReturnActor()
@@ -19,8 +19,8 @@ namespace MoviesCatalog.Tests.Services.ActorServiceTests
             var options = TestUtils.GetOptions(nameof(Succeed_ReturnActor));
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Actors.Add(TestHelper.TestActor1());
-                arrangeContext.SaveChanges();
+                await arrangeContext.Actors.AddAsync(TestHelper.TestActor1());
+                await arrangeContext.SaveChangesAsync();
             }
             
             using (var assertContext = new MoviesCatalogContext(options))

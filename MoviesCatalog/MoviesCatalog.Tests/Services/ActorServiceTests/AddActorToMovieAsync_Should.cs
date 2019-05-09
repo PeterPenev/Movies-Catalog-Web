@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace MoviesCatalog.Tests.Services.ActorServiceTests
 {
     [TestClass]
-    public class AddActorToMovie_Should
+    public class AddActorToMovieAsync_Should
     {
         [TestMethod]
         public async Task Succeed_AddActorWhenDoesNotExistInMovie()

@@ -98,6 +98,11 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             };
         }
 
+       
+
+       
+
+
         public static Actor TestActor1()
         {
             return new Actor
@@ -105,7 +110,40 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Id = 1,
                 FirstName = "Brad",
                 LastName = "Pit",
-                Biography= "Very good actor"
+                Biography = "Very good actor"
+            };
+        }
+
+        public static Actor TestActor2()
+        {
+            return new Actor
+            {
+                Id = 2,
+                FirstName = "John",
+                LastName = "Dow",
+                Biography = "Very good actor"
+            };
+        }
+
+        public static Actor TestActor3()
+        {
+            return new Actor
+            {
+                Id = 3,
+                FirstName = "Ivan",
+                LastName = "Ivanov",
+                Biography = "Very good actor"
+            };
+        }
+
+        public static Actor TestActor4()
+        {
+            return new Actor
+            {
+                Id = 4,
+                FirstName = "Ivo",
+                LastName = "Ivanov",
+                Biography = "Very good actor"
             };
         }
 

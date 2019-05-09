@@ -30,7 +30,7 @@ namespace MoviesCatalog.Services
             return actor;
         }
 
-        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(string symbol)
+        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char symbol)
         {
             var actors = await this.context.Actors
                                      .Where(t => t.FirstName.ToLower().StartsWith(symbol.ToString().ToLower()) ||
@@ -72,10 +72,10 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<bool> IsActorExistAsync(string firstName, string lastName)
+        public async Task<Actor> FindActorByNameAsync(string firstName, string lastName)
         {
             return await this.context.Actors
-                                    .AnyAsync(x => x.FirstName == firstName && x.LastName == lastName);
+                                    .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
         }
 
         public async Task<Movie> AddActorToMovieAsync(int movieId, int actorId)

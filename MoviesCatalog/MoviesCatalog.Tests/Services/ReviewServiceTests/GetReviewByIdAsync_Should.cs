@@ -20,8 +20,8 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             var options = TestUtils.GetOptions(nameof(Return_RightReview));
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Reviews.Add(TestHelper.TestReview1());
-                arrangeContext.SaveChanges();
+                await arrangeContext.Reviews.AddAsync(TestHelper.TestReview1());
+                await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))

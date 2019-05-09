@@ -36,7 +36,7 @@ namespace MoviesCatalog.Web.Controllers
             return View(actorViewModel);
         }
 
-        public async Task<IActionResult> ActorsByName(string id)
+        public async Task<IActionResult> ActorsByName(char id)
         {
             var actors = await this.actorService.ShowActorsStartWithSymbolAsync(id);
             var actorViewModel = actors.Select(this.actorMapper.MapFrom).ToList();

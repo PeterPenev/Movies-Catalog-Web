@@ -46,9 +46,9 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Reviews.Add(TestHelper.TestReview1());
-                arrangeContext.Users.Add(TestHelper.TestUser2());
-                arrangeContext.SaveChanges();
+               await arrangeContext.Reviews.AddAsync(TestHelper.TestReview1());
+               await arrangeContext.Users.AddAsync(TestHelper.TestUser2());
+               await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
@@ -69,8 +69,8 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Reviews.Add(TestHelper.TestReview3());
-                arrangeContext.SaveChanges();
+               await arrangeContext.Reviews.AddAsync(TestHelper.TestReview3());
+               await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))

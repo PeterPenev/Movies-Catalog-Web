@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MoviesCatalog.Tests.Services.ActorServiceTests
 {
     [TestClass]
-    public class GetActorById_Should
+    public class FindActorByNameAsync_Should
     {
         [TestMethod]
         public async Task Return_RightActor()
@@ -19,15 +19,15 @@ namespace MoviesCatalog.Tests.Services.ActorServiceTests
             var options = TestUtils.GetOptions(nameof(Return_RightActor));
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Actors.Add(TestHelper.TestActor1());
-                arrangeContext.SaveChanges();
+                await arrangeContext.Actors.AddAsync(TestHelper.TestActor1());
+                await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
             {
                 var sut = new ActorService(assertContext);
 
-                var actor = await sut.GetActorByIdAsync(TestHelper.TestActor1().Id);
+                var actor = await sut.FindActorByNameAsync("Brad", "Pit");
 
                 Assert.AreEqual(actor.Id, TestHelper.TestActor1().Id);
             }
@@ -37,19 +37,14 @@ namespace MoviesCatalog.Tests.Services.ActorServiceTests
         public async Task Return_Null()
         {
             var options = TestUtils.GetOptions(nameof(Return_RightActor));
-            using (var arrangeContext = new MoviesCatalogContext(options))
-            {
-                arrangeContext.Actors.Add(TestHelper.TestActor1());
-                arrangeContext.SaveChanges();
-            }
 
             using (var assertContext = new MoviesCatalogContext(options))
             {
                 var sut = new ActorService(assertContext);
 
-                var actor = await sut.GetActorByIdAsync(TestHelper.TestActor1().Id);
+                var actor = await sut.FindActorByNameAsync("Brad", "Pit");
 
-                Assert.AreEqual(actor.Id, TestHelper.TestActor1().Id);
+                Assert.IsNull(actor);
             }
         }
     }

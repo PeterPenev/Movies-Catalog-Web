@@ -51,7 +51,7 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
                 await arrangeContext.Users.AddAsync(TestHelper.TestUser1());
                 await arrangeContext.Reviews.AddAsync(TestHelper.TestReview2());
 
-                arrangeContext.SaveChanges();
+                await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
@@ -73,8 +73,8 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Reviews.Add(TestHelper.TestReview3());
-                arrangeContext.SaveChanges();
+                await arrangeContext.Reviews.AddAsync(TestHelper.TestReview3());
+                await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
@@ -98,8 +98,8 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Reviews.Add(TestHelper.TestReview3());
-                arrangeContext.SaveChanges();
+                await arrangeContext.Reviews.AddAsync(TestHelper.TestReview3());
+                await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
@@ -123,8 +123,8 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
 
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                arrangeContext.Reviews.Add(TestHelper.TestReview1());
-                arrangeContext.SaveChanges();
+                await arrangeContext.Reviews.AddAsync(TestHelper.TestReview1());
+                await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
