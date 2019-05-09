@@ -34,7 +34,7 @@ namespace MoviesCatalog.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Search(SearchMovieViewModel model)
         {          
-            model.SearchResults = (await this.movieService.SearchMoviesContainsString(model.SearchName))
+            model.SearchResults = (await this.movieService.SearchMoviesContainsStringAsync(model.SearchName))
                                                     .Select(this.movieViewMapper.MapFrom)
                                                     .ToList();
 
@@ -43,18 +43,18 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var movie = await this.movieService.GetMovieById(id);            
+            var movie = await this.movieService.GetMovieByIdAsync(id);            
 
             if (movie == null)
             {
                 return NotFound();
             }
 
-            var movieLast5Reviews = await this.movieService.LastFiveReviewsByMovie(id);
-            var movieAllReviews = await this.movieService.AllReviewsByMovie(id);
+            var movieLast5Reviews = await this.movieService.LastFiveReviewsByMovieAsync(id);
+            var movieAllReviews = await this.movieService.AllReviewsByMovieAsync(id);
 
-            var movieAllGenres = await this.movieService.AllGenresByMovie(id);
-            var movieAllActors = await this.movieService.AllActorsByMovie(id);
+            var movieAllGenres = await this.movieService.AllGenresByMovieAsync(id);
+            var movieAllActors = await this.movieService.AllActorsByMovieAsync(id);
 
             var movieViewModel = this.movieViewMapper.MapFrom(movie);
 
@@ -69,7 +69,7 @@ namespace MoviesCatalog.Web.Controllers
         
         public async Task<IActionResult> MoviesByName(char id)
         {
-            var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
+            var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbolAsync(id);
 
             var movieViewModel = moviesByStartingSymbol.Select(this.movieViewMapper.MapFrom).ToList();            
             
@@ -78,7 +78,7 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var movies = await this.movieService.ShowAllMoviesOrderedDescByRating();
+            var movies = await this.movieService.ShowAllMoviesOrderedDescByRatingAsync();
             var movieViewModel = movies.Select(this.movieViewMapper.MapFrom).ToList();
             return View(movieViewModel);
         }               

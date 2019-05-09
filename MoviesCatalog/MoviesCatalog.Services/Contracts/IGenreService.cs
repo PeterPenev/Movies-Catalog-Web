@@ -8,14 +8,14 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IGenreService
     {                    
-        Task<IReadOnlyCollection<string>> GetAllGenres();
+        Task<IReadOnlyCollection<string>> GetAllGenresAsync();
 
-        Task<IReadOnlyCollection<Movie>> ShowMoviesByGenre(string id);
+        Task<IReadOnlyCollection<Movie>> ShowMoviesByGenreAsync(string id);
 
-        Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies();
+        Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMoviesAsync();
 
-        Task<bool> IsGenreExist(string genreName);
+        Task<bool> IsGenreExistAsync(string genreName);
 
-        Task<Genre> CreateGenre(string genreName);
+        Task<Genre> CreateGenreAsync(string genreName);
     }
 }
