@@ -20,7 +20,8 @@ namespace MoviesCatalog.Web.Mappers
                 ReleaseDate = entity.ReleaseDate,
                 NumberOfVotes = entity.NumberOfVotes,
                 //AllReviewsByMovie = entity.Reviews.Where(x => x.MovieId == entity.Id).ToList(),
-                UserId = entity.User?.Id
+                UserId = entity.User?.Id,
+                UserName = entity.User?.UserName
                 //NumberOfVotes = entity.NumberOfVotes,                
             };
         }

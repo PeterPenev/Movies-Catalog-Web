@@ -48,5 +48,29 @@ namespace MoviesCatalog.Services
 
             return movies;
         }
+
+        public async Task<bool> IsGenreExist(string genreName)
+        {
+            return await this.context.Genres
+                                    .AnyAsync(gn => gn.Name == genreName);
+        }
+
+        public async Task<Genre> CreateGenre(string genreName)
+        {
+            var genre = await this.context.Genres.FirstOrDefaultAsync(g => g.Name == genreName);
+
+            if (genre != null)
+            {
+                throw new ArgumentException();
+            }
+
+            genre = new Genre() { Name = genreName };
+
+            this.context.Genres.Add(genre);
+            this.context.SaveChanges();
+
+            return genre;
+        }
+
     }
 }

@@ -12,6 +12,10 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<IReadOnlyCollection<Movie>> ShowMoviesByGenre(string id);
 
-        Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies();        
+        Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMovies();
+
+        Task<bool> IsGenreExist(string genreName);
+
+        Task<Genre> CreateGenre(string genreName);
     }
 }

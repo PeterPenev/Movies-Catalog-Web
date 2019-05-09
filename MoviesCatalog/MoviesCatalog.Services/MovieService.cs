@@ -18,7 +18,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate,string userId)
+        public async Task<Movie> CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate, string userId)
         {
             var user = this.context.Users.Find(userId);
 
@@ -29,7 +29,7 @@ namespace MoviesCatalog.Services
                 throw new ArgumentException();
             }
 
-            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate};
+            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate };
 
             movie.User = user;
 
@@ -42,6 +42,7 @@ namespace MoviesCatalog.Services
         public async Task<IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRating()
         {
             var movies = await this.context.Movies
+                             .Include(x => x.User)
                              .OrderByDescending(ar => ar.AverageRating)
                              .ToListAsync();
 
