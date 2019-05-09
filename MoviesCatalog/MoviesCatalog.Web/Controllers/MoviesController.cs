@@ -15,14 +15,20 @@ namespace MoviesCatalog.Web.Controllers
         private readonly IMovieService movieService;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieViewMapper;
         private readonly IViewModelMapper<Review,ReviewViewModel> reviewViewMapper;
+        private readonly IViewModelMapper<Genre, GenreViewModel> genreViewMapper;
+        private readonly IViewModelMapper<Actor, ActorViewModel> actorViewMapper;
 
         public MoviesController(IMovieService movieService,
                                 IViewModelMapper<Movie, MovieViewModel> movieViewMapper,
-                                IViewModelMapper<Review, ReviewViewModel> reviewViewMapper)
+                                IViewModelMapper<Review, ReviewViewModel> reviewViewMapper,
+                                IViewModelMapper<Genre,GenreViewModel> genreViewMapper,
+                                IViewModelMapper<Actor, ActorViewModel> actorViewMapper)
         {
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.movieViewMapper = movieViewMapper ?? throw new ArgumentNullException(nameof(movieViewMapper));
             this.reviewViewMapper = reviewViewMapper ?? throw new ArgumentNullException(nameof(reviewViewMapper));
+            this.genreViewMapper = genreViewMapper ?? throw new ArgumentNullException(nameof(genreViewMapper));
+            this.actorViewMapper = actorViewMapper ?? throw new ArgumentNullException(nameof(actorViewMapper));
         }        
 
         [HttpGet]
@@ -47,10 +53,16 @@ namespace MoviesCatalog.Web.Controllers
             var movieLast5Reviews = await this.movieService.LastFiveReviewsByMovie(id);
             var movieAllReviews = await this.movieService.AllReviewsByMovie(id);
 
+            var movieAllGenres = await this.movieService.AllGenresByMovie(id);
+            var movieAllActors = await this.movieService.AllActorsByMovie(id);
+
             var movieViewModel = this.movieViewMapper.MapFrom(movie);
 
             movieViewModel.LastFiveReviewsByMovie = movieLast5Reviews.Select(this.reviewViewMapper.MapFrom).ToList();
             movieViewModel.AllReviewsByMovie = movieAllReviews.Select(this.reviewViewMapper.MapFrom).ToList();
+
+            movieViewModel.AllGenresByMovie = movieAllGenres.Select(this.genreViewMapper.MapFrom).ToList();
+            movieViewModel.AllActorsByMovie = movieAllActors.Select(this.actorViewMapper.MapFrom).ToList();
 
             return View(movieViewModel);
         }

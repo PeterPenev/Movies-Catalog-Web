@@ -32,5 +32,9 @@ namespace MoviesCatalog.Services.Contracts
         Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImage();
 
         Task<Movie> UpdateMovie(Movie movie, string description, string poster, string sliderImage);
+
+        Task<ICollection<Actor>> AllActorsByMovie(int movieId);
+
+        Task<ICollection<Genre>> AllGenresByMovie(int movieId);
     }
 }

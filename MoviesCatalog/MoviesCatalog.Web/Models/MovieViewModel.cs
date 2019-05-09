@@ -38,8 +38,9 @@ namespace MoviesCatalog.Web.Models
 
         public string SliderImage { get; set; }
 
-        //[Required]
-        public IReadOnlyCollection<GenreViewModel> Genres { get; set; }
+        public IReadOnlyCollection<GenreViewModel> AllGenresByMovie { get; set; }
+
+        public IReadOnlyCollection<ActorViewModel> AllActorsByMovie { get; set; }
 
         public IReadOnlyCollection<ReviewViewModel> LastFiveReviewsByMovie { get; set; }
 

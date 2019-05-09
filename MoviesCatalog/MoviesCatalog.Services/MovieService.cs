@@ -144,5 +144,22 @@ namespace MoviesCatalog.Services
 
             return movie;
         }
+
+        public async Task<ICollection<Genre>> AllGenresByMovie(int movieId)
+        {
+            var genres = await context.Genres
+                                      .Where(m => m.MoviesGenres.Any(mg => mg.Movie.Id == movieId))
+                                      .ToListAsync();
+            return genres;
+        }
+
+        public async Task<ICollection<Actor>> AllActorsByMovie(int movieId)
+        {
+            var actors = await context.Actors
+                                .Where(am => am.ActorMovies.Any(m => m.Movie.Id == movieId))
+                                .ToListAsync();                                
+                                
+            return actors;
+        }
     }
 }
