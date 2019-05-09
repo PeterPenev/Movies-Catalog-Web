@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MovieViewModel>
+
+<table id="table" class="table table-striped border border-info">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">№</th>
+            <th scope="col" width="30%">Poster</th>
+            <th scope="col">Title</th>
+            <th scope="col">Average Rating</th>
+            <th scope="col">Release Date</th>
+            <th scope="col">Uploaded by</th>
+            <th scope="col">Actions</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @foreach (var movie in Model)
+        {
+
+        <tr>
+            <td>@counter</td>
+            @{
+                counter++;
+            }
+            <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /><span></span></a></td>
+            <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a></td>
+            <td>@($"{movie.AverageRating:f1}")</td>
+            <td>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</td>
+            <td>@movie.UserName</td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a asp-area="Admin" asp-controller="Reviews" asp-action="AddToMovie" asp-route-id="@movie.Id" class="btn btn-success"><i class="material-icons">Add Review To Movie</i></a>
+                </td>
+                <td>
+                    <form asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie">
+                        <input type="hidden" name="movieId" value="@movie.Id" />
+                        <input type="hidden" name="actorId" value="@ViewData["ActorId"]" />
+                        <button type="submit" asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" class="btn btn-success"><i class="material-icons">Add Actor To Movie</i></button>
+                    </form>
+                </td>
+            }
+        </tr>
+
+        }
+    </tbody>
+</table>

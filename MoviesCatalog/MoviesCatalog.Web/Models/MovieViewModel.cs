@@ -28,6 +28,8 @@ namespace MoviesCatalog.Web.Models
         //[Required]
         public string UserId { get; set; }
 
+        public string UserName { get; set; }
+
         //[Required]
         public int NumberOfVotes { get; set; }
 

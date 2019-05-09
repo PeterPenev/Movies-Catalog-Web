@@ -133,7 +133,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             try
             {
                 this.actorService.AddActorToMovie(movieId, actorId);
-                return View();
+                return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
             {

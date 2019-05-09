@@ -41,6 +41,16 @@ namespace MoviesCatalog.Services
             return actors;
         }
 
+        public async Task<IReadOnlyCollection<Movie>> ShowActorMovies(int actorId)
+        {
+            var movies = await this.context.MoviesActors
+                             .Where(a => a.ActorId == actorId)
+                             .Select(m => m.Movie)
+                             .ToListAsync();
+
+            return movies;
+        }
+
         public async Task<IReadOnlyCollection<Actor>> ShowAllActors()
         {
             var actors = await this.context.Actors
