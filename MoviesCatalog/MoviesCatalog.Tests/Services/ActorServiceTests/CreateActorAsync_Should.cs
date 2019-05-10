@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MoviesCatalog.Tests.Services.ActorServiceTests
 {
     [TestClass]
-    public class CreateActorAsync_Should
+    public class CreateMovieAsync_Should
     {
         [TestMethod]
         public async Task Succeed_ReturnActor()

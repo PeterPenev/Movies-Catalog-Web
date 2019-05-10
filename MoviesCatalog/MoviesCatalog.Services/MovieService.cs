@@ -27,12 +27,7 @@ namespace MoviesCatalog.Services
             var movie = await this.context
                 .Movies
                 .FirstOrDefaultAsync(t => t.Title == title);
-
-            if (movie != null)
-            {
-                throw new ArgumentException();
-            }
-
+            
             movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate };
 
             movie.User = user;
