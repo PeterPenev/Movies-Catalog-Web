@@ -85,6 +85,20 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             };
         }
 
+        public static Movie TestMovie3()
+        {
+            return new Movie
+            {
+                Title = "Game of thrones",
+                Id = 3,
+                ReleaseDate = new DateTime(01 / 01 / 2017),
+                NumberOfVotes = 2,
+                TotalRating = 10,
+                User = TestUser2()
+            };
+        }
+
+
         public static Movie TestMovie2()
         {
             return new Movie
@@ -98,9 +112,70 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             };
         }
 
-       
 
-       
+        public static Movie TestMovie4()
+        {
+            return new Movie
+            {
+                Title = "End game",
+                Id = 4,
+                ReleaseDate = new DateTime(01 / 01 / 2017),
+                NumberOfVotes = 2,
+                TotalRating = 10,
+                User = TestUser2()
+            };
+        }
+
+        public static Movie TestMovie5()
+        {
+            return new Movie
+            {
+                Title = "The one",
+                Id = 5,
+                ReleaseDate = new DateTime(01 / 01 / 2017),
+                NumberOfVotes = 2,
+                TotalRating = 10,
+                User = TestUser2()
+            };
+        }
+
+        public static Movie TestMovie6()
+        {
+            return new Movie
+            {
+                Title = "Test movie",
+                Id = 6,
+                ReleaseDate = new DateTime(01 / 01 / 2017),
+                NumberOfVotes = 2,
+                TotalRating = 10,
+                User = TestUser2()
+            };
+        }
+
+        public static Movie TestMovie7()
+        {
+            return new Movie
+            {
+                Title = "Test movie7",
+                Id = 7,
+                ReleaseDate = new DateTime(01 / 01 / 2017),
+                NumberOfVotes = 2,
+                TotalRating = 10,
+                User = TestUser2()
+            };
+        }
+
+        public static MoviesActors MoviesActors4()
+        {
+            return new MoviesActors
+            {
+                ActorId = 1,
+                MovieId = 3,
+                Actor = TestActor1(),
+                Movie = TestMovie3()
+            };
+        }
+
 
 
         public static Actor TestActor1()
@@ -110,7 +185,7 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Id = 1,
                 FirstName = "Brad",
                 LastName = "Pit",
-                Biography = "Very good actor"
+                Biography = "Very good actor",
             };
         }
 
@@ -157,5 +232,31 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Movie = TestMovie1()
             };
         }
+
+       
+
+        public static MoviesActors MoviesActors2()
+        {
+            return new MoviesActors
+            {
+                ActorId = 1,
+                MovieId = 2,
+                Actor = TestActor1(),
+                Movie = TestMovie2()
+            };
+        }
+
+        public static MoviesActors MoviesActors3()
+        {
+            return new MoviesActors
+            {
+                ActorId = 2,
+                MovieId = 2,
+                Actor = TestActor2(),
+                Movie = TestMovie2()
+            };
+        }
+
+       
     }
 }

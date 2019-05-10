@@ -13,7 +13,7 @@
                 <div class="col-sm-8 single-left">
                     <div class="song">
                         <div class="song-info">
-                            <h3>Review for <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id">@Model.MovieTitle</a></h3>
+                            <h3>Review for <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.MovieId">@Model.MovieTitle</a></h3>
                         </div>
                         <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.MoviePoster ?? "noimage.jpg")" /> <span></span></a></div>
                     </div>
@@ -53,7 +53,13 @@
     </div>
 </div>
 
-
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}
 
 
 

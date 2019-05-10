@@ -12,7 +12,7 @@
                     @*@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])*@
                     <div class="form-group">
                         <label asp-for="FirstName" class="grey"></label>
-                        <input readonly  asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
+                        <input readonly asp-for="FirstName" placeholder="Please enter a first name." class="form-control" />
                         <span asp-validation-for="FirstName" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
@@ -43,34 +43,11 @@
     </div>
 </div>
 
-
-
-
-@*<div class="single-page-agile-main">
-    <div class="container">
-        <div class="single-page-agile-info">
-            <div class="show-top-grids-w3lagile">
-                <div class="col-sm-8 single-left">
-                    <h3>Update @Model.FirstName @Model.LastName Details</h3>
-                    <div class="agile-info-wthree-box">
-                        <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                            <input hidden asp-for="Id" />
-                            <input hidden asp-for="FirstName" />
-                            <input hidden asp-for="LastName" />
-                            <input hidden asp-for="Picture" />
-                            <textarea asp-for="Biography" placeholder="Biography"></textarea>
-                            <input type="submit" value="Update">
-                            <div class="clearfix"> </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
-
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
 }
-
 

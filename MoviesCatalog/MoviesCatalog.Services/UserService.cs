@@ -27,8 +27,6 @@ namespace MoviesCatalog.Services
         {
             var user = await this.context.Users.Include(x => x.Reviews).FirstOrDefaultAsync(x => x.Id == id); 
 
-            
-
             return user;
         }
 
