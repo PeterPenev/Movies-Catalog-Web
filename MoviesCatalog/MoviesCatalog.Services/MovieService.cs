@@ -28,10 +28,10 @@ namespace MoviesCatalog.Services
                 .Movies
                 .FirstOrDefaultAsync(t => t.Title == title);
 
-            if (movie != null)
-            {
-                throw new ArgumentException();
-            }
+            //if (movie != null)
+            //{
+            //    throw new ArgumentException();
+            //}
 
             movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate };
 

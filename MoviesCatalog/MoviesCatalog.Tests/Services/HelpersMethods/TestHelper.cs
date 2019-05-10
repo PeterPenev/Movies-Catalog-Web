@@ -157,5 +157,23 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Movie = TestMovie1()
             };
         }
+
+        public static Genre TestGenre1()
+        {
+            return new Genre
+            {
+                Id = 1,
+                Name = "Drama"
+            };
+        }
+
+        public static Genre TestGenre2()
+        {
+            return new Genre
+            {
+                Id = 2,
+                Name = "Action"
+            };
+        }
     }
 }
