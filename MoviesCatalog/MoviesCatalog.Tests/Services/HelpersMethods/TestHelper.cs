@@ -175,5 +175,53 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Name = "Action"
             };
         }
+
+        public static MoviesGenres MoviesGenres1()
+        {
+            return new MoviesGenres
+            {
+                GenreId = 1,
+                MovieId = 100,
+                Genre = TestGenre1(),
+                Movie = TestMovie100()
+            };
+        }
+
+        public static MoviesGenres MoviesGenres2()
+        {
+            return new MoviesGenres
+            {
+                GenreId = 1,
+                MovieId = 200,
+                Genre = TestGenre1(),
+                Movie = TestMovie200()
+            };
+        }
+
+        public static Movie TestMovie100()
+        {
+            return new Movie
+            {
+                Title = "Movie 100",
+                Id = 100,
+                ReleaseDate = new DateTime(09 / 09 / 2016),
+                NumberOfVotes = 1,
+                TotalRating = 5,
+                User = TestUser1()
+            };
+        }
+
+        public static Movie TestMovie200()
+        {
+            return new Movie
+            {
+                Title = "Movie 200",
+                Id = 200,
+                ReleaseDate = new DateTime(01 / 01 / 2016),
+                NumberOfVotes = 1,
+                TotalRating = 5,
+                User = TestUser2()
+            };
+        }
     }
 }
