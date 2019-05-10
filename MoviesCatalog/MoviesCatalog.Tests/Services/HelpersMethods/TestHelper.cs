@@ -198,6 +198,17 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             };
         }
 
+        public static MoviesGenres MoviesGenres3()
+        {
+            return new MoviesGenres
+            {
+                GenreId = 2,
+                MovieId = 100,
+                Genre = TestGenre2(),
+                Movie = TestMovie100()
+            };
+        }
+
         public static Movie TestMovie100()
         {
             return new Movie
@@ -222,6 +233,64 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 TotalRating = 5,
                 User = TestUser2()
             };
-        }        
+        }
+
+        public static Movie TestMovie300()
+        {
+            return new Movie
+            {
+                Title = "Movie 300",
+                Id = 300,
+                ReleaseDate = new DateTime(09 / 09 / 2015),
+                NumberOfVotes = 1,
+                TotalRating = 5,
+                User = TestUser1()
+            };
+        }
+
+
+        public static MoviesActors TestMoviesActors100()
+        {
+            return new MoviesActors
+            {
+                ActorId = 100,
+                MovieId = 100,
+                Actor = TestActor100(),
+                Movie = TestMovie100()
+            };
+        }
+
+        public static MoviesActors TestMoviesActors200()
+        {
+            return new MoviesActors
+            {
+                ActorId = 200,
+                MovieId = 100,
+                Actor = TestActor200(),
+                Movie = TestMovie100()
+            };
+        }
+
+        public static Actor TestActor100()
+        {
+            return new Actor
+            {
+                Id = 100,
+                FirstName = "Brad100",
+                LastName = "Pit100",
+                Biography = "Very good actor"
+            };
+        }
+
+        public static Actor TestActor200()
+        {
+            return new Actor
+            {
+                Id = 200,
+                FirstName = "Brad200",
+                LastName = "Pit200",
+                Biography = "Very good actor"
+            };
+        }
     }
 }
