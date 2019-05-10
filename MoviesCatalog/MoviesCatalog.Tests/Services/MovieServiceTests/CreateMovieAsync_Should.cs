@@ -26,7 +26,7 @@ namespace MoviesCatalog.Tests.Services.MovieServiceTests
 
                 DateTime releaseDate = DateTime.Now;
                                 
-                var movie = await sut.CreateMovieAsync("Movie 01", "Trailer", "Poster","Description", releaseDate, "3c57e188 - 409f - 447b - a55d - 37e450df359e");
+                var movie = await sut.CreateMovieAsync("Movie 01", "Trailer", "Poster", null, "Description", releaseDate, "3c57e188 - 409f - 447b - a55d - 37e450df359e");
 
                 var user = new ApplicationUser() { UserName = "peter" };
 
