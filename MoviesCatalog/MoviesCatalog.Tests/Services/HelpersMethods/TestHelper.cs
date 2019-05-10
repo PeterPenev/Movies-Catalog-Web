@@ -230,7 +230,7 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Id = 200,
                 ReleaseDate = new DateTime(01 / 01 / 2016),
                 NumberOfVotes = 1,
-                TotalRating = 5,
+                TotalRating = 2,
                 User = TestUser2()
             };
         }
