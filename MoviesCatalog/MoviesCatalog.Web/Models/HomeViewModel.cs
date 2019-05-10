@@ -9,6 +9,8 @@ namespace MoviesCatalog.Web.Models
     {
         public IReadOnlyCollection<MovieViewModel> TopTenMoviesByRating { get; set; }
 
+        public IReadOnlyCollection<MovieViewModel> TopTenMoviesByRatingWithSlider { get; set; }
+
         public IReadOnlyCollection<MovieViewModel> TopTenMoviesByReleaseDate { get; set; }
 
     }

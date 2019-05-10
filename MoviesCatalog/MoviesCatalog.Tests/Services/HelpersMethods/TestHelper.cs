@@ -389,6 +389,5 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Biography = "Very good actor"
             };
         }
->>>>>>> e6d29baf25c234132e06d589225a8e5cfb8737d7
     }
 }

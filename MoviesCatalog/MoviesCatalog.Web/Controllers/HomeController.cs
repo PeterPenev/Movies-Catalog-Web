@@ -27,11 +27,13 @@ namespace MoviesCatalog.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var topMoviesByRating = await this.movieService.ShowMoviesTop10ByRaitingAsync();
+            var topMoviesByRatingWithSlider = await this.movieService.ShowMoviesTop10ByRaitingContainsSliderImageAsync();
             var lastMoviesByReleaseDate = await this.movieService.ShowMoviesLatest6ByReleaseDateAsync();
             
             var homeViewModel = new HomeViewModel()
             {
                 TopTenMoviesByRating = topMoviesByRating.Select(this.movieMapper.MapFrom).ToList(),
+                TopTenMoviesByRatingWithSlider = topMoviesByRatingWithSlider.Select(this.movieMapper.MapFrom).ToList(),
                 TopTenMoviesByReleaseDate = lastMoviesByReleaseDate.Select(this.movieMapper.MapFrom).ToList()
             };
            

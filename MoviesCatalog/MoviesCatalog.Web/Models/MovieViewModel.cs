@@ -1,4 +1,5 @@
-﻿using MoviesCatalog.Data.Models;
+﻿using Microsoft.AspNetCore.Http;
+using MoviesCatalog.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,8 @@ namespace MoviesCatalog.Web.Models
 
         public string Trailer { get; set; }
 
-        //[Required]
+        public IFormFile PosterImage { get; set; }
+
         public string Poster { get; set; }
 
         [Required]
@@ -25,16 +27,15 @@ namespace MoviesCatalog.Web.Models
 
         public string Description { get; set; }
 
-        //[Required]
         public string UserId { get; set; }
 
         public string UserName { get; set; }
 
-        //[Required]
         public int NumberOfVotes { get; set; }
-
-        //[Required]
+        
         public double AverageRating { get; set; }
+
+        public IFormFile SliderPoster { get; set; }
 
         public string SliderImage { get; set; }
 

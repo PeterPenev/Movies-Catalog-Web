@@ -10,6 +10,7 @@ using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
+using MoviesCatalog.Web.Services.Contracts;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -20,11 +21,14 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
         private readonly IMovieService movieService;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieViewMapper;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IImageOptimizer optimizer;
 
         public MoviesController(IMovieService movieService,
                                 IViewModelMapper<Movie, MovieViewModel> movieViewMapper,
+                                IImageOptimizer optimizer,
                                 SignInManager<ApplicationUser> signInManager)
         {
+            this.optimizer = optimizer;
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.movieViewMapper = movieViewMapper ?? throw new ArgumentNullException(nameof(movieViewMapper));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
@@ -61,10 +65,21 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
                 StatusMessage = $"Successfully added movie with title \"{model.Title}\".";
 
+                string posterName = null;
+                string sliderName = null;
 
+                if (model.PosterImage != null)
+                {
+                    posterName = optimizer.OptimizeImage(model.PosterImage, 268, 182);
+                }
+
+                if (model.SliderPoster != null)
+                {
+                    sliderName = optimizer.OptimizeImage(model.SliderPoster, 500, 1300);
+                }
 
                 var movie = await this.movieService
-                        .CreateMovieAsync(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate, model.UserId);
+                        .CreateMovieAsync(model.Title, model.Trailer, posterName, sliderName, model.Description, model.ReleaseDate, model.UserId);
 
                 return RedirectToAction("Details", "Movies", new { id = movie.Id });
             }
@@ -100,10 +115,32 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 {
                     return NotFound();
                 }
-                movie = await this.movieService
-                                  .UpdateMovieAsync(movie, model.Description, model.Poster, model.SliderImage);
 
-                if (movie.Title == model.Title && movie.Description == model.Description && movie.Poster == model.Poster && movie.SliderImage == model.SliderImage)
+                string posterName = null;
+                string sliderName = null;
+
+                if (model.PosterImage != null)
+                {
+                    posterName = optimizer.OptimizeImage(model.PosterImage, 268, 182);
+                }
+
+                if (model.SliderPoster != null)
+                {
+                    sliderName = optimizer.OptimizeImage(model.SliderPoster, 500, 1300);
+                }
+                if (model.Poster != null)
+                {
+                    optimizer.DeleteOldImage(model.Poster);
+                }
+                if (model.SliderImage != null)
+                {
+                    optimizer.DeleteOldImage(model.SliderImage);
+                }
+               
+                movie = await this.movieService
+                                  .UpdateMovieAsync(movie, model.Description, posterName, sliderName);
+
+                if (movie.Description == model.Description && movie.Poster == posterName && movie.SliderImage == sliderName)
                 {
                     StatusMessage = $"Successfully updated details of movie with title \"{model.Title}\"";
                 }

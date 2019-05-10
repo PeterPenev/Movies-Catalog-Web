@@ -43,7 +43,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Users");
             }
 
-            await  userServie.AddRole(user);
+            await  userServie.AddRoleAsync(user);
             StatusMessage = $"Successfully promote \"{user.UserName}\" to role \"Admin\".";
             return RedirectToAction("Index", "Users");
         }

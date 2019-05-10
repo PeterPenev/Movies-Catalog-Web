@@ -8,7 +8,7 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IMovieService
     {
-        Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string description, DateTime releaseDate, string UserName);
+        Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string slider, string description, DateTime releaseDate, string UserName);
         
         Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbolAsync(char symbol);
         
