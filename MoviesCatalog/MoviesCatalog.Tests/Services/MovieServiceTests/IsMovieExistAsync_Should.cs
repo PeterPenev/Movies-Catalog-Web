@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoviesCatalog.Tests.Services.GenreServiceTests
+namespace MoviesCatalog.Tests.Services.MovieServiceTests
 {
     [TestClass]
     public class IsMovieExistAsync_Should
@@ -19,17 +19,17 @@ namespace MoviesCatalog.Tests.Services.GenreServiceTests
             var options = TestUtils.GetOptions(nameof(Succeed_ReturnCheck));
             using (var arrangeContext = new MoviesCatalogContext(options))
             {
-                await arrangeContext.Genres.AddAsync(TestHelper.TestGenre1());
+                await arrangeContext.Movies.AddAsync(TestHelper.TestMovie100());
                 await arrangeContext.SaveChangesAsync();
             }
 
             using (var assertContext = new MoviesCatalogContext(options))
             {
-                var sut = new GenreService(assertContext);
+                var sut = new MovieService(assertContext);
 
-                var isGenreExists = await sut.IsGenreExistAsync("Drama");
+                var isMovieExists = await sut.IsMovieExistAsync("Movie 100");
 
-                Assert.IsTrue(isGenreExists);
+                Assert.IsTrue(isMovieExists);
             }
         }
     }

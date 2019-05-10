@@ -222,6 +222,6 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 TotalRating = 5,
                 User = TestUser2()
             };
-        }
+        }        
     }
 }
