@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-//using MoviesCatalog.Data.Migrations;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
@@ -10,6 +13,7 @@ using MoviesCatalog.Web.Services.Contracts;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MoviesCatalog.Web.Utils;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -62,13 +66,12 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 if (await this.movieService.IsMovieExistAsync(model.Title))
                 {
-                    StatusMessage = $"Movie with title \"{model.Title}\" already exists.";
+                    StatusMessage = string.Format(WebConstants.MovieAlreadyExists, model.Title);
 
                     return RedirectToAction("Create", "Movies");
-
                 }
 
-                StatusMessage = $"Successfully added movie with title \"{model.Title}\".";
+                StatusMessage = string.Format(WebConstants.MovieSuccessfullyCreated, model.Title);
 
                 string posterName = null;
                 string sliderName = null;
@@ -141,13 +144,13 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 {
                     optimizer.DeleteOldImage(model.SliderImage);
                 }
-               
+
                 movie = await this.movieService
                                   .UpdateMovieAsync(movie, model.Description, posterName, sliderName);
 
                 if (movie.Description == model.Description && movie.Poster == posterName && movie.SliderImage == sliderName)
                 {
-                    StatusMessage = $"Successfully updated details of movie with title \"{model.Title}\"";
+                    StatusMessage = string.Format(WebConstants.MovieSuccessfullyUpdated, model.Title);                    
                 }
                 return RedirectToAction("Details", "Movies", new { id = movie.Id });
 
@@ -195,8 +198,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
                 await this.actorService.AddActorToMovieAsync(movie.Id, actor.Id);
 
-                StatusMessage = $"Successfully added actor \"{actor.FirstName}  {actor.LastName}\"to movie \"{movie.Title}\".";
-
+                StatusMessage = string.Format(WebConstants.SuccessfullyAddActorToMovie, actor.FirstName, actor.LastName, movie.Title);
+               
                 return RedirectToAction("Details", "Movies", new { id = movie.Id });
             }
             catch (ArgumentException ex)

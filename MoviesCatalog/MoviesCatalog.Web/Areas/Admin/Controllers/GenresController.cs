@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
@@ -7,6 +11,7 @@ using MoviesCatalog.Web.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MoviesCatalog.Web.Utils;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -49,16 +54,15 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 if (await this.genreService.IsGenreExistAsync(model.Name))
                 {
-                    StatusMessage = $"Genre with name \"{model.Name}\" already exists.";
-
+                    StatusMessage = string.Format(WebConstants.GenreAlreadyExists, model.Name);
+                    
                     return RedirectToAction("Create", "Genres");
-
                 }
 
                 var genre = await this.genreService
                         .CreateGenreAsync(model.Name);
 
-                StatusMessage = $"Successfully added genre with name \"{model.Name}\".";
+                StatusMessage = string.Format(WebConstants.GenreSuccessfullyCreated, model.Name);                
 
                 return RedirectToAction("Create", "Genres");
             }
@@ -105,8 +109,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
                 await this.genreService.AddGenreToMovieAsync(movie.Id, genre.Id);
 
-                StatusMessage = $"Successfully added genre \"{genre.Name}\" to movie \"{movie.Title}\".";
-
+                StatusMessage = string.Format(WebConstants.SuccessfullyAddGenreToMovie, genre.Name, movie.Title);
+                
                 return RedirectToAction("Details", "Movies", new { id = movie.Id });
             }
             catch (ArgumentException ex)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -29,17 +28,8 @@ namespace MoviesCatalog.Web.Controllers
             this.reviewViewMapper = reviewViewMapper ?? throw new ArgumentNullException(nameof(reviewViewMapper));
             this.genreViewMapper = genreViewMapper ?? throw new ArgumentNullException(nameof(genreViewMapper));
             this.actorViewMapper = actorViewMapper ?? throw new ArgumentNullException(nameof(actorViewMapper));
-        }        
-
-        [HttpGet]
-        public async Task<IActionResult> Search(SearchMovieViewModel model)
-        {          
-            model.SearchResults = (await this.movieService.SearchMoviesContainsStringAsync(model.SearchName))
-                                                    .Select(this.movieViewMapper.MapFrom)
-                                                    .ToList();
-
-            return View(model);
-        }
+        }      
+            
 
         public async Task<IActionResult> Details(int id)
         {
@@ -81,6 +71,13 @@ namespace MoviesCatalog.Web.Controllers
             var movies = await this.movieService.ShowAllMoviesOrderedDescByRatingAsync();
             var movieViewModel = movies.Select(this.movieViewMapper.MapFrom).ToList();
             return View(movieViewModel);
+        }
+
+        public async Task<IActionResult> Search(string searchName)
+        {
+            var movies = await this.movieService.SearchMoviesContainsStringAsync(searchName);
+            var movieViewModel = movies.Select(this.movieViewMapper.MapFrom).ToList();
+            return View("IndexSearch",movieViewModel);
         }               
     }
 }
