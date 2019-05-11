@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MoviesCatalog.Data.Migrations;
+//using MoviesCatalog.Data.Migrations;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
@@ -20,17 +20,23 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
     {
         private readonly IMovieService movieService;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieViewMapper;
+        private readonly IActorService actorService;
+        private readonly IViewModelMapper<Actor, ActorViewModel> actorViewMapper;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IImageOptimizer optimizer;
 
         public MoviesController(IMovieService movieService,
                                 IViewModelMapper<Movie, MovieViewModel> movieViewMapper,
+                                IActorService actorService,
+                                IViewModelMapper<Actor, ActorViewModel> actorViewMapper,
                                 IImageOptimizer optimizer,
                                 SignInManager<ApplicationUser> signInManager)
         {
             this.optimizer = optimizer;
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.movieViewMapper = movieViewMapper ?? throw new ArgumentNullException(nameof(movieViewMapper));
+            this.actorService = actorService ?? throw new ArgumentNullException(nameof(actorService));
+            this.actorViewMapper = actorViewMapper ?? throw new ArgumentNullException(nameof(actorViewMapper));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
         }
 
@@ -152,6 +158,53 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 this.ModelState.AddModelError("Error", ex.Message);
                 return View(model);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddActorToMovie(int id)
+        {
+            var actors = await this.actorService.ShowAllActorsAsync();
+
+            if (actors == null)
+            {
+                return NotFound();
+            }
+
+            var actorViewModel = actors.Select(this.actorViewMapper.MapFrom).ToList();
+
+            ViewData["MovieId"] = id;
+            return View(actorViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddActorToMovie(int actorId, int movieId)
+        {
+            try
+            {
+                var movie = await this.movieService.GetMovieByIdAsync(movieId);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                var actor = await this.actorService.GetActorByIdAsync(actorId);
+                if (actor == null)
+                {
+                    return NotFound();
+                }
+
+                await this.actorService.AddActorToMovieAsync(movie.Id, actor.Id);
+
+                StatusMessage = $"Successfully added actor \"{actor.FirstName}  {actor.LastName}\"to movie \"{movie.Title}\".";
+
+                return RedirectToAction("Details", "Movies", new { id = movie.Id });
+            }
+            catch (ArgumentException ex)
+            {
+                StatusMessage = ex.Message;
+
+                return RedirectToAction("AddActorToMovie", "Movies");
             }
         }
     }

@@ -57,6 +57,15 @@
                                 </form>
                             </div>
                             <div class="agile-info-wthree-box">
+                                <form asp-area="Admin" asp-controller="Movies" asp-action="AddActorToMovie" asp-route-id="@Model.Id" method="get">
+                                    @if (this.User.IsInRole("Admin"))
+                                    {
+                                        <input type="submit" value="ADD ACTOR">
+                                    }
+                                    <div class="clearfix"> </div>
+                                </form>
+                            </div>
+                            <div class="agile-info-wthree-box">
                                 <form asp-area="Admin" asp-controller="Movies" asp-action="Update" asp-route-id="@Model.Id" method="get">
                                     @if (this.User.IsInRole("Admin"))
                                     {
@@ -105,6 +114,12 @@
             });
         });
     </script>
+            
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/js/jquery/dist/jquery.min.js"></script>  
 }
 
 
