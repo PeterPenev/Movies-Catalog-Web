@@ -12,7 +12,7 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol);
 
-        Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsers();
+        Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsersAsync();
 
         Task<ICollection<Review>> ShowUserLastFiveReviewsAsync(string userId);
 
@@ -20,6 +20,6 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<ApplicationUser> DeleteUserAsync(string userId);
 
-        Task AddRole(ApplicationUser user);
+        Task AddRoleAsync(ApplicationUser user);
     }
 }

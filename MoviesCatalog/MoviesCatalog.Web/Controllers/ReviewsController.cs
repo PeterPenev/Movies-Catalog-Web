@@ -82,15 +82,20 @@ namespace MoviesCatalog.Web.Controllers
 
                 var review = await this.reviewService
                                 .AddReviewToMovieAsync(model.MovieId, model.UserId, model.Description, model.Rating);
-                StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
+                StatusMessage = $"Successfully added review to movie.";
                 return RedirectToAction("Details", "Reviews", new { id = review.Id });
 
             }
 
             catch (ArgumentException ex)
             {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
+                StatusMessage = ex.Message;
+
+                return RedirectToAction("Details", "Movies", new { id = model.MovieId });
+
+
+                //this.ModelState.AddModelError("Error", ex.Message);
+                //return View(model);
             }
         }
 
@@ -164,7 +169,7 @@ namespace MoviesCatalog.Web.Controllers
                 return NotFound();
             }
             StatusMessage = "Successfully deleted the review.";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction( "Index", "Home");
         }
     }
 }

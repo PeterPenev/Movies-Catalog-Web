@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +85,7 @@ namespace MoviesCatalog.Services
 
             if (movie.MoviesActors.Any(a => a.ActorId == actorId))
             {
-                throw new ArgumentException();
+                throw new ArgumentException(string.Format(ServicesConstants.ActorIsInMovie));
             }
                 
             await this.context.MoviesActors.AddAsync(new MoviesActors() { MovieId = movie.Id, ActorId = actorId });

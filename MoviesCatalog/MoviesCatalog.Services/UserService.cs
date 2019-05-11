@@ -27,22 +27,10 @@ namespace MoviesCatalog.Services
         {
             var user = await this.context.Users.Include(x => x.Reviews).FirstOrDefaultAsync(x => x.Id == id); 
 
-            
-
             return user;
         }
 
-        public async Task<ApplicationUser> PromoteToAdmin(string id)
-        {
-            var user = await this.context.Users
-                                    .FindAsync(id);
-            
-            await this.context.SaveChangesAsync();
-            return user;
-        }
-
-
-        public async Task AddRole( ApplicationUser user)
+        public async Task AddRoleAsync( ApplicationUser user)
         {
             var userManeger = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
@@ -68,7 +56,7 @@ namespace MoviesCatalog.Services
             return users;
         }
 
-        public async Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsers()
+        public async Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsersAsync()
         {
             var users = await this.context.Users.Include(x => x.Reviews)
                                           .Where(x => !x.IsDeleted)

@@ -105,7 +105,12 @@ namespace MoviesCatalog.Services
             var movie = review.Movie;
             review.IsDeleted = true;
             movie.TotalRating -= review.Rating;
-
+            movie.NumberOfVotes--;
+            if (movie.NumberOfVotes > 0)
+            {
+                movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
+            }
+            
             await context.SaveChangesAsync();
             return review;
         }
@@ -130,6 +135,7 @@ namespace MoviesCatalog.Services
             movie.TotalRating -= review.Rating;
             review.Rating = rating;
             movie.TotalRating += rating;
+            movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
 
             await this.context.SaveChangesAsync();
             return review;

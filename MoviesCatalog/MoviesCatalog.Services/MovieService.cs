@@ -18,7 +18,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string description, DateTime releaseDate, string userId)
+        public async Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string slider, string description, DateTime releaseDate, string userId)
         {
             var user = await this.context
                 .Users
@@ -28,7 +28,7 @@ namespace MoviesCatalog.Services
                 .Movies
                 .FirstOrDefaultAsync(t => t.Title == title);
             
-            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, Description = description, ReleaseDate = releaseDate };
+            movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, SliderImage = slider, Description = description, ReleaseDate = releaseDate };
 
             movie.User = user;
 

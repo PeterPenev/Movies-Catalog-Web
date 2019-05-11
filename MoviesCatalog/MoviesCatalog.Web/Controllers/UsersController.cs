@@ -30,7 +30,7 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var users = await this.userService.ShowAllUsers();
+            var users = await this.userService.ShowAllUsersAsync();
 
             var userViewModel = users.Select(this.userMapper.MapFrom).ToList();
             return View(userViewModel);

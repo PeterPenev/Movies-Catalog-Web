@@ -7,24 +7,27 @@
         <div class="row">
             <div class="col-md-4">
                 <h3 class="custom-format">Update @Model.Title details</h3>
-                <form asp-area="Admin" asp-controller="Movies" asp-action="Update" method="post">
+                <form asp-area="Admin" enctype="multipart/form-data" asp-controller="Movies" asp-action="Update" method="post">
                     <hr class="hr-new" />
-                    @*@await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])*@
                     <div class="form-group">
                         <label asp-for="Title" class="grey"></label>
                         <input readonly asp-for="Title" placeholder="Please enter a title" class="form-control" />
                         <span asp-validation-for="Title" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Poster" class="grey"></label>
-                        <input asp-for="Poster" placeholder="Please enter a poster" class="form-control" />
-                        <span asp-validation-for="Poster" class="text-danger-orange"></span>
+                        <label asp-for="PosterImage" class="grey"></label>
+
+                        <input asp-for="PosterImage" placeholder="Please enter a poster" class="form-control" />
+                        <span asp-validation-for="PosterImage" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="SliderImage" class="grey"></label>
-                        <input asp-for="SliderImage" placeholder="Please enter a SliderImage" class="form-control" />
-                        <span asp-validation-for="SliderImage" class="text-danger-orange"></span>
+
+                        <input asp-for="SliderPoster" placeholder="Please enter a poster" class="form-control" />
+                        <span asp-validation-for="SliderPoster" class="text-danger-orange"></span>
                     </div>
+                    <input type="hidden" asp-for="Poster" value="@Model.Poster" class="form-control" />
+                    <input type="hidden" asp-for="SliderImage" value="@Model.SliderImage" class="form-control" />
                     <div class="form-group">
                         <label asp-for="Description" class="grey"></label>
                         <input asp-for="Description" placeholder="Please enter a description" class="form-control" />

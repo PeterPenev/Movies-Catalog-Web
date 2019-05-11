@@ -8,6 +8,7 @@ using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
+using MoviesCatalog.Web.Models.ManageViewModels;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -150,8 +151,9 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View();
+                StatusMessage = ex.Message;
+
+                return RedirectToAction("Details", "Actors", new { id = actorId });
             }
         }
     }
