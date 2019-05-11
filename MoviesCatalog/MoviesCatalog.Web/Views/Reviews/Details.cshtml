@@ -1,0 +1,66 @@
+﻿@model ReviewViewModel
+
+@{
+    ViewData["Title"] = "Review details";
+}
+
+<div class="single-page-agile-main">
+    <div class="container">
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
+                @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+                <div class="col-sm-8 single-left">
+                    <div class="song">
+                        <div class="song-info">
+                            <h3>Review for <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.MovieId">@Model.MovieTitle</a></h3>
+                        </div>
+                        <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.MoviePoster ?? "noimage.jpg")" /> <span></span></a></div>
+                    </div>
+                    <h4 class="padding-custom">Author: <span class="text-orange"><a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId">@Model.UserName</a></span></h4>
+                    <h4 class="padding-custom">Created On: <span class="text-orange">@Model.CreatedOn.ToString("MMMM dd, yyyy")</span></h4>
+                    <h4 class="padding-custom">Rating: <span class="text-orange">@Model.Rating</span></h4>
+                    <div class="all-comments">
+                        @if (Model.Description != null)
+                        {
+                            <div>@Model.Description</div><br />
+                        }
+                        else
+                        {
+                            <div>No review description added yet.</div>
+                        }
+                    </div>
+                    <div class="agile-info-wthree-box">
+                        <form asp-controller="Reviews" asp-action="Edit" asp-route-id="@Model.Id" method="get">
+                            @if (Model.CanUserEdit)
+                            {
+                                <input type="submit" value="EDIT">
+                            }
+                            <div class="clearfix"> </div>
+                        </form>
+                    </div>
+                    <div class="agile-info-wthree-box">
+                        <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@Model.Id" method="get">
+                            @if (Model.CanUserEdit)
+                            {
+                                <input type="submit" value="DELETE">
+                            }
+                            <div class="clearfix"> </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}
+
+
+

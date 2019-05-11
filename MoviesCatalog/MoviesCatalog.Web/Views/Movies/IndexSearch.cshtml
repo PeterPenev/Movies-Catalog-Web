@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MovieViewModel>
+
+@{
+    ViewData["Title"] = "List of all movies";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
+</head>
+
+<div class="faq">
+    <div class="container">
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <div class="agile-news-table">
+                        <div class="w3ls-news-result">
+                            <h4>Search results in the catalog: <span>@Model.Count()</span></h4>
+                        </div>
+                        <div class="main main-raised">
+                            <div class="section">
+                                <div class="container">
+                                    <hr />
+                                    <div class="table-responsive">
+                                        @await Html.PartialAsync("_MoviesTablePartial", Model)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                searching: false,
+                responsive: true,
+                stateSave: true
+            });
+        });
+    </script>
+}

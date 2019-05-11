@@ -11,14 +11,14 @@ namespace MoviesCatalog.Data.Models
         public string Description { get; set; }
 
         [Required]
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         public bool IsDeleted { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int MovieId { get; set; }
         public Movie Movie { get; set; }

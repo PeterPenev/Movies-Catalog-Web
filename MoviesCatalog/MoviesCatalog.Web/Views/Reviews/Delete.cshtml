@@ -1,0 +1,34 @@
+﻿
+@model ReviewViewModel
+@using Microsoft.Extensions.Primitives;
+@{
+    ViewData["Title"] = "Delete review";
+}
+
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="custom-format">Are you sure you want to delete this?</h3>
+                @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+                <form asp-controller="Reviews" asp-action="Delete" method="post">
+                    <button type="submit" class="btn btn-default-custom">Yes</button>
+                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                    @if (referrer != default(StringValues))
+                    {
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">No</a>
+                    }
+                </form>
+                <hr class="hr-new" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}

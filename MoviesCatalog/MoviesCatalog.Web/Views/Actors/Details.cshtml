@@ -1,0 +1,89 @@
+﻿@model ActorViewModel
+
+@{
+    ViewData["Title"] = $"{Model.FirstName} {Model.LastName} details";
+}
+
+<div class="single-page-agile-main">
+    <div class="container">
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
+                <div class="show-top-grids-w3lagile">
+                    @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+                    <div class="col-sm-8 single-left">
+                        <div class="song">
+                            <div class="song-info">
+                                <h3>@Model.FirstName @Model.LastName</h3>
+                            </div>
+                            <div class="w3-list-img"><a asp-controller="Actors" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.Picture ?? "noimage.jpg")" /> <span></span></a></div>
+                        </div>
+                        <div class="song-grid-right">
+                        </div>
+                        <div class="all-comments">
+                            @if (Model.Biography != null)
+                            {
+                                <div>@Model.Biography</div><br />
+                            }
+                            else
+                            {
+                                <div>No biogrpahy for this actor added yet.</div>
+                            }
+                        </div>
+                        <hr class="header-custom" />
+                        <div class="agile-info-wthree-box">
+                            <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" method="get">
+                                @if (this.User.IsInRole("Admin"))
+                                {
+                                    <input type="submit" value="UPDATE">
+                                }
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
+                        <div class="agile-info-wthree-box">
+                            <form asp-area="Admin" asp-controller="Actors" asp-action="AddToMovie" asp-route-id="@Model.Id" method="get">
+                                @if (this.User.IsInRole("Admin"))
+                                {
+                                    <input type="submit" value="ADD TO MOVIE">
+                                }
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.LastFiveMoviesByActor.Count() > 0)
+                {
+                    <div class="col-md-4 single-right">
+                        <h3>Last Movies with @Model.FirstName  @Model.LastName</h3>
+                        <div class="single-grid-right">
+                            @foreach (var movie in Model.LastFiveMoviesByActor)
+                            {
+                                <div class="single-right-grids">
+                                    <div class="col-md-4 single-right-grid-left">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /></a>
+                                    </div>
+                                    <div class="col-md-8 single-right-grid-right">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
+                                        <p class="author">Release date : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+                                        <p class="views">@movie.NumberOfVotes reviews</p>
+                                        <p class="author">Rating: @($"{movie.AverageRating:f1}")</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}

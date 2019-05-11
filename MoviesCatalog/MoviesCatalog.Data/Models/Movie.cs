@@ -14,18 +14,22 @@ namespace MoviesCatalog.Data.Models
 
         public string Trailer { get; set; }
 
+        public string Poster { get; set; }
+
+        public string SliderImage { get; set; }
+
         [Required]
         public DateTime ReleaseDate { get; set; }
 
         public string Description { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int NumberOfVotes { get; set; }
 
-        public int TotalRating { get; set; }
+        public double TotalRating { get; set; }
 
         public double AverageRating { get; set; }
 
@@ -34,5 +38,6 @@ namespace MoviesCatalog.Data.Models
         public ICollection<MoviesGenres> MoviesGenres { get; set; }
 
         public ICollection<MoviesActors> MoviesActors { get; set; }
+
     }
 }

@@ -1,0 +1,62 @@
+﻿@model IndexViewModel
+@using Microsoft.Extensions.Primitives;
+@{
+    ViewData.AddActivePage(ManageNavPages.Index);
+}
+
+<h4>@ViewData["Title"]</h4>
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="custom-format">Change your email</h2>
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    @*<h4>Create a new account.</h4>*@
+                    <hr class="hr-new" />
+                    <div class="form-group">
+                        <label asp-for="Username" class="grey"></label>
+                        <input asp-for="Username" placeholder="Please enter your username." class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="grey"></label>
+                        @if (Model.IsEmailConfirmed)
+                        {
+                            <div class="input-group">
+                                <input asp-for="Email" class="form-control" placeholder="Please enter your email." />
+                                <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <input asp-for="Email" placeholder="Please enter your email." class="form-control" />
+                            <button asp-action="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                        }
+                        <span asp-validation-for="Email" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default-custom">Save</button>
+                        @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                        @if (referrer != default(StringValues))
+                        {
+                            <a href="@referrer.ToString()" class="btn btn-default-custom">Go Back</a>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <p>
+                            <a asp-action="ChangePassword" class="grey">Change your password</a>
+                        </p>
+                    </div>
+                    <hr class="hr-new" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

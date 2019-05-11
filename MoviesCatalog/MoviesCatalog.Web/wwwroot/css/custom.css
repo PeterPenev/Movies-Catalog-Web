@@ -1,0 +1,155 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+    border: none;
+    float: left;
+}
+
+    .rating > input {
+        display: none;
+    }
+
+    .rating > label:before {
+        margin: 5px;
+        font-size: 1.25em;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005";
+    }
+
+    .rating > .half:before {
+        content: "\f089";
+        position: absolute;
+    }
+
+    .rating > label {
+        color: #ddd;
+        float: right;
+    }
+
+    /***** CSS Magic to Highlight Stars on Hover *****/
+
+    .rating > input:checked ~ label, /* show gold star when clicked */
+    .rating:not(:checked) > label:hover, /* hover current star */
+    .rating:not(:checked) > label:hover ~ label {
+        color: black;
+        /*color: #ff9800*/;
+        /*color: #FFD700;*/
+    }
+        /* hover previous stars in list */
+
+        .rating > input:checked + label:hover, /* hover current star when changing rating */
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+        .rating > input:checked ~ label:hover ~ label {
+            color: #FFED85;
+        }
+
+
+.grey {
+    color: dimgrey;
+    font-family: 'Roboto Condensed', sans-serif
+}
+
+.custom-format {
+    padding-left: 4.5%;
+    padding-top: 3%;
+    /*color: black;*/ 
+   color: dimgray
+}
+
+.hr-new {
+    border-top: 4px solid #ff9800;
+    /*border-top: 4px solid black;*/
+    width: 305%;
+}
+
+.vl {
+    border-left: 40px solid black;
+    height: 440px;
+    position: absolute;
+    left: 50%;
+    margin-left: 260%;
+    top:-4%;
+}
+
+.image-background {
+    border: 5px solid #ff9800;
+}
+
+.color-custom {
+    color: #ff9800;
+}
+
+.rating-orange {
+    color: #ff9800;
+    font-size: 30px;
+}
+
+.text-orange {
+    color: #ff9800;
+    font-size: 20px;
+}
+
+.text-custom {
+    font-size: 20px;
+}
+
+.padding-custom {
+   padding-top:1.5%;
+}
+/*.btn-default-custom {
+    color: white;
+    background-color: #ff9800;
+    border-color: #ccc;
+}*/
+
+.row-grey {
+    padding-left: 4%;
+    margin-top: 0%;
+    background-color: #f5f5f5;
+    margin-bottom: 0;
+    margin-right: 30%;
+    margin-left: 3.2%;
+}
+
+.alert-success-custom {
+    color: white;
+    background-color: black;
+    /*background-color: #ff9800;*/
+    border-color: #d6e9c6;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    font-size: 0.9em;
+    color: black;
+    border-top: none !important;
+}
+
+/*.btn-success {
+    color: #fff;
+    background-color: #ff9800;
+    border-color: #d6e9c6;
+}*/
+
+/*.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    font-size: 0.9em;
+    color: #999;
+    border-top: none !important;
+}*/

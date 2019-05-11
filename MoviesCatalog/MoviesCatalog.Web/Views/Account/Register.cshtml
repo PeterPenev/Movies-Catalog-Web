@@ -1,0 +1,52 @@
+﻿@model RegisterViewModel
+@using Microsoft.Extensions.Primitives;
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="custom-format">@ViewData["Title"]</h2>
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    @*<h4>Create a new account.</h4>*@
+                    <hr class="hr-new" />
+                    <div class="form-group">
+                        <label asp-for="UserName" class="grey"></label>
+                        <input asp-for="UserName" placeholder="Please enter your username." class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="grey"></label>
+                        <input asp-for="Email" placeholder="Please enter your email." class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="grey"></label>
+                        <input asp-for="Password" placeholder="Please enter your password." class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="grey"></label>
+                        <input asp-for="ConfirmPassword" placeholder="Please confirm your password." class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger-orange"></span>
+                    </div>
+                    <button type="submit" class="btn btn-default-custom">REGISTER</button>
+                    @{ var referrer = this.Context.Request.Headers["Referer"]; }
+
+                    @if (referrer != default(StringValues))
+                    {
+                        <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
+                    }
+                    <hr class="hr-new" />
+                    @*<hr class="vl"/>*@
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

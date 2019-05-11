@@ -1,0 +1,58 @@
+﻿@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "List of all users";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
+</head>
+
+<div class="faq">
+    <h4 class="latest-text w3_faq_latest_text w3_latest_text">Users List</h4>
+    <div class="container">
+        @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                @for (char i = 'A'; i <= 'Z'; i++)
+                {
+                    <li role="presentation"><a asp-controller="Users" asp-action="UsersByName" asp-route-id="@i.ToString()" role="tab" id="b-tab" data-toggle="tab" aria-controls="b">@i</a></li>
+                }
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <div class="agile-news-table">
+                        <div class="w3ls-news-result">
+                            <h4>Registrated users: <span>@Model.Count()</span></h4>
+                        </div>
+                        <div class="main main-raised">
+                            <div class="section">
+                                <div class="container">
+                                    <hr />
+                                    <div class="table-responsive">
+                                        @await Html.PartialAsync("_UsersTablePartial", Model)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+        });
+    </script>
+}

@@ -1,0 +1,66 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@using Microsoft.Extensions.Primitives;
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<div class="row-grey">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <section>
+                    <h2 class="custom-format">Sign In</h2>
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <hr class="hr-new" />
+                        @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+                        <div class="form-group">
+                            <label asp-for="UserName" class="grey"></label>
+                            <input asp-for="UserName" placeholder="Please enter your username." class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="grey"></label>
+                            <input asp-for="Password" placeholder="Please enter your password." class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger-orange"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="RememberMe" class="grey">
+                                    <input asp-for="RememberMe" />
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default-custom">SIGN IN</button>
+                            @{ var referrer = this.Context.Request.Headers["Referer"]; }
+                            @if (referrer != default(StringValues))
+                            {
+                                <a href="@referrer.ToString()" class="btn btn-default-custom">GO BACK</a>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <a asp-action="ForgotPassword" class="grey">Forgot your password?</a>
+                            </p>
+                            <p>
+                                <a asp-action="Register" class="grey" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                            </p>
+
+                        </div>
+                        <hr class="hr-new" />
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
