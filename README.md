@@ -18,22 +18,21 @@ We are aiming to create a movie catalog with rating system accessed from web.
    Users can register as user of web application.
 
 - <b>Administration Part</b><br>
-   Administrators can:
+   Administrator can:
 
 1.  use complete functionality of web application
-2.  create movies, actors, genres
-3.  update and edit movies and actors
+2.  create movie, actor, genre
+3.  update and edit movie and actor
 4.  add genre to movie
 5.  add actor to movie
-6.  promote other users to be administrators
+6.  promote other user to be administratora
 
-- <b>Public part visible without authentication</b><br>
-   You can:
+- <b>Public part</b><br>
+   
+1.  search for movie, actor and other user
+2.  read reviews and browse movies using genres filter
 
-1.  search for movies, actors and other users
-2.  read reviews and browse to genres
-
-- <b>Private part visible without authentication</b><br>
+- <b>Private part visible with authentication</b><br>
    User can:
 
 1.  add review  
@@ -50,10 +49,9 @@ We are aiming to create a movie catalog with rating system accessed from web.
 
     
 ### Repository [repo]
-### Azure [azure]
 
 [repo]: https://gitlab.com/stanildimitrov/movies-catalog---asp.net.mvc
-[azure]: https://dev.azure.com/stanildimitrov/Online%20Movies%20Catalog/_boards/board/t/Online%20Movies%20Catalog%20Team/Issues
+
 
 
 
