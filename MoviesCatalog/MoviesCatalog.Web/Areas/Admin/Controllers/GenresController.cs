@@ -112,8 +112,9 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View();
+                StatusMessage = ex.Message;
+
+                return RedirectToAction("AddGenreToMovie", "Genres");
             }
         }
     }

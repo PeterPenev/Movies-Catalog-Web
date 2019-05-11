@@ -83,9 +83,11 @@ namespace MoviesCatalog.Services
         {
             var movie = await this.context.Movies.Include(m => m.MoviesActors).FirstOrDefaultAsync(m => m.Id == movieId);
 
+            var actor = await this.context.Actors.FindAsync(actorId);
+
             if (movie.MoviesActors.Any(a => a.ActorId == actorId))
             {
-                throw new ArgumentException(string.Format(ServicesConstants.ActorIsInMovie));
+                throw new ArgumentException(string.Format(ServicesConstants.ActorIsInMovie,actor.FirstName,actor.LastName,movie.Title));
             }
                 
             await this.context.MoviesActors.AddAsync(new MoviesActors() { MovieId = movie.Id, ActorId = actorId });
