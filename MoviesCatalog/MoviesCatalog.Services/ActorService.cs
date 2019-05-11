@@ -99,7 +99,7 @@ namespace MoviesCatalog.Services
 
         public async Task<Actor> CreateActorAsync(string firstName, string lastName, string picture, string biography)
         {
-            var actor =  new Actor() {FirstName = firstName, LastName = lastName, Biography = biography};
+            var actor =  new Actor() {FirstName = firstName, LastName = lastName,  Picture =  picture,  Biography = biography};
 
             await this.context.Actors.AddAsync(actor);
             await this.context.SaveChangesAsync();

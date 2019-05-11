@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
@@ -10,6 +6,8 @@ using MoviesCatalog.Web.Extensions;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using MoviesCatalog.Web.Utils;
+using System;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Controllers
 {

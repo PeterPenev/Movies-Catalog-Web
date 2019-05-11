@@ -2,7 +2,6 @@
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
-using System.Collections.Generic;
 
 namespace MoviesCatalog.Web.Mappers
 {

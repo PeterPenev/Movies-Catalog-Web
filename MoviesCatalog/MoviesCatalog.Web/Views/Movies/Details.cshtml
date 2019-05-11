@@ -89,6 +89,7 @@
                                         <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">Detail review</a>
                                         <p class="author">Created on : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
                                         <p class="views">@review.Description</p>
+                                        <p class="views">@($"Rating: {review.Rating}")</p>
                                         <p class="author">@($"Author: {review.UserName}")</p>
                                     </div>
                                     <div class="clearfix"> </div>
