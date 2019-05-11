@@ -1,0 +1,48 @@
+﻿@model IEnumerable<GenreViewModel>
+
+<table id="table" class="table table-striped border border-info">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">№</th>            
+            <th scope="col">Name</th>            
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th scope="col">Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @foreach (var genre in Model)
+        {
+            <tr>
+                <td>@counter</td>
+                @{
+                    counter++;
+                }                
+                <td>@($"{genre.Name}")</td>                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <form asp-area="Admin" asp-controller="Genres" asp-action="AddGenreToMovie">
+                            <input type="hidden" name="genreId" value="@genre.Id" />
+                            <input type="hidden" name="movieId" value="@ViewData["MovieId"]" />
+                            <button type="submit" asp-area="Admin" asp-controller="Genres" asp-action="AddGenreToMovie" class="btn btn-success"><i class="material-icons">Add Genre To Movie</i></button>
+                        </form>
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}
