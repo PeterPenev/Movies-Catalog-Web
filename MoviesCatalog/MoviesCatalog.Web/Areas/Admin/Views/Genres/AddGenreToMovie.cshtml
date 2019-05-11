@@ -12,6 +12,7 @@
                 <h3 class="custom-format">Search for Genres</h3>
             </div>
             <hr />
+            @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
             <div class="table-responsive">
                 @await Html.PartialAsync("_GenresTablePartial", Model, ViewData)
             </div>
@@ -31,5 +32,11 @@
             });
         });
     </script>
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
 }
 
