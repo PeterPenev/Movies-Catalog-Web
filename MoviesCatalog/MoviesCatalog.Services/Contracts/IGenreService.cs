@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 namespace MoviesCatalog.Services.Contracts
 {
     public interface IGenreService
-    {                    
-        Task<IReadOnlyCollection<string>> GetAllGenresAsync();
+    {
+        Task<Genre> GetGenreByIdAsync(int genreId);
+
+        Task<IReadOnlyCollection<Genre>> GetAllGenresAsync();
 
         Task<IReadOnlyCollection<Movie>> ShowMoviesByGenreAsync(string id);
 
@@ -17,5 +19,7 @@ namespace MoviesCatalog.Services.Contracts
         Task<bool> IsGenreExistAsync(string genreName);
 
         Task<Genre> CreateGenreAsync(string genreName);
+
+        Task<Movie> AddGenreToMovieAsync(int movieId, int genreId);
     }
 }

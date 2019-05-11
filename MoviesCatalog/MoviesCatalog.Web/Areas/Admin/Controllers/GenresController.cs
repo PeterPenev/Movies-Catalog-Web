@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
@@ -14,10 +16,16 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
     public class GenresController : Controller
     {
         private readonly IGenreService genreService;
+        private readonly IMovieService movieService;
+        private readonly IViewModelMapper<Genre, GenreViewModel> genreViewMapper;
 
-        public GenresController(IGenreService genreService)
+        public GenresController(IGenreService genreService,
+                                IMovieService movieService,
+                                IViewModelMapper<Genre, GenreViewModel> genreViewMapper)
         {
             this.genreService = genreService ?? throw new ArgumentNullException(nameof(genreService));
+            this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
+            this.genreViewMapper = genreViewMapper ?? throw new ArgumentNullException(nameof(genreViewMapper));
         }
 
         [TempData]
@@ -25,7 +33,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
         [HttpGet]
         public IActionResult Create()
-        {            
+        {
             return View();
         }
 
@@ -46,7 +54,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
                     return RedirectToAction("Create", "Genres");
 
-                }               
+                }
 
                 var genre = await this.genreService
                         .CreateGenreAsync(model.Name);
@@ -60,6 +68,52 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             {
                 this.ModelState.AddModelError("Error", ex.Message);
                 return View(model);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddGenreToMovie(int id)
+        {
+            var genres = await this.genreService.GetAllGenresAsync();
+
+            if (genres == null)
+            {
+                return NotFound();
+            }
+
+            var genreViewModel = genres.Select(this.genreViewMapper.MapFrom).ToList();
+
+            ViewData["MovieId"] = id;
+            return View(genreViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddGenreToMovie(int genreId, int movieId)
+        {
+            try
+            {
+                var movie = await this.movieService.GetMovieByIdAsync(movieId);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                var genre = await this.genreService.GetGenreByIdAsync(genreId);
+                if (genre == null)
+                {
+                    return NotFound();
+                }
+
+                await this.genreService.AddGenreToMovieAsync(movie.Id, genre.Id);
+
+                StatusMessage = $"Successfully added genre \"{genre.Name}\" to movie \"{movie.Title}\".";
+
+                return RedirectToAction("Details", "Movies", new { id = movie.Id });
+            }
+            catch (ArgumentException ex)
+            {
+                this.ModelState.AddModelError("Error", ex.Message);
+                return View();
             }
         }
     }

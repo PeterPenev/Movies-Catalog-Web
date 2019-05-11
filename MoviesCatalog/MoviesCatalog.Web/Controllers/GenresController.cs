@@ -41,7 +41,7 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allGenres = await cache.GetOrCreateAsync<IReadOnlyCollection<string>>("Genres", async (cacheEntry) =>
+            var allGenres = await cache.GetOrCreateAsync<IReadOnlyCollection<Genre>>("Genres", async (cacheEntry) =>
             {
                 var genres = (await this.genreService.GetAllGenresAsync());
                 cacheEntry.SlidingExpiration = TimeSpan.FromDays(1);

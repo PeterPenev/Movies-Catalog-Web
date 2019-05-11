@@ -14,6 +14,7 @@ namespace MoviesCatalog.Web.Mappers
         {
             return new GenreViewModel()
             {
+                Id= entity.Id,
                 Name = entity.Name
             };
         }

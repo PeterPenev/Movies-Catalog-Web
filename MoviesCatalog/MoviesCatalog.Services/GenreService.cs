@@ -41,11 +41,18 @@ namespace MoviesCatalog.Services
             return genresCountMovies;
         }
 
-        public async Task<IReadOnlyCollection<string>> GetAllGenresAsync()
+        public async Task<Genre> GetGenreByIdAsync(int genreId)
+        {
+            var genre = await this.context.Genres
+                                  .FindAsync(genreId);
+                
+            return genre;
+        }        
+
+        public async Task<IReadOnlyCollection<Genre>> GetAllGenresAsync()
         {
             var genres = await this.context
                 .Genres
-                .Select(gn => gn.Name)
                 .ToListAsync();
 
             return genres;
@@ -76,5 +83,20 @@ namespace MoviesCatalog.Services
             return genre;
         }
 
+        public async Task<Movie> AddGenreToMovieAsync(int movieId, int genreId)
+        {
+            var movie = await this.context.Movies.Include(m => m.MoviesGenres).FirstOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie.MoviesGenres.Any(g => g.GenreId == genreId))
+            {
+                throw new ArgumentException();
+            }
+
+            await this.context.MoviesGenres.AddAsync(new MoviesGenres() { MovieId = movie.Id, GenreId = genreId });
+
+            await this.context.SaveChangesAsync();
+
+            return movie;
+        }
     }
 }
