@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Utils;
+using System;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {

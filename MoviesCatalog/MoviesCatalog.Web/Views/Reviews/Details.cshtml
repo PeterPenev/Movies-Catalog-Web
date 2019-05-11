@@ -19,6 +19,7 @@
                     </div>
                     <h4 class="padding-custom">Author: <span class="text-orange"><a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId">@Model.UserName</a></span></h4>
                     <h4 class="padding-custom">Created On: <span class="text-orange">@Model.CreatedOn.ToString("MMMM dd, yyyy")</span></h4>
+                    <h4 class="padding-custom">Rating: <span class="text-orange">@Model.Rating</span></h4>
                     <div class="all-comments">
                         @if (Model.Description != null)
                         {
