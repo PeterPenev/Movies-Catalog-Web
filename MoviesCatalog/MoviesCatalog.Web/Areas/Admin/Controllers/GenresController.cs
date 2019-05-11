@@ -2,15 +2,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using MoviesCatalog.Web.Utils;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
