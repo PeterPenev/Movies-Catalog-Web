@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Web.Utils;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -37,14 +38,14 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             }
             var userManeger = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            if (await userManeger.IsInRoleAsync(user,"Admin"))
+            if (await userManeger.IsInRoleAsync(user, "Admin"))
             {
-                StatusMessage = $"User \"{user.UserName}\" is already in role \"Admin\".";
+                StatusMessage = string.Format(WebConstants.UserIsAlreadyAdmin, user.UserName);
                 return RedirectToAction("Index", "Users");
             }
 
-            await  userServie.AddRoleAsync(user);
-            StatusMessage = $"Successfully promote \"{user.UserName}\" to role \"Admin\".";
+            await userServie.AddRoleAsync(user);
+            StatusMessage = string.Format(WebConstants.PromoteToAdmin, user.UserName);
             return RedirectToAction("Index", "Users");
         }
     }

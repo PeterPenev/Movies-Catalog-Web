@@ -35,5 +35,6 @@ namespace MoviesCatalog.Tests.Services.UserServiceTests
                 Assert.AreEqual(users.Count, 2);
             }
         }
+
     }
 }

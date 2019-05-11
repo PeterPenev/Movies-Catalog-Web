@@ -10,6 +10,7 @@ using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using MoviesCatalog.Web.Models.ManageViewModels;
 using MoviesCatalog.Web.Services.Contracts;
+using MoviesCatalog.Web.Utils;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -66,7 +67,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 var actor = await this.actorService.FindActorByNameAsync(model.FirstName, model.LastName);
                 if (actor != null)
                 {
-                    StatusMessage = $"Actor \"{model.FirstName} {model.LastName}\" already exists.";
+                    StatusMessage = string.Format(WebConstants.ActorAlreadyExists, model.FirstName, model.LastName);
                     return RedirectToAction("Create", "Actors");
                 }
                     actor = await this.actorService
@@ -75,8 +76,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 if (actor.FirstName == model.FirstName && actor.LastName == model.LastName 
                     && actor.Picture == imageName && actor.Biography == model.Biography)
                 {
-                    StatusMessage = $"Successfully added \"{model.FirstName} {model.LastName}\".";
-                    
+                    StatusMessage = string.Format(WebConstants.ActorCreated, model.FirstName, model.LastName);
+
                 }
                   return RedirectToAction("Details", "Actors", new { id = actor.Id });
             }
@@ -131,7 +132,7 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 if (actor.FirstName == model.FirstName && actor.LastName == model.LastName &&
                     actor.Picture == model.Picture && actor.Biography == model.Biography)
                 {
-                    StatusMessage = $"Successfully updated \"{model.FirstName} {model.LastName}\" details.";
+                    StatusMessage = string.Format(WebConstants.ActorDetailsUpdated, model.FirstName, model.LastName);
                 }
                     return RedirectToAction("Details", "Actors", new { id = actor.Id });
                 
@@ -176,7 +177,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 }
 
                 await this.actorService.AddActorToMovieAsync(movie.Id, actor.Id);
-                StatusMessage = $"Successfully added \"{actor.FirstName} {actor.LastName}\" to \"{movie.Title}\".";
+              
+                StatusMessage = string.Format(WebConstants.ActorAddedToMovie, actor.FirstName, actor.LastName, movie.Title);
 
                 return RedirectToAction("Details", "Actors", new { id = actorId });
             }

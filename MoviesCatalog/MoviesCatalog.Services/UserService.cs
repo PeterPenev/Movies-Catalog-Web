@@ -37,8 +37,6 @@ namespace MoviesCatalog.Services
             await userManeger.AddToRoleAsync(user, "Admin");
         }
 
-
-
         public async Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol)
         {
             var users = await this.context.Users.Include(x => x.Reviews)
