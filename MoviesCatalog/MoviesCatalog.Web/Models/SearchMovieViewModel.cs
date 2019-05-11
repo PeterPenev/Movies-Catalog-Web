@@ -8,8 +8,7 @@ namespace MoviesCatalog.Web.Models
 {
     public class SearchMovieViewModel
     {
-        [Required]
-        //[MinLength(3, ErrorMessage = "Please provide at least 3 letters")]
+        [Required]        
         public string SearchName { get; set; }
 
         public IReadOnlyList<MovieViewModel> SearchResults { get; set; } = new List<MovieViewModel>();
