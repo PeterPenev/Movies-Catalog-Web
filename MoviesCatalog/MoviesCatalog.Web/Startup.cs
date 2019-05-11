@@ -44,6 +44,7 @@ namespace MoviesCatalog.Web
             services.AddScoped<IActorService, ActorService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IImageOptimizer, ImageOptimizer>();
+            services.AddMemoryCache();
             services.AddCustomMappers();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddRouting(options => options.LowercaseUrls = true);

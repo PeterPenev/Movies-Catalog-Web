@@ -15,6 +15,11 @@
                         <span asp-validation-for="Title" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="Description" class="grey"></label>
+                        <input asp-for="Description" placeholder="Please enter a description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger-orange"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="PosterImage" class="grey"></label>
 
                         <input asp-for="PosterImage" placeholder="Please enter a poster" class="form-control" />
@@ -28,11 +33,6 @@
                     </div>
                     <input type="hidden" asp-for="Poster" value="@Model.Poster" class="form-control" />
                     <input type="hidden" asp-for="SliderImage" value="@Model.SliderImage" class="form-control" />
-                    <div class="form-group">
-                        <label asp-for="Description" class="grey"></label>
-                        <input asp-for="Description" placeholder="Please enter a description" class="form-control" />
-                        <span asp-validation-for="Description" class="text-danger-orange"></span>
-                    </div>
                     <button type="submit" class="btn btn-default-custom">SUBMIT</button>
                     @{ var referrer = this.Context.Request.Headers["Referer"]; }
                     @if (referrer != default(StringValues))

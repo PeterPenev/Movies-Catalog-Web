@@ -5,7 +5,6 @@
     <thead>
         <tr>
             <th scope="col" width="5%">№</th>
-            <th scope="col" width="30%">Avatar</th>
             <th scope="col">Username</th>
             <th scope="col">Reviews</th>
             @if (User.IsInRole("Admin"))
@@ -26,9 +25,9 @@
             @{
                 counter++;
             }
-            <td class="w3-list-img"><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id"><img src="~/images/@(user.Avatar ?? "noimage.jpg")" /><span></span></a></td>
-            <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.UserName</a></td>
-            <td><a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">@user.NumberOfReviews</a></td>
+           
+            <td>@user.UserName</td>
+            <td>@user.NumberOfReviews</td>
             @if (User.IsInRole("Admin"))
             {
                 <td>

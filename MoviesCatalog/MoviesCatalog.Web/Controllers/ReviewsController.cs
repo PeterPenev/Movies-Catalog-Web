@@ -164,12 +164,13 @@ namespace MoviesCatalog.Web.Controllers
         {
             var userId = User.GetId();
             var review = await reviewService.DeleteReviewAsync(id, userId);
+            
             if (review == null)
             {
                 return NotFound();
             }
             StatusMessage = "Successfully deleted the review.";
-            return RedirectToAction( "Index", "Home");
+            return RedirectToAction( "Details", "Movies", new { id = review.MovieId });
         }
     }
 }

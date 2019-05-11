@@ -8,7 +8,7 @@ namespace MoviesCatalog.Web.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Please enter a valid email.")]
+        [Required(ErrorMessage = "Email field is required.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

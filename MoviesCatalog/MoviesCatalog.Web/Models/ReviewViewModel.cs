@@ -10,7 +10,6 @@ namespace MoviesCatalog.Web.Models
         public int Id { get; set; }
 
         [MaxLength(500)]
-        [Required]
         public string Description { get; set; }
 
         public double Rating { get; set; }
@@ -20,6 +19,8 @@ namespace MoviesCatalog.Web.Models
         public DateTime CreatedOn { get; set; }
 
         public string UserId { get; set; }
+
+        public string UserAvatar { get; set; }
 
         public bool CanUserEdit { get; set; }
 

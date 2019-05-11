@@ -8,8 +8,6 @@ namespace MoviesCatalog.Services.Contracts
     {
         Task<ApplicationUser> GetUserByIdAsync(string id);
 
-        Task<ApplicationUser> EditUserProfileAsync(ApplicationUser user, string avatar);
-
         Task<IReadOnlyCollection<ApplicationUser>> ShowUsersStartWithSymbolAsync(string symbol);
 
         Task<IReadOnlyCollection<ApplicationUser>> ShowAllUsersAsync();
@@ -17,8 +15,6 @@ namespace MoviesCatalog.Services.Contracts
         Task<ICollection<Review>> ShowUserLastFiveReviewsAsync(string userId);
 
         Task<ICollection<Review>> ShowUserReviewsAsync(string userId);
-
-        Task<ApplicationUser> DeleteUserAsync(string userId);
 
         Task AddRoleAsync(ApplicationUser user);
     }

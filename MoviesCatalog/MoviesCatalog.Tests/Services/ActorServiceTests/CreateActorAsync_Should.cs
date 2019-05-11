@@ -22,7 +22,7 @@ namespace MoviesCatalog.Tests.Services.ActorServiceTests
             {
                 var sut = new ActorService(assertContext);
 
-                var actor = await sut.CreateActorAsync("Brad", "Pit", "Very good actor");
+                var actor = await sut.CreateActorAsync("Brad", "Pit", null, "Very good actor");
 
                 Assert.AreEqual(actor.FirstName, "Brad");
                 Assert.AreEqual(actor.LastName, "Pit");
