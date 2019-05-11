@@ -9,6 +9,7 @@ using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using MoviesCatalog.Web.Models.ManageViewModels;
+using MoviesCatalog.Web.Services.Contracts;
 
 namespace MoviesCatalog.Web.Areas.Admin.Controllers
 {
@@ -18,16 +19,19 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
     {
         private readonly IActorService actorService;
         private readonly IMovieService movieService;
+        private readonly IImageOptimizer optimizer;
         private readonly IViewModelMapper<Actor, ActorViewModel> actorMapper;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieMapper;
 
         public ActorsController(IActorService actorService,
                                 IMovieService movieService,
+                                IImageOptimizer optimizer,
                                 IViewModelMapper<Actor, ActorViewModel> actorMapper,
                                 IViewModelMapper<Movie, MovieViewModel> movieMapper)
         {
             this.actorService = actorService ?? throw new ArgumentNullException(nameof(actorService));
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
+            this.optimizer = optimizer ?? throw new ArgumentNullException(nameof(optimizer));
             this.actorMapper = actorMapper ?? throw new ArgumentNullException(nameof(actorMapper));
             this.movieMapper = movieMapper ?? throw new ArgumentNullException(nameof(movieMapper));
         }
@@ -52,16 +56,29 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             try
             {
+                string imageName = null;
+
+                if (model.ActorPicture != null)
+                {
+                    imageName = optimizer.OptimizeImage(model.ActorPicture, 268, 182);
+                }
+
                 var actor = await this.actorService.FindActorByNameAsync(model.FirstName, model.LastName);
                 if (actor != null)
                 {
                     StatusMessage = $"Actor \"{model.FirstName} {model.LastName}\" already exists.";
                     return RedirectToAction("Create", "Actors");
                 }
-                    StatusMessage = $"Successfully added \"{model.FirstName} {model.LastName}\".";
                     actor = await this.actorService
-                                    .CreateActorAsync(model.FirstName, model.LastName, model.Biography);
-                    return RedirectToAction("Details", "Actors", new { id = actor.Id });
+                                    .CreateActorAsync(model.FirstName, model.LastName, imageName, model.Biography);
+
+                if (actor.FirstName == model.FirstName && actor.LastName == model.LastName 
+                    && actor.Picture == imageName && actor.Biography == model.Biography)
+                {
+                    StatusMessage = $"Successfully added \"{model.FirstName} {model.LastName}\".";
+                    
+                }
+                  return RedirectToAction("Details", "Actors", new { id = actor.Id });
             }
 
             catch (ArgumentException ex)
@@ -95,8 +112,21 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 {
                     return NotFound();
                 }
+
+                string imageName = null;
+
+                if (model.ActorPicture != null)
+                {
+                    imageName = optimizer.OptimizeImage(model.ActorPicture, 268, 182);
+                }
+
+                if (model.Picture != null)
+                {
+                    optimizer.DeleteOldImage(model.Picture);
+                }
+
                 actor = await this.actorService
-                                  .UpdateActorAsync(actor, model.Picture, model.Biography);
+                                  .UpdateActorAsync(actor, imageName, model.Biography);
 
                 if (actor.FirstName == model.FirstName && actor.LastName == model.LastName &&
                     actor.Picture == model.Picture && actor.Biography == model.Biography)
@@ -146,8 +176,9 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 }
 
                 await this.actorService.AddActorToMovieAsync(movie.Id, actor.Id);
-                
-                return RedirectToAction("Index");
+                StatusMessage = $"Successfully added \"{actor.FirstName} {actor.LastName}\" to \"{movie.Title}\".";
+
+                return RedirectToAction("Details", "Actors", new { id = actorId });
             }
             catch (ArgumentException ex)
             {

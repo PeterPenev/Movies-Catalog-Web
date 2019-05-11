@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,8 +16,6 @@ namespace MoviesCatalog.Web.Models
 
         [EmailAddress]
         public string Email { get; set; }
-
-        public string Avatar { get; set; }
 
         [Required, Compare(nameof(ConfirmPassword))]
         public string Password { get; set; }

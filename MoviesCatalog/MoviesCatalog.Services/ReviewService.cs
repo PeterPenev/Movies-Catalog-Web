@@ -15,7 +15,7 @@ namespace MoviesCatalog.Services
 
         public ReviewService(MoviesCatalogContext context)
         {
-            this.context = context ?? throw new ArgumentNullException(nameof(context)); 
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<Review> GetReviewByIdAsync(int id)
@@ -41,10 +41,10 @@ namespace MoviesCatalog.Services
                                              .Include(x => x.Movie)
                                              .Include(x => x.User)
                                              .FirstOrDefaultAsync();
-          
+
 
             var movie = await this.context.Movies.FindAsync(movieId);
-            var user =  await this.context.Users.FindAsync(userId);
+            var user = await this.context.Users.FindAsync(userId);
 
             if (review == null)
             {
@@ -66,6 +66,7 @@ namespace MoviesCatalog.Services
             }
 
             review.Movie = movie;
+            review.MovieId = movie.Id;
             review.UserId = user.Id;
             review.CreatedOn = DateTime.Now;
             if (review.IsDeleted)
@@ -79,9 +80,13 @@ namespace MoviesCatalog.Services
 
             if (rating > 0)
             {
-            movie.NumberOfVotes++;
-            movie.TotalRating += rating;
-            movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
+                movie.NumberOfVotes++;
+                movie.TotalRating += rating;
+                if (movie.NumberOfVotes != 0)
+                {
+                    movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
+                }
+
             }
 
             context.SaveChanges();
@@ -106,11 +111,15 @@ namespace MoviesCatalog.Services
             review.IsDeleted = true;
             movie.TotalRating -= review.Rating;
             movie.NumberOfVotes--;
-            if (movie.NumberOfVotes > 0)
+            if (movie.NumberOfVotes != 0)
             {
                 movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
             }
-            
+            else
+            {
+                movie.AverageRating = movie.TotalRating;
+            }
+
             await context.SaveChangesAsync();
             return review;
         }
@@ -129,7 +138,7 @@ namespace MoviesCatalog.Services
                 throw new ArgumentException(string.Format(ServicesConstants.ReviewNotFromUser,
                                                           user.UserName));
             }
-        
+
             review.Description = description;
             var movie = review.Movie;
             movie.TotalRating -= review.Rating;

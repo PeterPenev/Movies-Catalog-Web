@@ -1,4 +1,5 @@
-﻿using MoviesCatalog.Data.Models;
+﻿using Microsoft.AspNetCore.Http;
+using MoviesCatalog.Data.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,6 +18,8 @@ namespace MoviesCatalog.Web.Models
         public string LastName { get; set; }
 
         public string Biography { get; set; }
+
+        public IFormFile ActorPicture { get; set; }
 
         public string Picture { get; set; }
 

@@ -11,7 +11,7 @@ namespace MoviesCatalog.Services.Contracts
 
         Task<IReadOnlyCollection<Actor>> ShowAllActorsAsync();
 
-        Task<Actor> CreateActorAsync(string firstName, string lastName, string biography);
+        Task<Actor> CreateActorAsync(string firstName, string lastName, string picture, string biography);
 
         Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char id);
 
