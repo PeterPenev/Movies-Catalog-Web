@@ -1,4 +1,4 @@
-## Movies Catalog - ASP.NET Core MVC 2.2
+## Movies Catalog
 
 ----
 
@@ -13,34 +13,48 @@
 ### Project Purpose
 We are aiming to create a movie catalog with rating system accessed from web.
 
+### Technologies
+
+1.   ASP.NET Core MVC 2.2
+2.   Razor template engine for generating the UI
+3.   MS SQL Server as database back-end, using Entity Framework Core to access database
+4.   DataTables as a plug-in for the jQuery Javascript library, with paging and sorting for a model entity
+5.   Bootstrap for usable and responsive UI, with own web design and visual styles
+6.   GitLab for source control management system, using master and development branches
+7.   ASP.NET Identity System for managing users and roles, with 1 area for administrators and caching of genres
+
+
 ### Features 
 - <b>Registration Part</b><br>
-   Users can register as user of web application.
-
-- <b>Administration Part</b><br>
-   Administrator can:
-
-1.  use complete functionality of web application
-2.  create movie, actor, genre
-3.  update and edit movie and actor
-4.  add genre to movie
-5.  add actor to movie
-6.  promote other user to be administratora
+   Users can register as an user of web application.
 
 - <b>Public part</b><br>
-   
-1.  search for movie, actor and other user
-2.  read reviews and browse movies using genres filter
+   Functionality available for non registered users:
+
+1.  to search for movie, actor and other user
+2.  to read reviews and browse movies using genres filter categorization
 
 - <b>Private part visible with authentication</b><br>
-   User can:
+   Functionality available for registered users:
 
-1.  add review  
-    
+1.  to rate movie 
+2.  to add review
+3.  to edit and/or delete his reviews
+ 
+- <b>Administration Part</b><br>
+   Functionality available for administrator:
+
+1.  to use complete functionality of web application
+2.  to create movie, actor, genre
+3.  to update and edit movie's and actor's details
+4.  to add genre to movie
+5.  to add actor to movie
+6.  to promote other user to be administrator
+
 - <b>Rating and Review system</b>
 
     Users can rate and review every movie. Checking a movie will display the total rating and the top number of reviews.
-    A rating can be added without review. User can update or delete his review  and  delete his user's profile.
+    A rating can be added without review. User can update or delete his review.
 
 
 ### Database Diagrama
