@@ -148,10 +148,13 @@ namespace MoviesCatalog.Services
 
             review.Description = description;
             var movie = review.Movie;
-            movie.TotalRating -= review.Rating;
-            review.Rating = rating;
-            movie.TotalRating += rating;
-            movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
+            if (rating > 0)
+            {
+                movie.TotalRating -= review.Rating;
+                review.Rating = rating;
+                movie.TotalRating += rating;
+                movie.AverageRating = (double)movie.TotalRating / movie.NumberOfVotes;
+            }
 
             await this.context.SaveChangesAsync();
             return review;
