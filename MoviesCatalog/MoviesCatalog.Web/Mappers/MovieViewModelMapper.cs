@@ -18,10 +18,10 @@ namespace MoviesCatalog.Web.Mappers
                 Description = entity.Description,
                 AverageRating = entity.AverageRating,
                 ReleaseDate = entity.ReleaseDate,
-                NumberOfVotes = entity.NumberOfVotes,
-                //AllReviewsByMovie = entity.Reviews.Where(x => x.MovieId == entity.Id).ToList(),
-                User = entity.User?.UserName
-                //NumberOfVotes = entity.NumberOfVotes,                
+                NumberOfVotes = entity.NumberOfVotes,                
+                UserId = entity.User?.Id,
+                UserName = entity.User?.UserName,
+                SliderImage = entity.SliderImage                         
             };
         }
     }

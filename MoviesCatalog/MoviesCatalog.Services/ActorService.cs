@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace MoviesCatalog.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Actor> GetActorAsync(int id)
+        public async Task<Actor> GetActorByIdAsync(int id)
         {
             var actor =  await this.context.Actors.FindAsync(id);
 
@@ -30,7 +31,7 @@ namespace MoviesCatalog.Services
             return actor;
         }
 
-        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(string symbol)
+        public async Task<IReadOnlyCollection<Actor>> ShowActorsStartWithSymbolAsync(char symbol)
         {
             var actors = await this.context.Actors
                                      .Where(t => t.FirstName.ToLower().StartsWith(symbol.ToString().ToLower()) ||
@@ -41,7 +42,17 @@ namespace MoviesCatalog.Services
             return actors;
         }
 
-        public async Task<IReadOnlyCollection<Actor>> ShowAllActors()
+        public async Task<IReadOnlyCollection<Movie>> ShowActorMoviesAsync(int actorId)
+        {
+            var movies = await this.context.MoviesActors
+                             .Where(a => a.ActorId == actorId)
+                             .Select(m => m.Movie)
+                             .ToListAsync();
+
+            return movies;
+        }
+
+        public async Task<IReadOnlyCollection<Actor>> ShowAllActorsAsync()
         {
             var actors = await this.context.Actors
                                            .OrderBy(x => x.FirstName).ThenBy(x => x.LastName)
@@ -50,7 +61,7 @@ namespace MoviesCatalog.Services
             return actors;
         }
 
-        public async Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMovies(int actorId)
+        public async Task<IReadOnlyCollection<Movie>> ShowLastFiveActorMoviesAsync(int actorId)
         {
             var movies = await this.context.MoviesActors
                              .Where(a => a.ActorId == actorId)
@@ -62,58 +73,44 @@ namespace MoviesCatalog.Services
             return movies;
         }
 
-        public async Task<bool> IsActorExistAsync(string firstName, string lastName)
+        public async Task<Actor> FindActorByNameAsync(string firstName, string lastName)
         {
             return await this.context.Actors
-                                    .AnyAsync(x => x.FirstName == firstName && x.LastName == lastName);
+                                    .FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
         }
 
-        public Movie AddActorToMovie(int movieId, int actorId)
+        public async Task<Movie> AddActorToMovieAsync(int movieId, int actorId)
         {
-            var movie = this.context.Movies.Find(movieId);
+            var movie = await this.context.Movies.Include(m => m.MoviesActors).FirstOrDefaultAsync(m => m.Id == movieId);
 
-            var actor = this.context.Actors.Find(actorId);
+            var actor = await this.context.Actors.FindAsync(actorId);
 
-            var actorFullName = actor.FirstName + ' ' + actor.LastName;
-
-            var existingActorsInMovie = this.context.MoviesActors
-                                            .Where(t => t.Movie.Title == movie.Title)
-                                            .Select(a => a.Actor.FirstName + ' ' + a.Actor.LastName)
-                                            .ToList();
-
-            if (existingActorsInMovie.Contains(actorFullName))
+            if (movie.MoviesActors.Any(a => a.ActorId == actorId))
             {
-                throw new ArgumentException();
+                throw new ArgumentException(string.Format(ServicesConstants.ActorIsInMovie,actor.FirstName,actor.LastName,movie.Title));
             }
+                
+            await this.context.MoviesActors.AddAsync(new MoviesActors() { MovieId = movie.Id, ActorId = actorId });
 
-            this.context.MoviesActors.Add(new MoviesActors() { MovieId = movie.Id, ActorId = actor.Id });
-
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return movie;
         }
 
-
-
-        public async Task<Actor> CreateActorAsync(string firstName, string lastName, string biography)
+        public async Task<Actor> CreateActorAsync(string firstName, string lastName, string picture, string biography)
         {
-            var actor =  new Actor() {FirstName = firstName, LastName = lastName, Biography = biography};
+            var actor =  new Actor() {FirstName = firstName, LastName = lastName,  Picture =  picture,  Biography = biography};
 
-            this.context.Actors.Add(actor);
+            await this.context.Actors.AddAsync(actor);
             await this.context.SaveChangesAsync();
             return actor;
         }
 
-        public async Task<Actor> UpdateActorBiographyAsync(int id, string biography)
-        {
-            var actor = await this.context.Actors
-                                    .FindAsync(id);
-            if (actor == null)
-            {
-                throw new ArgumentException();
-            }
+        public async Task<Actor> UpdateActorAsync(Actor actor, string picture, string biography)
 
+        {
             actor.Biography = biography;
+            actor.Picture = picture;
             await this.context.SaveChangesAsync();
             return actor;
         }

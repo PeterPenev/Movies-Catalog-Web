@@ -4,7 +4,6 @@
     ViewData["Title"] = $"{Model.FirstName} {Model.LastName} details";
 }
 
-
 <div class="single-page-agile-main">
     <div class="container">
         <div class="single-page-agile-info">
@@ -31,7 +30,7 @@
                                 <div>No biogrpahy for this actor added yet.</div>
                             }
                         </div>
-                        <hr class="header-custom"/>
+                        <hr class="header-custom" />
                         <div class="agile-info-wthree-box">
                             <form asp-area="Admin" asp-controller="Actors" asp-action="Update" asp-route-id="@Model.Id" method="get">
                                 @if (this.User.IsInRole("Admin"))
@@ -52,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
             @if (Model.MoviesByActor.Count() > 0)
             {
                 <div class="col-md-4 single-right">
@@ -68,17 +68,41 @@
                                     <p class="author">Release date : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
                                     <p class="views">@movie.NumberOfVotes reviews</p>
                                     <p class="author">Rating: @($"{movie.AverageRating:f1}")</p>
+=======
+                @if (Model.LastFiveMoviesByActor.Count() > 0)
+                {
+                    <div class="col-md-4 single-right">
+                        <h3>Last Movies with @Model.FirstName  @Model.LastName</h3>
+                        <div class="single-grid-right">
+                            @foreach (var movie in Model.LastFiveMoviesByActor)
+                            {
+                                <div class="single-right-grids">
+                                    <div class="col-md-4 single-right-grid-left">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id"><img src="~/images/@(movie.Poster ?? "noimage.jpg")" /></a>
+                                    </div>
+                                    <div class="col-md-8 single-right-grid-right">
+                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">@movie.Title</a>
+                                        <p class="author">Release date : @movie.ReleaseDate.ToString("MMMM dd, yyyy")</p>
+                                        <p class="views">@movie.NumberOfVotes reviews</p>
+                                        <p class="author">Rating: @($"{movie.AverageRating:f1}")</p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+>>>>>>> 31b2b40d2da45f91d8e28e97eb4f4e07d5663fb2
                                 </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
+            </div>
         </div>
     </div>
 </div>
 
-
-
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}

@@ -1,5 +1,6 @@
 ﻿@model MovieViewModel
 
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -20,41 +21,86 @@
                         <h3 class="padding-custom">Rating: <span class="rating-orange">@($"{Model.AverageRating:F1}")</span><span class="text-custom"> / 5</span></h3>
                         <h4 class="padding-custom">Votes: <span class="text-orange">@Model.NumberOfVotes</span></h4>
                         <h4 class="padding-custom">Release Date : <span class="text-orange">@Model.ReleaseDate.ToString("MMMM dd, yyyy")</span></h4>
+=======
+>>>>>>> 31b2b40d2da45f91d8e28e97eb4f4e07d5663fb2
 
-                        <div class="song-grid-right">
-                        </div>
-                        <div class="clearfix"> </div>
-                        <div class="all-comments">
-                            @if (Model.Description != null)
+<div class="single-page-agile-main">
+    <div class="container">
+        <div class="single-page-agile-info">
+            <!-- /movie-browse-agile -->
+            <div class="show-top-grids-w3lagile">
+                @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+                <div class="col-sm-8 single-left">
+                    <div class="song">
+                        <div class="song-info">
+                            <h2>@Model.Title</h2>
+                            <div class="video-grid-single-page-agileits">
+                                <div data-video="dLmKio67pVQ" id="video"> <img src="~/images/@(Model.SliderImage ?? "noimage.jpg")" alt="" class="img-responsive" /> </div>
+                            </div>
+                            @if (Model.Trailer != null)
                             {
-                                <div>@Model.Description</div><br />
+                                <a href=@Model.Trailer class="btn btn-success">WATCH TRAILER</a>
                             }
-                            else
-                            {
-                                <div>No description for this movie added yet.</div>
-                            }
-                        </div>
-                        <hr class="header-custom" />
-                        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
-                            <div class="agile-info-wthree-box">
-                                @if (this.User.Identity.IsAuthenticated)
+
+                            <h3 class="padding-custom">Rating: <span class="rating-orange">@($"{Model.AverageRating:F1}")</span><span class="text-custom"> / 5</span></h3>
+                            <h4 class="padding-custom">Votes: <span class="text-orange">@Model.NumberOfVotes</span></h4>
+                            <h4 class="padding-custom">Release Date : <span class="text-orange">@Model.ReleaseDate.ToString("MMMM dd, yyyy")</span></h4>
+                            <h4 class="padding-custom">Genres : <span class="text-orange">@string.Join(", ", Model.AllGenresByMovie.Select(x => x.Name))</span></h4>
+                            <h4 class="padding-custom">Actors : <span class="text-orange">@string.Join(", ", Model.AllActorsByMovie.Select(x => x.FirstName + ' ' + x.LastName))</span></h4>
+                            <h4 class="padding-custom">Description : </h4>
+
+                            <div class="song-grid-right">
+                            </div>
+                            <div class="all-comments">
+                                @if (Model.Description != null)
                                 {
-                                    <input type="submit" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" value="ADD REVIEW">
+                                    <div>@Model.Description</div><br />
+                                }
+                                else
+                                {
+                                    <div>No description for this movie added yet.</div>
                                 }
                             </div>
-                        </form>
-                        <div class="agile-info-wthree-box">
-                            <form asp-area="Admin" asp-controller="Movies" asp-action="Update" asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
-                                @if (this.User.IsInRole("Admin"))
-                                {
-                                    <input type="submit" asp-controller="Movies" asp-action="Update" asp-route-id="@Model.Id" value="UPDATE">
-                                }
-                                <div class="clearfix"> </div>
+                            <hr class="header-custom" />
+                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="get">
+                                <div class="agile-info-wthree-box">
+                                    @if (this.User.Identity.IsAuthenticated)
+                                    {
+                                        <input type="submit" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" value="ADD REVIEW">
+                                    }
+                                </div>
                             </form>
+                            <div class="agile-info-wthree-box">
+                                <form asp-area="Admin" asp-controller="Genres" asp-action="AddGenreToMovie" asp-route-id="@Model.Id" method="get">
+                                    @if (this.User.IsInRole("Admin"))
+                                    {
+                                        <input type="submit" value="ADD GENRE">
+                                    }
+                                    <div class="clearfix"> </div>
+                                </form>
+                            </div>
+                            <div class="agile-info-wthree-box">
+                                <form asp-area="Admin" asp-controller="Movies" asp-action="AddActorToMovie" asp-route-id="@Model.Id" method="get">
+                                    @if (this.User.IsInRole("Admin"))
+                                    {
+                                        <input type="submit" value="ADD ACTOR">
+                                    }
+                                    <div class="clearfix"> </div>
+                                </form>
+                            </div>
+                            <div class="agile-info-wthree-box">
+                                <form asp-area="Admin" asp-controller="Movies" asp-action="Update" asp-route-id="@Model.Id" method="get">
+                                    @if (this.User.IsInRole("Admin"))
+                                    {
+                                        <input type="submit" value="UPDATE">
+                                    }
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-                @if (Model.LastFiveReviewsByMovie != null)
+
+                @if (Model.LastFiveReviewsByMovie.Count > 0)
                 {
                     <div class="col-md-4 single-right">
                         <h3>Last five reviews for @Model.Title</h3>
@@ -62,13 +108,12 @@
                             @foreach (var review in Model.LastFiveReviewsByMovie)
                             {
                                 <div class="single-right-grids">
-                                    <div class="col-md-4 single-right-grid-left">
-                                        <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id"><img src="~/images/@(review.MoviePoster?? "noimage.jpg")" /></a>
-                                    </div>
                                     <div class="col-md-8 single-right-grid-right">
-                                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId">@review.MovieTitle</a>
-                                        <p class="author">"Created on" : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
+                                        <a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">Detail review</a>
+                                        <p class="author">Created on : @review.CreatedOn.ToString("MMMM dd, yyyy")</p>
                                         <p class="views">@review.Description</p>
+                                        <p class="views">@($"Rating: {review.Rating}")</p>
+                                        <p class="author">@($"Author: {review.UserName}")</p>
                                     </div>
                                     <div class="clearfix"> </div>
                                 </div>
@@ -77,58 +122,29 @@
                     </div>
                 }
             </div>
-            <div id="myTabContent" class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-                    <div class="agile-news-table">
-                        @if(Model.AllReviewsByMovie != null)
-                        {
-                            <div class="w3ls-news-result">
-                                <h4>All reviews for @Model.Title: <span>@Model.AllReviewsByMovie.Count()</span></h4>
-                            </div>
-                            <table id="table-breakpoint">
-                                <tr>
-                                    <th>№</th>
-                                    <th>User</th>
-                                    <th>Created on</th>
-                                    <th>Description</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tbody id="table-breakpoint">
-                                    @{
-                                        int counter = 1;
-                                    }
-                                    @foreach (var review in Model.AllReviewsByMovie)
-                                    {
-                                        <tr>
-                                            <td>@counter</td>
-                                            @{
-                                                counter++;
-                                            }
-                                            <td class="w3-list-img"><a asp-controller="Movies" asp-action="Details" asp-route-id="@review.MovieId"><img src="~/images/@(review.MoviePoster ?? "noimage.jpg")" />><span></span></a></td>
-                                            <td><a asp-controller="Reviews" asp-action="Details" asp-route-id="@review.Id">@review.MovieTitle</a></td>
-                                            <td>@review.UserName</td>
-                                            <td>@review.CreatedOn.ToString("MMMM dd, yyyy")</td>
-                                            <td>@review.Description</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-</body>
-</html>
+</div>
 
+@section Scripts
+    {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+        });
+    </script>
+            
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/js/jquery/dist/jquery.min.js"></script>  
+}
 
 
 

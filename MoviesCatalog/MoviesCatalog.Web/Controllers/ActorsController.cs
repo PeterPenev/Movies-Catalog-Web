@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
-using MoviesCatalog.Services;
 using MoviesCatalog.Services.Contracts;
-using MoviesCatalog.Web.Mappers;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
-using MoviesCatalog.Web.Models.AccountViewModels;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Controllers
 {
@@ -31,12 +26,12 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var actors = await this.actorService.ShowAllActors();
+            var actors = await this.actorService.ShowAllActorsAsync();
             var actorViewModel = actors.Select(this.actorMapper.MapFrom).ToList();
             return View(actorViewModel);
         }
 
-        public async Task<IActionResult> ActorsByName(string id)
+        public async Task<IActionResult> ActorsByName(char id)
         {
             var actors = await this.actorService.ShowActorsStartWithSymbolAsync(id);
             var actorViewModel = actors.Select(this.actorMapper.MapFrom).ToList();
@@ -45,12 +40,12 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var actor = await this.actorService.GetActorAsync(id);
+            var actor = await this.actorService.GetActorByIdAsync(id);
 
-            var actorMovies = await this.actorService.ShowLastFiveActorMovies(actor.Id);
+            var actorMovies = await this.actorService.ShowLastFiveActorMoviesAsync(actor.Id);
 
             var actorViewModel = this.actorMapper.MapFrom(actor);
-            actorViewModel.MoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();
+            actorViewModel.LastFiveMoviesByActor = actorMovies.Select(this.movieMapper.MapFrom).ToList();
 
             return View(actorViewModel);
         }

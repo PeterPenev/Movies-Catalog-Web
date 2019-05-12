@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "UserName": "StamatTheGreat",
+    "Password": "abc123",
+    "IsDeleted": "false"
+  },
+  {
+    "Id": 2,
+    "UserName": "Ivar89",
+    "Password": "123321",
+    "IsDeleted": "false"
+  },
+  {
+    "Id": 3,
+    "UserName": "LorensoLamas",
+    "Password": "Iamthebest",
+    "IsDeleted": "false"
+  },
+  {
+    "Id": 4,
+    "UserName": "First92",
+    "Password": "firstisthebest",
+    "IsDeleted": "false"
+  }
+]

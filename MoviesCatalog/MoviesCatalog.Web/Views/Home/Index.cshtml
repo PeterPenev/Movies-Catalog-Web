@@ -7,11 +7,11 @@
 <!-- banner -->
 <div id="slidey" style="display:none;">
     <ul>
-        @foreach (var movie in Model.TopTenMoviesByRating)
+        @foreach (var movie in Model.TopTenMoviesByRatingWithSlider)
         {
             <li>
                 @{
-                    <img src="~/images/@(movie.Poster ?? "noimage.jpg")" alt=" " />
+                    <img src="~/images/@(movie.SliderImage ?? "noimage.jpg")" alt=" " />
                 }
                 <p class='title'>@movie.Title</p>
                 <p class='description'>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</p><br />

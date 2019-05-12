@@ -15,15 +15,15 @@
         }
         @foreach (var actor in Model)
         {
-            <tr>
-                <td>@counter</td>
-                @{
-                    counter++;
-                }
-                <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="~/images/@(actor.Picture ?? "noimage.jpg")" /><span></span></a></td>
-                <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.FirstName</a></td>
-                <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.LastName</a></td>
-            </tr>
+        <tr>
+            <td>@counter</td>
+            @{
+                counter++;
+            }
+            <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="~/images/@(actor.Picture ?? "noimage.jpg")" /><span></span></a></td>
+            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.FirstName</a></td>
+            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.LastName</a></td>
+        </tr>
         }
     </tbody>
 </table>

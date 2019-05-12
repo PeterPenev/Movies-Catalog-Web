@@ -2,17 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services.Contracts
 {
     public interface IGenreService
     {
-        Genre GetGenre(int id);
+        Task<Genre> GetGenreByIdAsync(int genreId);
 
-        IReadOnlyCollection<string> GetAllGenres();
+        Task<IReadOnlyCollection<Genre>> GetAllGenresAsync();
 
-        IReadOnlyCollection<Movie> ShowMoviesByGenre(string id);             
+        Task<IReadOnlyCollection<Movie>> ShowMoviesByGenreAsync(string id);
 
-        IReadOnlyDictionary<string, int> GetAllGenresWithCountOfMovies();
+        Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMoviesAsync();
+
+        Task<bool> IsGenreExistAsync(string genreName);
+
+        Task<Genre> CreateGenreAsync(string genreName);
+
+        Task<Movie> AddGenreToMovieAsync(int movieId, int genreId);
     }
 }

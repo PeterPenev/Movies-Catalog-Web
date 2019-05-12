@@ -85,7 +85,7 @@
             </div>
             <div class="w3_search">
                 <form asp-controller="movies" asp-action="Search" method="get">
-                    <input type="text" name="SearchName" placeholder="Search Movie" required="">
+                    <input type="text" name="searchName" placeholder="Search Movie" required="">
                     <input type="submit" value="Go">
                 </form>
             </div>
@@ -144,6 +144,7 @@
                                                 <ul class="multi-column-dropdown">
                                                     <li><a asp-area="Admin" asp-controller="Actors" asp-action="Create">Actor</a></li>
                                                     <li><a asp-area="Admin" asp-controller="Movies" asp-action="Create">Movie</a></li>
+                                                    <li><a asp-area="Admin" asp-controller="Genres" asp-action="Create">Genre</a></li>
                                                 </ul>
                                             </div>
                                             <div class="clearfix"></div>
@@ -185,6 +186,10 @@
             </div>
             <div class="col-md-5 w3ls_footer_grid1_left">
                 <p>&copy; @DateTime.Now.Year Movies Catalog. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 31b2b40d2da45f91d8e28e97eb4f4e07d5663fb2
             </div>
             <div class="col-md-7 w3ls_footer_grid1_right">
                 <ul>
@@ -208,10 +213,17 @@
     </div>
 
     <environment include="Development">
+<<<<<<< HEAD
         @*<script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/lib/js/jquery/dist/jquery.min.js"></script>*@
+=======
+        @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+        @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+        @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+        @*<script src="~/lib/js/jquery/dist/jquery.min.js"></script>*@
+>>>>>>> 31b2b40d2da45f91d8e28e97eb4f4e07d5663fb2
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"

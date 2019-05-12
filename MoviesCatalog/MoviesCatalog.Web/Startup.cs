@@ -12,6 +12,8 @@ using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Mappers;
+using MoviesCatalog.Web.Services;
+using MoviesCatalog.Web.Services.Contracts;
 
 namespace MoviesCatalog.Web
 {
@@ -41,6 +43,8 @@ namespace MoviesCatalog.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IActorService, ActorService>();
             services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IImageOptimizer, ImageOptimizer>();
+            services.AddMemoryCache();
             services.AddCustomMappers();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddRouting(options => options.LowercaseUrls = true);

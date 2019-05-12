@@ -6,10 +6,6 @@ namespace MoviesCatalog.Data.Models
 {
     public class ApplicationUser: IdentityUser
     {
-        public bool IsDeleted { get; set; }
-
-        public string Avatar { get; set; }
-
         public ICollection<Review> Reviews { get; set; }
 
         public ICollection<Movie> Movies { get; set; }

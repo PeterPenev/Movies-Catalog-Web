@@ -8,22 +8,32 @@ namespace MoviesCatalog.Services.Contracts
 {
     public interface IMovieService
     {
-        Movie CreateMovie(string title, string trailer, string poster, string description, DateTime releaseDate);
+        Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string slider, string description, DateTime releaseDate, string UserName);
+        
+        Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbolAsync(char symbol);
+        
+        Task<IReadOnlyCollection<Movie>> ShowAllMoviesOrderedDescByRatingAsync();
 
-        Task<IReadOnlyCollection<Movie>> ShowMoviesStartWithSymbol(char symbol);
+        Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingAsync();
 
-        IReadOnlyCollection<Movie> ShowAllMoviesOrderedDescByRating();
+        Task<IReadOnlyCollection<Movie>> ShowMoviesLatest6ByReleaseDateAsync();
+        
+        Task<IReadOnlyCollection<Movie>> SearchMoviesContainsStringAsync(string criteria);
 
-        IReadOnlyCollection<Movie> ShowMoviesTop10ByRaiting();
+        Task<Movie> GetMovieByIdAsync(int id);
+       
+        Task<ICollection<Review>> AllReviewsByMovieAsync(int movieId);
 
-        IReadOnlyCollection<Movie> ShowMoviesLatest10ByReleaseDate();
+        Task<ICollection<Review>> LastFiveReviewsByMovieAsync(int movieId);
 
-        IReadOnlyCollection<Movie> SearchMoviesContainsString(string criteria);
+        Task<bool> IsMovieExistAsync(string movieTitle);
 
-        Movie GetMovieById(int id);
+        Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImageAsync();
 
-        Task<ICollection<Review>> AllReviewsByMovie(int movieId);
+        Task<Movie> UpdateMovieAsync(Movie movie, string description, string poster, string sliderImage);
 
-        Task<ICollection<Review>> LastFiveReviewsByMovie(int movieId);
+        Task<ICollection<Actor>> AllActorsByMovieAsync(int movieId);
+
+        Task<ICollection<Genre>> AllGenresByMovieAsync(int movieId);
     }
 }

@@ -1,0 +1,102 @@
+[
+  {
+    "GenreId": 1,
+    "Name": "Action"
+  },
+  {
+    "GenreId": 2,
+    "Name": "Adventure"
+  },
+  {
+    "GenreId": 3,
+    "Name": "Comedy"
+  },
+  {
+    "GenreId": 4,
+    "Name": "Crime"
+  },
+  {
+    "GenreId": 5,
+    "Name": "Drama"
+  },
+  {
+    "GenreId": 6,
+    "Name": "Fantasy"
+  },
+  {
+    "GenreId": 7,
+    "Name": "Historical"
+  },
+  {
+    "GenreId": 8,
+    "Name": "Historical fiction"
+  },
+  {
+    "GenreId": 9,
+    "Name": "Horror"
+  },
+  {
+    "GenreId": 10,
+    "Name": "Magical realism"
+  },
+  {
+    "GenreId": 11,
+    "Name": "Mystery"
+  },
+  {
+    "GenreId": 12,
+    "Name": "Paranoid Fiction"
+  },
+  {
+    "GenreId": 13,
+    "Name": "Philosophical"
+  },
+  {
+    "GenreId": 14,
+    "Name": "Political"
+  },
+  {
+    "GenreId": 15,
+    "Name": "Romance"
+  },
+  {
+    "GenreId": 16,
+    "Name": "Saga"
+  },
+  {
+    "GenreId": 17,
+    "Name": "Satire"
+  },
+  {
+    "GenreId": 18,
+    "Name": "Sci-Fi"
+  },
+  {
+    "GenreId": 19,
+    "Name": "Social"
+  },
+  {
+    "GenreId": 20,
+    "Name": "Speculative"
+  },
+  {
+    "GenreId": 21,
+    "Name": "Thriller"
+  },
+  {
+    "GenreId": 22,
+    "Name": "Urban"
+  },
+  {
+    "GenreId": 23,
+    "Name": "Western"
+  },
+  {
+    "GenreId": 24,
+    "Name": "Animation"
+  },
+  {
+    "GenreId": 25,
+    "Name": "Crime"
+  }
+]

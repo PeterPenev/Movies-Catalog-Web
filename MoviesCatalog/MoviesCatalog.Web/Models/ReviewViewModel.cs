@@ -10,7 +10,6 @@ namespace MoviesCatalog.Web.Models
         public int Id { get; set; }
 
         [MaxLength(500)]
-        [Required]
         public string Description { get; set; }
 
         public double Rating { get; set; }
@@ -21,6 +20,8 @@ namespace MoviesCatalog.Web.Models
 
         public string UserId { get; set; }
 
+        public string UserAvatar { get; set; }
+
         public bool CanUserEdit { get; set; }
 
         public string UserName { get; set; }
@@ -30,9 +31,5 @@ namespace MoviesCatalog.Web.Models
         public string MoviePoster { get; set; }
 
         public string MovieTitle { get; set; }
-
-        public IReadOnlyCollection<ReviewViewModel> AllReviewsByMovie { get; set; }
-
-        public IReadOnlyCollection<ReviewViewModel> LastFiveReviewsByMovie { get; set; }
     }
 }

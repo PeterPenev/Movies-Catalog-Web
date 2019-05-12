@@ -21,7 +21,7 @@ namespace MoviesCatalog.Web.Mappers
                 UserName = entity.User.UserName,
                 MovieTitle = entity.Movie.Title,
                 MovieId = entity.MovieId,
-                MoviePoster = entity.Movie.Poster
+                MoviePoster = entity.Movie.Poster,
             };
         }
     }

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ActorViewModel>
+
+<table id="table" class="table table-striped border border-info">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">№</th>
+            <th scope="col" width="30%">Picture</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Add To Movie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+        }
+        @foreach (var actor in Model)
+        {
+        <tr>
+            <td>@counter</td>
+            @{
+                counter++;
+            }
+            <td class="w3-list-img"><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"><img src="~/images/@(actor.Picture ?? "noimage.jpg")" /><span></span></a></td>
+            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.FirstName</a></td>
+            <td><a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">@actor.LastName</a></td>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>
+                    <form asp-area="Admin" asp-controller="Movies" asp-action="AddActorToMovie">
+                        <input type="hidden" name="actorId" value="@actor.Id" />
+                        <input type="hidden" name="movieId" value="@ViewData["MovieId"]" />
+                        <button type="submit" asp-area="Admin" asp-controller="Movies" asp-action="AddActorToMovie" class="btn btn-success"><i class="material-icons">Add Actor To Movie</i></button>
+                    </form>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

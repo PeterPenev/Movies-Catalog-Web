@@ -159,8 +159,6 @@ namespace MoviesCatalog.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Avatar");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -168,8 +166,6 @@ namespace MoviesCatalog.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -237,6 +233,8 @@ namespace MoviesCatalog.Data.Migrations
                     b.Property<string>("Poster");
 
                     b.Property<DateTime>("ReleaseDate");
+
+                    b.Property<string>("SliderImage");
 
                     b.Property<string>("Title")
                         .IsRequired()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -15,125 +14,70 @@ namespace MoviesCatalog.Web.Controllers
         private readonly IMovieService movieService;
         private readonly IViewModelMapper<Movie, MovieViewModel> movieViewMapper;
         private readonly IViewModelMapper<Review,ReviewViewModel> reviewViewMapper;
+        private readonly IViewModelMapper<Genre, GenreViewModel> genreViewMapper;
+        private readonly IViewModelMapper<Actor, ActorViewModel> actorViewMapper;
 
         public MoviesController(IMovieService movieService,
                                 IViewModelMapper<Movie, MovieViewModel> movieViewMapper,
-                                IViewModelMapper<Review, ReviewViewModel> reviewViewMapper)
+                                IViewModelMapper<Review, ReviewViewModel> reviewViewMapper,
+                                IViewModelMapper<Genre,GenreViewModel> genreViewMapper,
+                                IViewModelMapper<Actor, ActorViewModel> actorViewMapper)
         {
             this.movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
             this.movieViewMapper = movieViewMapper ?? throw new ArgumentNullException(nameof(movieViewMapper));
             this.reviewViewMapper = reviewViewMapper ?? throw new ArgumentNullException(nameof(reviewViewMapper));
-        }
+            this.genreViewMapper = genreViewMapper ?? throw new ArgumentNullException(nameof(genreViewMapper));
+            this.actorViewMapper = actorViewMapper ?? throw new ArgumentNullException(nameof(actorViewMapper));
+        }      
+            
 
-        [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(MovieViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                var movie = this.movieService
-                                .CreateMovie(model.Title, model.Trailer, model.Poster, model.Description, model.ReleaseDate);
-
-
-                return RedirectToAction(nameof(Index), new { id = movie.Id });
-            }
-
-            catch (ArgumentException ex)
-            {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Search(SearchMovieViewModel model)
-        {
-            if (string.IsNullOrWhiteSpace(model.SearchName) ||
-                model.SearchName.Length < 3)
-            {
-                return View();
-            }
-
-            model.SearchResults = this.movieService.SearchMoviesContainsString(model.SearchName)
-                                                    .Select(this.movieViewMapper.MapFrom)
-                                                    .ToList();
-
-            return View(model);
-        }
-
-        public IActionResult Details(int id)
-        {
-            var movie = this.movieService.GetMovieById(id);
+            var movie = await this.movieService.GetMovieByIdAsync(id);            
 
             if (movie == null)
             {
                 return NotFound();
             }
 
-            return View(this.movieViewMapper.MapFrom(movie));
+            var movieLast5Reviews = await this.movieService.LastFiveReviewsByMovieAsync(id);
+            var movieAllReviews = await this.movieService.AllReviewsByMovieAsync(id);
+
+            var movieAllGenres = await this.movieService.AllGenresByMovieAsync(id);
+            var movieAllActors = await this.movieService.AllActorsByMovieAsync(id);
+
+            var movieViewModel = this.movieViewMapper.MapFrom(movie);
+
+            movieViewModel.LastFiveReviewsByMovie = movieLast5Reviews.Select(this.reviewViewMapper.MapFrom).ToList();
+            movieViewModel.AllReviewsByMovie = movieAllReviews.Select(this.reviewViewMapper.MapFrom).ToList();
+
+            movieViewModel.AllGenresByMovie = movieAllGenres.Select(this.genreViewMapper.MapFrom).ToList();
+            movieViewModel.AllActorsByMovie = movieAllActors.Select(this.actorViewMapper.MapFrom).ToList();
+
+            return View(movieViewModel);
         }
         
         public async Task<IActionResult> MoviesByName(char id)
         {
-            var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbol(id);
+            var moviesByStartingSymbol = await this.movieService.ShowMoviesStartWithSymbolAsync(id);
 
-            var movieIndexView = new MovieIndexViewModel()
-            {
-                MoviesByName = moviesByStartingSymbol.Select(this.movieViewMapper.MapFrom).ToList()
-            };
-
-            return View(movieIndexView);
+            var movieViewModel = moviesByStartingSymbol.Select(this.movieViewMapper.MapFrom).ToList();            
+            
+            return View(movieViewModel);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allMoviesOrderedDescByRating = movieService.ShowAllMoviesOrderedDescByRating();
-
-            var movieIndexView = new MovieIndexViewModel()
-            {
-                AllMoviesOrderedDescByRating = allMoviesOrderedDescByRating.Select(this.movieViewMapper.MapFrom).ToList()
-            };
-
-            return View(movieIndexView);
+            var movies = await this.movieService.ShowAllMoviesOrderedDescByRatingAsync();
+            var movieViewModel = movies.Select(this.movieViewMapper.MapFrom).ToList();
+            return View(movieViewModel);
         }
 
-        public async Task<IActionResult> AllReviewsByMovie (int movieId)
+        public async Task<IActionResult> Search(string searchName)
         {
-            var allReviewsByMovie = await this.movieService.AllReviewsByMovie(movieId);
-
-            var reviewIndexView = new ReviewViewModel()
-            {
-                 AllReviewsByMovie= allReviewsByMovie.Select(this.reviewViewMapper.MapFrom).ToList()
-            };
-
-            return View(reviewIndexView);
-        }
-
-        public async Task<IActionResult> LastFiveReviewsByMovie(int movieId)
-        {
-            var lastFiveReviewsByMovie = await this.movieService.LastFiveReviewsByMovie(movieId);
-
-            var reviewIndexView = new ReviewViewModel()
-            {
-                LastFiveReviewsByMovie = lastFiveReviewsByMovie.Select(this.reviewViewMapper.MapFrom).ToList()
-            };
-
-            return View(reviewIndexView);
-        }
-
-        
-
-
+            var movies = await this.movieService.SearchMoviesContainsStringAsync(searchName);
+            var movieViewModel = movies.Select(this.movieViewMapper.MapFrom).ToList();
+            return View("IndexSearch",movieViewModel);
+        }               
     }
 }

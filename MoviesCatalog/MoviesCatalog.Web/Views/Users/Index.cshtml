@@ -12,6 +12,7 @@
 <div class="faq">
     <h4 class="latest-text w3_faq_latest_text w3_latest_text">Users List</h4>
     <div class="container">
+        @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
             <ul id="myTab" class="nav nav-tabs" role="tablist">
                 @for (char i = 'A'; i <= 'Z'; i++)

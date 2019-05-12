@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ActorViewModel>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/list-css/table-style.css" />
+    <link rel="stylesheet" type="text/css" href="/list-css/basictable.css" />
+</head>
+
+<div class="main main-raised">
+    <div class="section">
+        <div class="container">
+            <div class="title">
+                <h3 class="custom-format">Search for Actors</h3>
+            </div>
+            <hr />
+            @await Html.PartialAsync("_StatusMessage", TempData["StatusMessage"])
+            <div class="table-responsive">
+                @await Html.PartialAsync("_AddActorsToMovieTablePartial", Model, ViewData)
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                responsive: true,
+                stateSave: true
+            });
+        });
+    </script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/js/jquery/dist/jquery.min.js"></script>
+}
+

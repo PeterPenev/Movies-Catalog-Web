@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
 using MoviesCatalog.Web.Extensions;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
+using MoviesCatalog.Web.Utils;
+using System;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Web.Controllers
 {
@@ -35,14 +34,10 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var review = await this.reviewService.GetReviewById(id);
+            var review = await this.reviewService.GetReviewByIdAsync(id);
             var userId = this.User.GetId();
             var user = await this.userService.GetUserByIdAsync(review.UserId);
-            var movie = this.movieService.GetMovieById(review.MovieId);
-            review.Movie.Title = movie.Title;
-            review.Movie.Poster = movie.Poster;
-            review.User.UserName = user.UserName;
-           
+            var movie = await this.movieService.GetMovieByIdAsync(review.MovieId);
             var reviewViewModel = this.reviewMapper.MapFrom(review);
             reviewViewModel.CanUserEdit = review.UserId == userId;
 
@@ -53,7 +48,6 @@ namespace MoviesCatalog.Web.Controllers
         public IActionResult Create(int id)
         {
             var userId = this.User.GetId();
-            //var movie = this.movieService.GetMovieById(movieId);
             var reviewViewModel = new ReviewViewModel()
             {
                 MovieId = id,
@@ -76,15 +70,60 @@ namespace MoviesCatalog.Web.Controllers
             {
                 if (await this.reviewService.DidUserAlreadyVoteForMovieAsync(model.MovieId, model.UserId))
                 {
-                    StatusMessage = "You already voted for this movie.";
+                    StatusMessage = WebConstants.UserAlreadyVoted;
                     return RedirectToAction("Details", "Movies", new { id = model.MovieId });
                 }
 
-                StatusMessage = $"Successfully added review to \"{model.MovieTitle}\".";
                 var review = await this.reviewService
-                                .AddReviewToMovie(model.MovieId, model.UserId, model.Description, model.Rating);
+                                .AddReviewToMovieAsync(model.MovieId, model.UserId, model.Description, model.Rating);
+                StatusMessage = WebConstants.ReviewAddedToMovie;
                 return RedirectToAction("Details", "Reviews", new { id = review.Id });
 
+            }
+
+            catch (ArgumentException ex)
+            {
+                StatusMessage = ex.Message;
+
+                return RedirectToAction("Details", "Movies", new { id = model.MovieId });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            
+            var review = await this.reviewService.GetReviewByIdAsync(id);
+            var reviewViewModel = this.reviewMapper.MapFrom(review);
+            return View(reviewViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ReviewViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var review = await this.reviewService.GetReviewByIdAsync(model.Id);
+                if (review == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                
+                review = await this.reviewService
+                                    .EditReviewAsync(review, model.UserId, model.Rating, model.Description);
+
+                if (review.Description == model.Description && review.Rating == model.Rating)
+                {
+                    StatusMessage = WebConstants.ReviewEdited;
+                }
+
+                return RedirectToAction("Details", "Reviews", new { id = review.Id });
             }
 
             catch (ArgumentException ex)
@@ -96,8 +135,11 @@ namespace MoviesCatalog.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var review = await reviewService.GetReviewById(id);
-            if (review == null) return NotFound();
+            var review = await reviewService.GetReviewByIdAsync(id);
+            if (review == null)
+            {
+                return NotFound(); 
+            }
             var userId = this.User.GetId();
             var userViewModel = this.reviewMapper.MapFrom(review);
             userViewModel.CanUserEdit = review.UserId == userId;
@@ -110,9 +152,15 @@ namespace MoviesCatalog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await reviewService.DeleteReviewAsync(id);
-            StatusMessage = "Successfully deleted the review.";
-            return RedirectToAction("Index", "Home");
+            var userId = User.GetId();
+            var review = await reviewService.DeleteReviewAsync(id, userId);
+            
+            if (review == null)
+            {
+                return NotFound();
+            }
+            StatusMessage = WebConstants.ReviewDeleted;
+            return RedirectToAction( "Details", "Movies", new { id = review.MovieId });
         }
     }
 }
