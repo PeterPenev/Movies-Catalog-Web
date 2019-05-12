@@ -4993,9 +4993,15 @@ a.thumbnail.active {
   position: relative;
   top: -2px;
   right: -21px;
-  color: inherit;
+  color: white;
 }
 
+/*.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}*/
 .alert-success {
     color: white;
     /*background-color: #ff9800;*/
