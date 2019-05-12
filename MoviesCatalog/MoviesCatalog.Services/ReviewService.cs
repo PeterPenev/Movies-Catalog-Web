@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Services.Providers;
 using MoviesCatalog.Services.Utils;
 using System;
 using System.Linq;
@@ -37,6 +38,9 @@ namespace MoviesCatalog.Services
         public async Task<Review> AddReviewToMovieAsync(int movieId, string userId,
                                     string description, double rating)
         {
+            BusinessValidator.IsInProperRange(description);
+            BusinessValidator.IsRatingInRange(rating);
+
             var review = await this.context.Reviews.Where(x => x.UserId == userId && x.MovieId == movieId)
                                              .Include(x => x.Movie)
                                              .Include(x => x.User)
@@ -126,6 +130,9 @@ namespace MoviesCatalog.Services
 
         public async Task<Review> EditReviewAsync(Review review, string userId, double rating, string description)
         {
+            BusinessValidator.IsInProperRange(description);
+            BusinessValidator.IsRatingInRange(rating);
+
             if (review.IsDeleted)
             {
                 throw new ArgumentException(ServicesConstants.ReviewNotPresent);

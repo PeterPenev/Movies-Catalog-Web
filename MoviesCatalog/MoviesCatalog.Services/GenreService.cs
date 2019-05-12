@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Services.Providers;
 using MoviesCatalog.Services.Utils;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,7 @@ namespace MoviesCatalog.Services
 
         public async Task<Genre> CreateGenreAsync(string genreName)
         {
+            BusinessValidator.IsGenreInValidRange(genreName);
             var genre = new Genre() { Name = genreName };
 
             this.context.Genres.Add(genre);

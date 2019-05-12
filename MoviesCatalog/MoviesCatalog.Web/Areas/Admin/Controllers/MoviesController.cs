@@ -90,8 +90,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             catch (ArgumentException ex)
             {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
+                StatusMessage = ex.Message;
+                return RedirectToAction("Create", "Movies");
             }
         }
 
@@ -154,8 +154,8 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
 
             catch (ArgumentException ex)
             {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
+                StatusMessage = ex.Message;
+                return RedirectToAction("Update", "Movies", new { id = model.Id });
             }
         }
 
@@ -201,7 +201,6 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
             catch (ArgumentException ex)
             {
                 StatusMessage = ex.Message;
-
                 return RedirectToAction("AddActorToMovie", "Movies");
             }
         }

@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Services.Providers;
 using MoviesCatalog.Services.Utils;
 using System;
 using System.Collections.Generic;
@@ -99,6 +100,10 @@ namespace MoviesCatalog.Services
 
         public async Task<Actor> CreateActorAsync(string firstName, string lastName, string picture, string biography)
         {
+            BusinessValidator.IsNameInValidRange(firstName);
+            BusinessValidator.IsNameInValidRange(lastName);
+            BusinessValidator.IsInProperRange(biography);
+
             var actor = new Actor() { FirstName = firstName, LastName = lastName, Picture = picture, Biography = biography };
 
             await this.context.Actors.AddAsync(actor);
@@ -109,6 +114,7 @@ namespace MoviesCatalog.Services
         public async Task<Actor> UpdateActorAsync(Actor actor, string picture, string biography)
 
         {
+            BusinessValidator.IsInProperRange(biography);
             actor.Biography = biography;
             if (picture != null)
             {

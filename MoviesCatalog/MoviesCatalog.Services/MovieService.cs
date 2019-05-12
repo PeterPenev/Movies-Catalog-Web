@@ -2,6 +2,7 @@
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
+using MoviesCatalog.Services.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace MoviesCatalog.Services
 
         public async Task<Movie> CreateMovieAsync(string title, string trailer, string poster, string slider, string description, DateTime releaseDate, string userId)
         {
+            BusinessValidator.IsTitleInValidRange(title);
+            BusinessValidator.IsTrailerInValidRange(trailer);
             var user = await this.context
                 .Users
                 .FindAsync(userId);
@@ -137,6 +140,8 @@ namespace MoviesCatalog.Services
 
         public async Task<Movie> UpdateMovieAsync(Movie movie, string description, string poster, string sliderImage)
         {
+            BusinessValidator.IsTitleInValidRange(description);
+
             movie.Description = description;
             if (poster != null)
             {

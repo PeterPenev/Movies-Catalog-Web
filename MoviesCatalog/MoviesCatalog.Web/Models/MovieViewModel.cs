@@ -11,9 +11,11 @@ namespace MoviesCatalog.Web.Models
         public int Id { get; set; }
 
         [Required]
+        [MinLength(2)]
         [MaxLength(100)]
         public string Title { get; set; }
 
+        [MaxLength(500)]
         public string Trailer { get; set; }
 
         public IFormFile PosterImage { get; set; }
@@ -25,6 +27,7 @@ namespace MoviesCatalog.Web.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ReleaseDate { get; set; }
 
+        [MaxLength(500)]
         public string Description { get; set; }
 
         public string UserId { get; set; }

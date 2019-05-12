@@ -12,6 +12,7 @@ namespace MoviesCatalog.Data.Models
         [MaxLength(100)]
         public string Title { get; set; }
 
+        [MaxLength(500)]
         public string Trailer { get; set; }
 
         public string Poster { get; set; }
@@ -21,6 +22,7 @@ namespace MoviesCatalog.Data.Models
         [Required]
         public DateTime ReleaseDate { get; set; }
 
+        [MaxLength(500)]
         public string Description { get; set; }
 
         public string UserId { get; set; }
