@@ -23,6 +23,7 @@ namespace MoviesCatalog.Services
         {
             BusinessValidator.IsTitleInValidRange(title);
             BusinessValidator.IsTrailerInValidRange(trailer);
+           
             var user = await this.context
                 .Users
                 .FindAsync(userId);
@@ -30,7 +31,7 @@ namespace MoviesCatalog.Services
             var movie = await this.context
                 .Movies
                 .FirstOrDefaultAsync(t => t.Title == title);
-            
+
             movie = new Movie() { Title = title, Trailer = trailer, Poster = poster, SliderImage = slider, Description = description, ReleaseDate = releaseDate };
 
             movie.User = user;
@@ -140,7 +141,10 @@ namespace MoviesCatalog.Services
 
         public async Task<Movie> UpdateMovieAsync(Movie movie, string description, string poster, string sliderImage)
         {
-            BusinessValidator.IsTitleInValidRange(description);
+            if (description != null)
+            {
+                BusinessValidator.IsInProperRange(description);
+            }
 
             movie.Description = description;
             if (poster != null)
@@ -151,7 +155,7 @@ namespace MoviesCatalog.Services
             {
                 movie.SliderImage = sliderImage;
             }
-           
+
             await this.context.SaveChangesAsync();
 
             return movie;
@@ -169,8 +173,8 @@ namespace MoviesCatalog.Services
         {
             var actors = await context.Actors
                                 .Where(am => am.ActorMovies.Any(m => m.Movie.Id == movieId))
-                                .ToListAsync();                                
-                                
+                                .ToListAsync();
+
             return actors;
         }
     }

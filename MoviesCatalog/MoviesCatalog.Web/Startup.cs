@@ -31,9 +31,16 @@ namespace MoviesCatalog.Web
         {
             services.AddDbContext<MoviesCatalogContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("AzureConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                })
                 .AddEntityFrameworkStores<MoviesCatalogContext>()
                 .AddDefaultTokenProviders();
 

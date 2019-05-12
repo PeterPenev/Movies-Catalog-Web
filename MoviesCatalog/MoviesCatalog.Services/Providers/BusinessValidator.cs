@@ -9,7 +9,7 @@ namespace MoviesCatalog.Services.Providers
     {
         public static void IsInProperRange(string input)
         {
-            if (input.Length > 500)
+            if (input != null && input.Length > 500)
             {
                 throw new ArgumentException(ServicesConstants.DescriptionTooLong);
             }
@@ -41,7 +41,7 @@ namespace MoviesCatalog.Services.Providers
 
         public static void IsTrailerInValidRange(string trailer)
         {
-            if (trailer.Length > 500)
+            if (trailer != null && trailer.Length > 500)
             {
                 throw new ArgumentException(ServicesConstants.TrailerTooLong);
             }

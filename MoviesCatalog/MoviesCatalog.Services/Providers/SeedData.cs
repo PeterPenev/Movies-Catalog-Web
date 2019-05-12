@@ -4,12 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services.Providers
 {
     public static class SeedData
     {
-        public static void SeedDatabase(IWebHost host)
+        public static async Task SeedDatabase(IWebHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -23,12 +24,12 @@ namespace MoviesCatalog.Services.Providers
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                roleManager.CreateAsync(new IdentityRole { Name = "Admin" }).Wait();
+                await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
 
                 var adminUser = new ApplicationUser { UserName = "Admin", Email = "admin@admin.admin" };
-                userManager.CreateAsync(adminUser, "Admin123@").Wait();
+                await userManager.CreateAsync(adminUser, "Admin123@");
 
-                userManager.AddToRoleAsync(adminUser, "Admin").Wait();
+                await userManager.AddToRoleAsync(adminUser, "Admin");
             }
         }
     }
