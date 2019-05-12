@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services
 {
-    public class ActorService: IActorService
+    public class ActorService : IActorService
     {
         private readonly MoviesCatalogContext context;
 
@@ -21,7 +21,7 @@ namespace MoviesCatalog.Services
 
         public async Task<Actor> GetActorByIdAsync(int id)
         {
-            var actor =  await this.context.Actors.FindAsync(id);
+            var actor = await this.context.Actors.FindAsync(id);
 
             if (actor == null)
             {
@@ -87,9 +87,9 @@ namespace MoviesCatalog.Services
 
             if (movie.MoviesActors.Any(a => a.ActorId == actorId))
             {
-                throw new ArgumentException(string.Format(ServicesConstants.ActorIsInMovie,actor.FirstName,actor.LastName,movie.Title));
+                throw new ArgumentException(string.Format(ServicesConstants.ActorIsInMovie, actor.FirstName, actor.LastName, movie.Title));
             }
-                
+
             await this.context.MoviesActors.AddAsync(new MoviesActors() { MovieId = movie.Id, ActorId = actorId });
 
             await this.context.SaveChangesAsync();
@@ -99,7 +99,7 @@ namespace MoviesCatalog.Services
 
         public async Task<Actor> CreateActorAsync(string firstName, string lastName, string picture, string biography)
         {
-            var actor =  new Actor() {FirstName = firstName, LastName = lastName,  Picture =  picture,  Biography = biography};
+            var actor = new Actor() { FirstName = firstName, LastName = lastName, Picture = picture, Biography = biography };
 
             await this.context.Actors.AddAsync(actor);
             await this.context.SaveChangesAsync();
@@ -110,7 +110,10 @@ namespace MoviesCatalog.Services
 
         {
             actor.Biography = biography;
-            actor.Picture = picture;
+            if (picture != null)
+            {
+                actor.Picture = picture;
+            }
             await this.context.SaveChangesAsync();
             return actor;
         }

@@ -37,7 +37,6 @@ namespace MoviesCatalog.Web
                 .AddEntityFrameworkStores<MoviesCatalogContext>()
                 .AddDefaultTokenProviders();
 
-
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IUserService, UserService>();

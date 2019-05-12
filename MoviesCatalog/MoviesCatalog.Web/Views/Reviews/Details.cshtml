@@ -15,9 +15,9 @@
                         <div class="song-info">
                             <h3>Review for <a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.MovieId">@Model.MovieTitle</a></h3>
                         </div>
-                        <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img style="border: 5px solid #ff9800" src="~/images/@(Model.MoviePoster ?? "noimage.jpg")" /> <span></span></a></div>
+                        <div class="w3-list-img"><a asp-controller="Movies" asp-action="Details"><img src="~/images/@(Model.MoviePoster ?? "noimage.jpg")" /> <span></span></a></div>
                     </div>
-                    <h4 class="padding-custom">Author: <span class="text-orange"><a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId">@Model.UserName</a></span></h4>
+                    <h4 class="padding-custom">Author: <span class="text-orange">@Model.UserName</span></h4>
                     <h4 class="padding-custom">Created On: <span class="text-orange">@Model.CreatedOn.ToString("MMMM dd, yyyy")</span></h4>
                     <h4 class="padding-custom">Rating: <span class="text-orange">@Model.Rating</span></h4>
                     <div class="all-comments">

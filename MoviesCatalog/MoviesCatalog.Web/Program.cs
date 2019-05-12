@@ -7,22 +7,18 @@ namespace MoviesCatalog.Web
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
 
-            await SeedData.SeedDatabase(host);
-             //HostingService.KeepServerAlive().Wait();
-
+            SeedData.SeedDatabase(host);
+            
             host.Run();
         }
-
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
-
-        
 
         public static IWebHost BuildWebHost(string[] args) =>
           WebHost.CreateDefaultBuilder(args)

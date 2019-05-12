@@ -3,17 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesCatalog.Data;
 using MoviesCatalog.Data.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesCatalog.Services.Providers
 {
     public static class SeedData
     {
-        public static async Task SeedDatabase(IWebHost host)
+        public static void SeedDatabase(IWebHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -32,7 +28,7 @@ namespace MoviesCatalog.Services.Providers
                 var adminUser = new ApplicationUser { UserName = "Admin", Email = "admin@admin.admin" };
                 userManager.CreateAsync(adminUser, "Admin123@").Wait();
 
-                await userManager.AddToRoleAsync(adminUser, "Admin");
+                userManager.AddToRoleAsync(adminUser, "Admin").Wait();
             }
         }
     }

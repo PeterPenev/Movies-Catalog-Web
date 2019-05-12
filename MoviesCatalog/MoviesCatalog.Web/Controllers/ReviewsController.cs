@@ -84,7 +84,6 @@ namespace MoviesCatalog.Web.Controllers
             catch (ArgumentException ex)
             {
                 StatusMessage = ex.Message;
-
                 return RedirectToAction("Details", "Movies", new { id = model.MovieId });
             }
         }
@@ -92,9 +91,9 @@ namespace MoviesCatalog.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            
             var review = await this.reviewService.GetReviewByIdAsync(id);
             var reviewViewModel = this.reviewMapper.MapFrom(review);
+            
             return View(reviewViewModel);
         }
 
@@ -114,9 +113,9 @@ namespace MoviesCatalog.Web.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                
+                var userId = this.User.GetId();
                 review = await this.reviewService
-                                    .EditReviewAsync(review, model.UserId, model.Rating, model.Description);
+                                    .EditReviewAsync(review, userId, model.Rating, model.Description);
 
                 if (review.Description == model.Description && review.Rating == model.Rating)
                 {
@@ -128,8 +127,8 @@ namespace MoviesCatalog.Web.Controllers
 
             catch (ArgumentException ex)
             {
-                this.ModelState.AddModelError("Error", ex.Message);
-                return View(model);
+                StatusMessage = ex.Message;
+                return RedirectToAction("Details", "Reviews", new { id = model.Id });
             }
         }
 

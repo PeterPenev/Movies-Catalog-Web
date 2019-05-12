@@ -31,14 +31,14 @@
                         <span asp-validation-for="ReleaseDate" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="PosterImage" class="grey"></label>
+                        <label asp-for="Poster" class="grey"></label>
                         <input asp-for="PosterImage" placeholder="Please upload a Poster." class="form-control" />
                         <span asp-validation-for="PosterImage" class="text-danger-orange"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="SliderPoster" class="grey"></label>
-                        <input asp-for="PosterImage" placeholder="Please upload a Poster." class="form-control" />
-                        <span asp-validation-for="PosterImage" class="text-danger-orange"></span>
+                        <label asp-for="SliderImage" class="grey"></label>
+                        <input asp-for="SliderPoster" placeholder="Please upload a Poster." class="form-control" />
+                        <span asp-validation-for="SliderPoster" class="text-danger-orange"></span>
                     </div>
                     <button type="submit" class="btn btn-default-custom">SUBMIT</button>
                     @{ var referrer = this.Context.Request.Headers["Referer"]; }
