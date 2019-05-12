@@ -19,11 +19,9 @@ namespace MoviesCatalog.Web.Mappers
                 AverageRating = entity.AverageRating,
                 ReleaseDate = entity.ReleaseDate,
                 NumberOfVotes = entity.NumberOfVotes,
-                //AllReviewsByMovie = entity.Reviews.Where(x => x.MovieId == entity.Id).ToList(),
                 UserId = entity.User?.Id,
                 UserName = entity.User?.UserName,
                 SliderImage = entity.SliderImage
-                //NumberOfVotes = entity.NumberOfVotes,                
             };
         }
     }

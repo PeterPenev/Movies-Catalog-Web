@@ -1,7 +1,5 @@
 ﻿using MoviesCatalog.Data.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MoviesCatalog.Tests.Services.HelpersMethods
 {
@@ -18,7 +16,6 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Description = "Very nice movie",
                 IsDeleted = false,
                 UserId = "24776b40-e657-479a-846c-00da0e80b7c5"
-
             };
         }
 
@@ -47,7 +44,6 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 IsDeleted = true
             };
         }
-
 
         public static ApplicationUser TestUser1()
         {
@@ -112,7 +108,6 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
             };
         }
 
-
         public static Movie TestMovie4()
         {
             return new Movie
@@ -175,8 +170,6 @@ namespace MoviesCatalog.Tests.Services.HelpersMethods
                 Movie = TestMovie3()
             };
         }
-
-
 
         public static Actor TestActor1()
         {

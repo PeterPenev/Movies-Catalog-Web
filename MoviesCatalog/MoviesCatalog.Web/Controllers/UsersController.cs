@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services.Contracts;
-using MoviesCatalog.Web.Extensions;
 using MoviesCatalog.Web.Mappers.Contracts;
 using MoviesCatalog.Web.Models;
 using MoviesCatalog.Web.Services.Contracts;
@@ -40,7 +39,6 @@ namespace MoviesCatalog.Web.Controllers
             return View(userViewModel);
         }
 
-
         public async Task<IActionResult> UsersByName(string id)
         {
             var users = await this.userService.ShowUsersStartWithSymbolAsync(id);
@@ -48,6 +46,5 @@ namespace MoviesCatalog.Web.Controllers
             var userViewModel = users.Select(this.userMapper.MapFrom).ToList();
             return View(userViewModel);
         }
-
     }
 }

@@ -1,14 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoviesCatalog.Data;
-using MoviesCatalog.Data.Models;
 using MoviesCatalog.Services;
 using MoviesCatalog.Services.Utils;
 using MoviesCatalog.Tests.Services.HelpersMethods;
 using MoviesCatalog.Tests.Services.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MoviesCatalog.Tests.Services.ReviewServiceTests
@@ -58,10 +55,10 @@ namespace MoviesCatalog.Tests.Services.ReviewServiceTests
             {
                 var sut = new ReviewService(assertContext);
 
-                var review = await sut.AddReviewToMovieAsync(TestHelper.TestMovie1().Id, TestHelper.TestUser1().Id, "Perfect movie!", 7);
+                var review = await sut.AddReviewToMovieAsync(TestHelper.TestMovie1().Id, TestHelper.TestUser1().Id, "Perfect movie!", 3);
 
                 Assert.AreEqual("Perfect movie!", review.Description);
-                Assert.AreEqual(7, review.Rating);
+                Assert.AreEqual(3, review.Rating);
                 Assert.IsTrue(!review.IsDeleted);
             }
         }

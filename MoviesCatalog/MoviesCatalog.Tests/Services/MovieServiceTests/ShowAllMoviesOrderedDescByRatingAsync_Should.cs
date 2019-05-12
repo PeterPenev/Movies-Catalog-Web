@@ -3,9 +3,6 @@ using MoviesCatalog.Data;
 using MoviesCatalog.Services;
 using MoviesCatalog.Tests.Services.HelpersMethods;
 using MoviesCatalog.Tests.Services.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MoviesCatalog.Tests.Services.MovieServiceTests

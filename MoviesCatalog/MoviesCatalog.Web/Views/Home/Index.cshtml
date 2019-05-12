@@ -9,14 +9,14 @@
     <ul>
         @foreach (var movie in Model.TopTenMoviesByRatingWithSlider)
         {
-            <li>
-                @{
-                    <img src="~/images/@(movie.SliderImage ?? "noimage.jpg")" alt=" " />
-                }
-                <p class='title'>@movie.Title</p>
-                <p class='description'>@movie.ReleaseDate.ToString("MMMM dd, yyyy")</p><br />
-                <p class='description'>@($"{movie.AverageRating:f1}")</p>
-            </li>
+        <li>
+            @{
+                <img src="~/images/@(movie.SliderImage ?? "noimage.jpg")" alt=" " />
+            }
+            <p class='title'>@movie.Title</p>
+            <p class='description'>@movie.Description</p><br />
+            <p class='description'>@($"{movie.AverageRating:f1}")</p>
+        </li>
         }
     </ul>
 </div>

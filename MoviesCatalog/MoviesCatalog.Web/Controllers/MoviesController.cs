@@ -30,7 +30,6 @@ namespace MoviesCatalog.Web.Controllers
             this.actorViewMapper = actorViewMapper ?? throw new ArgumentNullException(nameof(actorViewMapper));
         }      
             
-
         public async Task<IActionResult> Details(int id)
         {
             var movie = await this.movieService.GetMovieByIdAsync(id);            
