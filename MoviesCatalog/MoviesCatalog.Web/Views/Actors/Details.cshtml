@@ -54,7 +54,7 @@
                 @if (Model.LastFiveMoviesByActor.Count() > 0)
                 {
                     <div class="col-md-4 single-right">
-                        <h3>Last Movies with @Model.FirstName  @Model.LastName</h3>
+                        <h3>Last 5 Movies with @Model.FirstName  @Model.LastName</h3>
                         <div class="single-grid-right">
                             @foreach (var movie in Model.LastFiveMoviesByActor)
                             {

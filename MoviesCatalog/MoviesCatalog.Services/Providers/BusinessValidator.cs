@@ -17,6 +17,11 @@ namespace MoviesCatalog.Services.Providers
 
         public static void IsNameInValidRange(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentException(ServicesConstants.NameCanNotBeNull);
+            }
+
             if ( name.Length > 50 || name.Length < 2)
             {
                 throw new ArgumentException(ServicesConstants.NameNotInRange);
@@ -25,6 +30,11 @@ namespace MoviesCatalog.Services.Providers
 
         public static void IsTitleInValidRange(string title)
         {
+            if (title == null)
+            {
+                throw new ArgumentException(ServicesConstants.TitleCanNotBeNull);
+            }
+
             if (title.Length < 2 || title.Length > 500)
             {
                 throw new ArgumentException(ServicesConstants.TitleTNotInRange);
@@ -33,6 +43,11 @@ namespace MoviesCatalog.Services.Providers
 
         public static void IsGenreInValidRange(string title)
         {
+            if (title == null)
+            {
+                throw new ArgumentException(ServicesConstants.GenreCanNotBeNull);
+            }
+
             if (title.Length > 50 || title.Length < 2)
             {
                 throw new ArgumentException(ServicesConstants.GenreNotInRange);

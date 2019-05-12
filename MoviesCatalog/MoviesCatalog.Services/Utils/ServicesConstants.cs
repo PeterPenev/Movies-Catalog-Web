@@ -17,5 +17,8 @@ namespace MoviesCatalog.Services.Utils
         public const string NameNotInRange = "Name must be grater than 1 and smaller than 50 symbols!";
         public const string TitleTNotInRange = "Title must be greater than 1 and smaller than 100 symbols!";
         public const string GenreNotInRange = "Genre must be grater than 1 and smaller than 50 symbols!";
+        public const string NameCanNotBeNull = "Name can not be null";
+        public const string TitleCanNotBeNull = "Title can not be null";
+        public const string GenreCanNotBeNull = "Genre can not be null";
     }
 }
