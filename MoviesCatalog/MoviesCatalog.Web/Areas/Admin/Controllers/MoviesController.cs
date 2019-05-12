@@ -142,9 +142,9 @@ namespace MoviesCatalog.Web.Areas.Admin.Controllers
                 }
 
                 movie = await this.movieService
-                                  .UpdateMovieAsync(movie, model.Description, posterName, sliderName);
+                                  .UpdateMovieAsync(movie, model.Trailer, model.Description, posterName, sliderName);
 
-                if (movie.Description == model.Description && movie.Poster == posterName && movie.SliderImage == sliderName)
+                if (movie.Trailer==model.Trailer && movie.Description == model.Description && movie.Poster == posterName && movie.SliderImage == sliderName)
                 {
                     StatusMessage = string.Format(WebConstants.MovieSuccessfullyUpdated, model.Title);                    
                 }

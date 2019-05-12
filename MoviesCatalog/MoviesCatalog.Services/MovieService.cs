@@ -139,14 +139,22 @@ namespace MoviesCatalog.Services
                                     .AnyAsync(t => t.Title == movieTitle);
         }
 
-        public async Task<Movie> UpdateMovieAsync(Movie movie, string description, string poster, string sliderImage)
+        public async Task<Movie> UpdateMovieAsync(Movie movie, string trailer, string description, string poster, string sliderImage)
         {
+            if (trailer != null)
+            {
+                BusinessValidator.IsInProperRange(trailer);
+            }
+
+            movie.Trailer = trailer;
+
             if (description != null)
             {
                 BusinessValidator.IsInProperRange(description);
             }
 
             movie.Description = description;
+
             if (poster != null)
             {
                 movie.Poster = poster;

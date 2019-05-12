@@ -29,8 +29,8 @@ namespace MoviesCatalog.Services.Contracts
         Task<bool> IsMovieExistAsync(string movieTitle);
 
         Task<IReadOnlyCollection<Movie>> ShowMoviesTop10ByRaitingContainsSliderImageAsync();
-
-        Task<Movie> UpdateMovieAsync(Movie movie, string description, string poster, string sliderImage);
+        
+        Task<Movie> UpdateMovieAsync(Movie movie, string trailer, string description, string poster, string sliderImage);
 
         Task<ICollection<Actor>> AllActorsByMovieAsync(int movieId);
 
