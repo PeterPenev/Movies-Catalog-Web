@@ -22,7 +22,6 @@ We are aiming to create a movie catalog with logging and rating system accessed 
 5.   Bootstrap for usable and responsive UI, with own web design and visual styles
 6.   GitLab for source control management system, using master and development branches
 7.   ASP.NET Identity System for managing users and roles, with 1 area for administrators and caching of genres
-8.   
 
 
 ### Features 
