@@ -23,7 +23,8 @@ namespace MoviesCatalog.Services
         {
             BusinessValidator.IsTitleInValidRange(title);
             BusinessValidator.IsTrailerInValidRange(trailer);
-           
+            BusinessValidator.IsDateInRange(releaseDate);
+
             var user = await this.context
                 .Users
                 .FindAsync(userId);
