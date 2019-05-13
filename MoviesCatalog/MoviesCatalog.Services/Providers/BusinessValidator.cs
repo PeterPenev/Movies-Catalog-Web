@@ -1,6 +1,7 @@
 ﻿using MoviesCatalog.Services.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace MoviesCatalog.Services.Providers
@@ -69,5 +70,17 @@ namespace MoviesCatalog.Services.Providers
                 throw new ArgumentException(ServicesConstants.RatingNotInRange);
             }
         }
+
+        public static void IsDateInRange(DateTime date)
+        {
+            DateTime startDate = DateTime.Now.AddYears(-70);
+            DateTime endDate = DateTime.Now.AddMonths(6);
+
+            if (date < startDate || date > endDate)
+            {
+                throw new ArgumentException(string.Format(ServicesConstants.DateNotInRange, startDate.ToString("MMMM dd, yyyy"), endDate.ToString("MMMM dd, yyyy")));
+            }
+        }
+
     }
 }

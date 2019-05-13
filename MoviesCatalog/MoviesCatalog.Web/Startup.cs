@@ -28,7 +28,7 @@ namespace MoviesCatalog.Web
         {
             services.AddDbContext<MoviesCatalogContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("AzureConnection")));
 
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options => {

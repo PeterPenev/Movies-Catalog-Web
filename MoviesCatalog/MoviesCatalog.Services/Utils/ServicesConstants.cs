@@ -20,5 +20,7 @@ namespace MoviesCatalog.Services.Utils
         public const string NameCanNotBeNull = "Name can not be null";
         public const string TitleCanNotBeNull = "Title can not be null";
         public const string GenreCanNotBeNull = "Genre can not be null";
+        public const string NotValidDateFormat = "Movie cannot be created with not valid date {0}!";
+        public const string DateNotInRange = "Release date must be betwen {0} and {1}!";
     }
 }
