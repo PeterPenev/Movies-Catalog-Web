@@ -22,23 +22,9 @@ namespace MoviesCatalog.Services
 
         public async Task<IReadOnlyDictionary<string, int>> GetAllGenresWithCountOfMoviesAsync()
         {
-            var genresCountMovies = new Dictionary<string, int>();
-
-            var genres = await this.context.Genres
-                .OrderBy(gn => gn.Name)
-                .Select(gn => gn.Name)
-                .ToListAsync();
-
-            foreach (var genre in genres)
-            {
-                var countOfMoviesForGenre = this.context
-                    .MoviesGenres
-                    .Where(x => x.Genre.Name == genre)
-                    .Distinct()
-                    .Count();
-
-                genresCountMovies.Add(genre, countOfMoviesForGenre);
-            }
+            var genresCountMovies = await this.context.MoviesGenres
+                .GroupBy(g => g.Genre.Name)
+                .ToDictionaryAsync(g => g.Key, g => g.Count());
 
             return genresCountMovies;
         }
@@ -47,9 +33,9 @@ namespace MoviesCatalog.Services
         {
             var genre = await this.context.Genres
                                   .FindAsync(genreId);
-                
+
             return genre;
-        }        
+        }
 
         public async Task<IReadOnlyCollection<Genre>> GetAllGenresAsync()
         {
@@ -94,7 +80,7 @@ namespace MoviesCatalog.Services
 
             if (movie.MoviesGenres.Any(g => g.GenreId == genreId))
             {
-                throw new ArgumentException(string.Format(ServicesConstants.GenreIsInMovie,genre.Name,movie.Title));
+                throw new ArgumentException(string.Format(ServicesConstants.GenreIsInMovie, genre.Name, movie.Title));
             }
 
             await this.context.MoviesGenres.AddAsync(new MoviesGenres() { MovieId = movie.Id, GenreId = genreId });
